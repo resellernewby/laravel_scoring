@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Rack extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description'
+    ];
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
+    public function subracks()
+    {
+        return $this->hasMany(Subrack::class);
+    }
 }

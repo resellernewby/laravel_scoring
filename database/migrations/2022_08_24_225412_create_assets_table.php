@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('brand_id')->constrained();
-            $table->foreignId('location_id')->constrained();
             $table->foreignId('status_asset_id')->constrained();
             $table->string('name');
             $table->string('image')->nullable();
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->dateTime('warranty_period')->nullable();
             $table->dateTime('purchase_at')->nullable();
             $table->dateTime('used_at')->nullable();
+            $table->string('used_by')->nullable();
             $table->dateTime('rent_at')->nullable();
             $table->dateTime('rent_end')->nullable();
             $table->timestamps();

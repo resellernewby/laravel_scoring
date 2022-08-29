@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('asset_histories', function (Blueprint $table) {
+        Schema::create('add_consumables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('asset_id')->constrained();
-            $table->string('user')->nullable();
-            $table->text('description')->nullable();
+            $table->foreignId('consumable_id')->constrained();
+            $table->integer('qty');
+            $table->decimal('purchase_cost', 14, 0)->default(0);
+            $table->dateTime('purchase_at')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_histories');
+        Schema::dropIfExists('add_consumables');
     }
 };

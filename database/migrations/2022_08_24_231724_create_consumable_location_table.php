@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('consumable_id');
             $table->bigInteger('location_id');
             $table->integer('qty')->nullable();
-            $table->string('user')->nullable();
+            $table->string('used_by')->nullable();
         });
     }
 

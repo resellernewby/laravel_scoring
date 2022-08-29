@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('barcode')->nullable();
             $table->tinyInteger('lifetime')->nullable();
             $table->text('description')->nullable();
-            $table->decimal('purchase_cost', 14, 0)->default(0);
+            $table->decimal('item_price', 14, 0)->default(0);
             $table->dateTime('purchase_at')->nullable();
             $table->timestamps();
         });

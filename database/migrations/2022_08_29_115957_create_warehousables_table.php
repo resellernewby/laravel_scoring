@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('asset_location', function (Blueprint $table) {
-            $table->bigInteger('asset_id');
-            $table->bigInteger('location_id');
-            $table->string('used_by')->nullable();
-            $table->boolean('current')->default(false);
+        Schema::create('warehousables', function (Blueprint $table) {
+            $table->bigInteger('warehouse_id');
+            $table->bigInteger('warehousable_id');
+            $table->string('warehousable_type');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_location');
+        Schema::dropIfExists('warehousables');
     }
 };

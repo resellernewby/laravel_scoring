@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConsumableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dash.index');
+    return redirect()->route('login');
 });
+
+// Route::middleware(['auth', 'role:admin'])
+//     ->group(function () {
+Route::get('/consumable', ConsumableController::class)->name('consumable');
+    // });
