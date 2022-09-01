@@ -20,7 +20,8 @@ class Table extends Component
     {
         return Consumable::query()
             ->with(['brand', 'warehouses'])
-            ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'));
+            ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
+            ->latest('id');
     }
 
     public function getRowsProperty()

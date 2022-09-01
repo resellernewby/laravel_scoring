@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('brand_id')->constrained();
             $table->string('name');
-            $table->integer('qty');
+            $table->integer('qty')->default(0);
             $table->string('image')->nullable();
             $table->string('barcode')->nullable();
             $table->tinyInteger('lifetime')->nullable();
