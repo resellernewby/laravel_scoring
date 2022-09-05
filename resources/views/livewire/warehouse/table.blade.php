@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-2">
-                <x-button.primary onclick="Livewire.emit('openModal', 'consumable.create')"
+                <x-button.primary onclick="Livewire.emit('openModal', 'warehouse.create')"
                     class="flex items-center bg-white">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Create
                 </x-button.primary>
@@ -30,37 +30,33 @@
         <x-table>
             <x-slot name="head">
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                    Nama Barang
+                    Nama Gudang
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Merek
+                    Jml Rak
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Harga pcs
+                    Pj
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Qty
-                </th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Gudang
+                    Deskripsi
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
                 </th>
             </x-slot>
             <x-slot name="body">
-                @forelse ($consumables as $consumable)
+                @forelse ($warehouses as $warehouse)
                 <tr wire:loading.class.delay="opacity-50">
                     <td
                         class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                         <div class="font-medium text-gray-900">
-                            {{ $consumable->name }}
+                            {{ $warehouse->name }}
                         </div>
                         <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                            <span>{{ $consumable?->brand?->name }}/Rp.{{ number_format($consumable->item_price)
-                                }}</span>
+                            <span>{{ $warehouse?->racks->count() }} rak</span>
                             <span class="hidden sm:inline"> · </span>
-                            <span>{{ $consumable->qty }}</span>
+                            <span>{{ $warehouse->qty }}</span>
                         </div>
                         @if (!$loop->first)
                         <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
@@ -68,24 +64,19 @@
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ $consumable?->brand?->name }}
+                        {{ $warehouse?->racks->count() }} rak
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ number_format($consumable->item_price) }}
+                        {{ $warehouse->pj }}
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ $consumable->qty }}
-                    </td>
-                    <td class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        @foreach ($consumable->subracks as $subrak)
-                        {{ $subrak->rack?->warehouse?->name }} ({{ $subrak->rack?->name .'/'. $subrak->name }}) <br>
-                        @endforeach
+                        {{ $warehouse->description }}
                     </td>
                     <td
                         class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                        @include('livewire.consumable._actions')
+                        @include('livewire.warehouse._actions')
                         @if (!$loop->first)
                         <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>
                         @endif
@@ -93,7 +84,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <x-table.cell colspan="6">
+                    <x-table.cell colspan="5">
                         <div class="flex justify-center items-center space-x-2">
                             <x-icon.inbox class="h-8 w-8 text-cool-gray-400" />
                             <span class="font-medium py-8 text-cool-gray-400 text-xl">Data tidak ditemukan</span>
@@ -105,7 +96,7 @@
         </x-table>
 
         <div class="sm:px-6 sm:py-4 px-3 py-3.5">
-            {{ $consumables->links() }}
+            {{ $warehouses->links() }}
         </div>
     </div>
 </div>

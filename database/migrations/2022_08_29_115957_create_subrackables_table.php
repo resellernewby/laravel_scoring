@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('warehousables', function (Blueprint $table) {
-            $table->bigInteger('warehouse_id');
-            $table->bigInteger('warehousable_id');
-            $table->string('warehousable_type');
+        Schema::create('subrackables', function (Blueprint $table) {
+            $table->bigInteger('subrack_id');
+            $table->bigInteger('subrackable_id');
+            $table->string('subrackable_type');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('warehousables');
+        Schema::dropIfExists('subrackables');
     }
 };

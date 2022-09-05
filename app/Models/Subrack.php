@@ -18,4 +18,14 @@ class Subrack extends Model
     {
         return $this->belongsTo(Rack::class);
     }
+
+    public function assets()
+    {
+        return $this->morphedByMany(Asset::class, 'subrackable');
+    }
+
+    public function consumables()
+    {
+        return $this->morphedByMany(Consumable::class, 'subrackable');
+    }
 }

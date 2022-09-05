@@ -19,17 +19,17 @@ class WarehouseSeeder extends Seeder
         DB::table('warehouses')->insert([
             [
                 'name' => 'Gudang A',
-                'address' => 'Lorem ipsum dolor sit amet',
+                'description' => 'Lorem ipsum dolor sit amet',
                 'pj' => 'Amar'
             ],
             [
                 'name' => 'Gudang B',
-                'address' => 'Lorem ipsum dolor sit amet',
+                'description' => 'Lorem ipsum dolor sit amet',
                 'pj' => 'Doni'
             ],
             [
                 'name' => 'Gudang C',
-                'address' => 'Lorem ipsum dolor sit amet',
+                'description' => 'Lorem ipsum dolor sit amet',
                 'pj' => 'Andi'
             ]
         ]);

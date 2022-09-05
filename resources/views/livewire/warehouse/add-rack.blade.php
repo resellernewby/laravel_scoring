@@ -1,11 +1,11 @@
 <div>
     <x-modal form-action="store">
         <x-slot name="title">
-            Tambah Barang
+            Tambah rak {{ $warehouse->name }}
         </x-slot>
 
         <x-slot name="content">
-            @include('livewire.consumable._form')
+            @include('livewire.warehouse._form-rack')
         </x-slot>
 
         <x-slot name="footer">

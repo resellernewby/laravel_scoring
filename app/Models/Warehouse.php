@@ -11,22 +11,12 @@ class Warehouse extends Model
 
     protected $fillable = [
         'name',
-        'address',
+        'description',
         'pj'
     ];
 
     public function racks()
     {
         return $this->hasMany(Rack::class);
-    }
-
-    public function asset()
-    {
-        return $this->morphedByMany(Asset::class, 'warehousable');
-    }
-
-    public function consumable()
-    {
-        return $this->morphedByMany(Consumable::class, 'warehousable');
     }
 }

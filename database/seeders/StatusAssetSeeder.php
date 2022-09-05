@@ -18,19 +18,23 @@ class StatusAssetSeeder extends Seeder
         DB::table('status_assets')->insert([
             [
                 'name' => 'in warehouse',
-                'item_color' => 'bg-green-300',
+                'item_color' => 'blue',
             ],
             [
                 'name' => 'in use',
-                'item_color' => 'bg-blue-300',
+                'item_color' => 'green',
             ],
             [
                 'name' => 'in repair',
-                'item_color' => 'bg-red-300',
+                'item_color' => 'red',
+            ],
+            [
+                'name' => 'in rent',
+                'item_color' => 'orange',
             ],
             [
                 'name' => 'broken',
-                'item_color' => 'bg-gray-300',
+                'item_color' => 'gray',
             ]
         ]);
     }

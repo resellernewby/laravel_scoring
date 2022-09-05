@@ -19,7 +19,7 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Consumable::query()
-            ->with(['brand', 'warehouses'])
+            ->with(['brand', 'subracks'])
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->latest('id');
     }
@@ -34,11 +34,6 @@ class Table extends Component
         return view('livewire.consumable.table', [
             'consumables' => $this->rows
         ]);
-    }
-
-    public function showConsumableCreate($userDetailID)
-    {
-        $this->emit('openModal', 'dash.billing.create', ['userDetail' => $userDetailID]);
     }
 
     public function showBillingDetail($userDetailID)

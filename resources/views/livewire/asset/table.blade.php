@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-2">
-                <x-button.primary onclick="Livewire.emit('openModal', 'consumable.create')"
+                <x-button.primary onclick="Livewire.emit('openModal', 'asset.create')"
                     class="flex items-center bg-white">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Create
                 </x-button.primary>
@@ -30,37 +30,39 @@
         <x-table>
             <x-slot name="head">
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                    Nama Barang
+                    Nama Asset
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                     Merek
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Harga pcs
-                </th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Qty
+                    Harga beli
                 </th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Gudang
+                    Tag
+                </th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Status
+                </th>
+                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
                 </th>
             </x-slot>
             <x-slot name="body">
-                @forelse ($consumables as $consumable)
+                @forelse ($assets as $asset)
                 <tr wire:loading.class.delay="opacity-50">
                     <td
                         class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                         <div class="font-medium text-gray-900">
-                            {{ $consumable->name }}
+                            {{ $asset->name }}
                         </div>
                         <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                            <span>{{ $consumable?->brand?->name }}/Rp.{{ number_format($consumable->item_price)
+                            <span>{{ $asset?->brand?->name }}/Rp.{{ number_format($asset->purchase_cost)
                                 }}</span>
                             <span class="hidden sm:inline"> · </span>
-                            <span>{{ $consumable->qty }}</span>
+                            <span>{{ $asset?->statusAsset?->name }}</span>
                         </div>
                         @if (!$loop->first)
                         <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
@@ -68,24 +70,38 @@
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ $consumable?->brand?->name }}
+                        {{ $asset?->brand?->name }}
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ number_format($consumable->item_price) }}
+                        {{ number_format($asset->purchase_cost) }}
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ $consumable->qty }}
+                        @foreach ($asset->tags as $tag)
+                        <span
+                            class="inline-flex rounded-full bg-gray-100 px-2 text-xs font-semibold leading-5 text-gray-800">{{
+                            $tag->name }}</span>
+                        @endforeach
                     </td>
                     <td class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        @foreach ($consumable->subracks as $subrak)
-                        {{ $subrak->rack?->warehouse?->name }} ({{ $subrak->rack?->name .'/'. $subrak->name }}) <br>
+                        <span
+                            class="inline-flex rounded-full bg-{{ $asset?->statusAsset?->item_color }}-100 px-2 text-xs font-semibold leading-5 text-{{ $asset?->statusAsset?->item_color }}-800">{{
+                            $asset?->statusAsset?->name }}</span>
+                    </td>
+                    <td
+                        class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                        @if (in_array($asset->status_asset_id, [1, 5]))
+                        @foreach ($asset->subracks as $subrak)
+                        {{ $subrak->rack?->warehouse?->name }} ({{ $subrak->rack?->name .'/'. $subrak->name }})
                         @endforeach
+                        @else
+                        {{ $asset->used_by }}
+                        @endif
                     </td>
                     <td
                         class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                        @include('livewire.consumable._actions')
+                        @include('livewire.asset._actions')
                         @if (!$loop->first)
                         <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>
                         @endif
@@ -105,7 +121,7 @@
         </x-table>
 
         <div class="sm:px-6 sm:py-4 px-3 py-3.5">
-            {{ $consumables->links() }}
+            {{ $assets->links() }}
         </div>
     </div>
 </div>

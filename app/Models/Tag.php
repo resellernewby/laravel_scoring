@@ -9,12 +9,12 @@ class Tag extends Model
 {
     use HasFactory;
 
-    public function asset()
+    public function assets()
     {
         return $this->morphedByMany(Asset::class, 'taggable');
     }
 
-    public function consumable()
+    public function consumables()
     {
         return $this->morphedByMany(Consumable::class, 'taggable');
     }

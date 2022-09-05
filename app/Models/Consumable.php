@@ -28,9 +28,9 @@ class Consumable extends Model
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
-    public function warehouses()
+    public function subracks()
     {
-        return $this->morphToMany(Warehouse::class, 'warehousable');
+        return $this->morphToMany(Subrack::class, 'subrackable');
     }
 
     public function brand()
@@ -41,6 +41,11 @@ class Consumable extends Model
     public function addConsumables()
     {
         return $this->hasMany(AddConsumable::class);
+    }
+
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class)->withPivot('qty', 'used_by');
     }
 
     public function setItemPriceAttribute($value)

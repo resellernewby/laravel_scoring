@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-class ConsumableController extends Controller
+class WarehouseController extends Controller
 {
     public function __invoke()
     {
-        return view('dash.consumable');
+        return view('dash.warehouse');
     }
 }
