@@ -20,8 +20,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-2">
-                <x-button.primary onclick="Livewire.emit('openModal', 'warehouse.create')"
-                    class="flex items-center bg-white">
+                <x-button.primary onclick="Livewire.emit('openModal', 'tag.create')" class="flex items-center bg-white">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Create
                 </x-button.primary>
             </div>
