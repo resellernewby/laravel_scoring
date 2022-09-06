@@ -14,12 +14,10 @@ class Create extends ModalComponent
 {
     public $brandLists;
     public $statusLists;
-    public $rackLists;
     public $subrackLists;
     public $inputs = [];
     public $tags = [];
-    public $rack;
-    public $subrack;
+    public $subrack = [];
 
     protected $rules = [
         'inputs.name' => 'required|max:255',
@@ -36,7 +34,6 @@ class Create extends ModalComponent
         'inputs.used_at' => 'nullable',
         'inputs.rent_at' => 'nullable',
         'inputs.rent_end' => 'nullable',
-        'rack' => 'required',
         'subrack' => 'required',
     ];
 
@@ -58,20 +55,15 @@ class Create extends ModalComponent
         $this->brandLists = Brand::pluck('name', 'id');
         $this->statusLists = StatusAsset::pluck('name', 'id');
         $this->tagLists = Tag::pluck('name', 'id');
-        $racks = Rack::with('warehouse')->get();
-        $this->rackLists = collect();
-        foreach ($racks as $rack) {
-            $this->rackLists->put($rack->id, $rack->name . '/' . $rack?->warehouse?->name);
+        $subracks = Subrack::with('rack.warehouse')->get();
+        $this->subrackLists = collect();
+        foreach ($subracks as $subrack) {
+            $this->subrackLists->put($subrack->id, "{$subrack?->rack?->warehouse?->name} ({$subrack?->rack->name} / {$subrack->name})");
         }
     }
 
     public function render()
     {
-        if ($this->rack) {
-            $this->subrackLists = Subrack::where('rack_id', $this->rack)
-                ->pluck('name', 'id');
-        }
-
         return view('livewire.asset.create');
     }
 

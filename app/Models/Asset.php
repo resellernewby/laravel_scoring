@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Numeric;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Asset extends Model
 {
     use HasFactory;
+    use Numeric;
 
     protected $fillable = [
         'brand_id',
@@ -50,5 +52,10 @@ class Asset extends Model
     public function statusAsset()
     {
         return $this->belongsTo(StatusAsset::class);
+    }
+
+    public function setPurchaseCostAttribute($value)
+    {
+        $this->attributes['purchase_cost'] =  $this->getNumeric($value);
     }
 }

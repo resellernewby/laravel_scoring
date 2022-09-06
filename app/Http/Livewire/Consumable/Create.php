@@ -4,12 +4,18 @@ namespace App\Http\Livewire\Consumable;
 
 use App\Models\Brand;
 use App\Models\Consumable;
+use App\Models\Subrack;
+use App\Models\Tag;
 use LivewireUI\Modal\ModalComponent;
 
 class Create extends ModalComponent
 {
     public $brandLists;
+    public $tagLists;
+    public $subrackLists;
     public $inputs = [];
+    public $tags = [];
+    public $subracks = [];
 
     protected $rules = [
         'inputs.name' => 'required|max:255',
@@ -30,6 +36,12 @@ class Create extends ModalComponent
     public function mount()
     {
         $this->brandLists = Brand::pluck('name', 'id');
+        $this->tagLists = Tag::pluck('name', 'id');
+        $subracks = Subrack::with('rack.warehouse')->get();
+        $this->subrackLists = collect();
+        foreach ($subracks as $subrack) {
+            $this->subrackLists->put($subrack->id, "{$subrack?->rack?->warehouse?->name} ({$subrack?->rack->name} / {$subrack->name})");
+        }
     }
 
     public function render()
@@ -40,7 +52,12 @@ class Create extends ModalComponent
     public function store()
     {
         $validatedData = $this->validate();
-        Consumable::create($validatedData['inputs']);
+        $consumable = Consumable::create($validatedData['inputs']);
+        $consumable->subracks()->sync($this->subracks);
+
+        if (count($this->tags) > 0) {
+            $consumable->tags()->sync($this->tags);
+        }
 
         $this->emit('consumableTable');
         $this->closeModal();

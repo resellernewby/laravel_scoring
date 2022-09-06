@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Asset;
 
 use App\Models\Asset;
 use App\Models\Brand;
-use App\Models\Rack;
 use App\Models\StatusAsset;
 use App\Models\Subrack;
 use App\Models\Tag;
@@ -18,7 +17,6 @@ class Edit extends ModalComponent
     public $subrackLists;
     public Asset $inputs;
     public $tags;
-    public $rack;
     public $subrack;
 
     protected $rules = [
@@ -53,23 +51,19 @@ class Edit extends ModalComponent
     {
         $this->inputs = $asset;
         $this->tags = $asset?->tags->pluck('name', 'id');
+        $this->subrack = $asset?->subracks->pluck('name', 'id');
         $this->brandLists = Brand::pluck('name', 'id');
         $this->statusLists = StatusAsset::pluck('name', 'id');
         $this->tagLists = Tag::pluck('name', 'id');
-        $racks = Rack::with('warehouse')->get();
-        $this->rackLists = collect();
-        foreach ($racks as $rack) {
-            $this->rackLists->put($rack->id, $rack->name . '/' . $rack?->warehouse?->name);
+        $subracks = Subrack::with('rack.warehouse')->get();
+        $this->subrackLists = collect();
+        foreach ($subracks as $subrack) {
+            $this->subrackLists->put($subrack->id, "{$subrack?->rack?->warehouse?->name} ({$subrack?->rack->name} / {$subrack->name})");
         }
     }
 
     public function render()
     {
-        if ($this->rack) {
-            $this->subrackLists = Subrack::where('rack_id', $this->rack)
-                ->pluck('name', 'id');
-        }
-
         return view('livewire.asset.edit');
     }
 
@@ -77,7 +71,9 @@ class Edit extends ModalComponent
     {
         $this->validate();
         $this->inputs->save();
-        $this->inputs->subracks()->sync($this->subrack);
+        if (is_array($this->subrack) && count($this->subrack) > 0) {
+            $this->inputs->subracks()->sync($this->subrack);
+        }
 
         if (is_array($this->tags) && count($this->tags) > 0) {
             $this->inputs->tags()->sync($this->tags);

@@ -16,11 +16,11 @@
                     </div>
                     <input wire:model="search"
                         class="block w-full bg-white py-2 pl-10 pr-3 border border-gray-200 rounded-md focus:text-gray-500 focus:border-transparent focus:ring-0 placeholder-gray-500 focus:placeholder-gray-200 sm:text-sm"
-                        placeholder="Cari asset..." type="search">
+                        placeholder="Cari tag..." type="search">
                 </div>
             </div>
             <div class="flex items-center space-x-2">
-                <x-button.primary onclick="Livewire.emit('openModal', 'asset.create')"
+                <x-button.primary onclick="Livewire.emit('openModal', 'warehouse.create')"
                     class="flex items-center bg-white">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Create
                 </x-button.primary>
@@ -30,40 +30,30 @@
         <x-table>
             <x-slot name="head">
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                    Nama Asset
+                    Nama tag
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Merek
+                    Jml Asset
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Harga beli
-                </th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Tag
-                </th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Status
-                </th>
-                <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Lokasi
+                    Jml Barang
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
                 </th>
             </x-slot>
             <x-slot name="body">
-                @forelse ($assets as $asset)
+                @forelse ($tags as $tag)
                 <tr wire:loading.class.delay="opacity-50">
                     <td
                         class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                         <div class="font-medium text-gray-900">
-                            {{ $asset->name }}
+                            {{ $tag->name }}
                         </div>
                         <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                            <span>{{ $asset?->brand?->name }}/Rp.{{ number_format($asset->purchase_cost)
-                                }}</span>
+                            <span>{{ $tag?->assets->count() }} asset</span>
                             <span class="hidden sm:inline"> · </span>
-                            <span>{{ $asset?->statusAsset?->name }}</span>
+                            <span>{{ $tag?->consumables->count() }}</span>
                         </div>
                         @if (!$loop->first)
                         <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
@@ -71,38 +61,15 @@
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ $asset?->brand?->name }}
+                        {{ $tag?->assets->count() }}
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ number_format($asset->purchase_cost) }}
-                    </td>
-                    <td
-                        class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        @foreach ($asset->tags as $tag)
-                        <span
-                            class="inline-flex rounded-full bg-gray-100 px-2 text-xs font-semibold leading-5 text-gray-800">{{
-                            $tag->name }}</span>
-                        @endforeach
-                    </td>
-                    <td class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        <span
-                            class="inline-flex rounded-full bg-{{ $asset?->statusAsset?->item_color }}-100 px-2 text-xs font-semibold whitespace-nowrap leading-5 text-{{ $asset?->statusAsset?->item_color }}-800">{{
-                            $asset?->statusAsset?->name }}</span>
-                    </td>
-                    <td
-                        class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        @if (in_array($asset->status_asset_id, [1, 5]))
-                        @foreach ($asset->subracks as $subrak)
-                        {{ $subrak->rack?->warehouse?->name }} ({{ $subrak->rack?->name .'/'. $subrak->name }})
-                        @endforeach
-                        @else
-                        {{ $asset->used_by }}
-                        @endif
+                        {{ $tag?->consumables->count() }}
                     </td>
                     <td
                         class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                        @include('livewire.asset._actions')
+                        @include('livewire.tag._actions')
                         @if (!$loop->first)
                         <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>
                         @endif
@@ -110,7 +77,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <x-table.cell colspan="6">
+                    <x-table.cell colspan="5">
                         <div class="flex justify-center items-center space-x-2">
                             <x-icon.inbox class="h-8 w-8 text-cool-gray-400" />
                             <span class="font-medium py-8 text-cool-gray-400 text-xl">Data tidak ditemukan</span>
@@ -122,7 +89,7 @@
         </x-table>
 
         <div class="sm:px-6 sm:py-4 px-3 py-3.5">
-            {{ $assets->links() }}
+            {{ $tags->links() }}
         </div>
     </div>
 </div>

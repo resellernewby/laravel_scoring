@@ -7,7 +7,7 @@
     <x-select label="Merek" wire:model.lazy="inputs.brand_id" :list="$brandLists"
         :error="$errors->first('inputs.brand_id')" />
 
-    <x-input label="Serial Number" wire:model.lazy="inputs.serial" :error="$errors->first('inputs.serial')" />
+    <x-input label="Serial number" wire:model.lazy="inputs.serial" :error="$errors->first('inputs.serial')" />
 
     <x-input label="Barcode" wire:model.lazy="inputs.barcode" :error="$errors->first('inputs.barcode')" />
 
@@ -19,19 +19,16 @@
             :error="$errors->first('inputs.purchase_at')" />
     </div>
 
+    <x-select.single label="Lokasi penyimpanan" wire:model="subrack" :list="$subrackLists"
+        :error="$errors->first('subrack')" />
+
     <x-select.multiple label="Tag" wire:model="tags" :list="$tagLists" :error="$errors->first('tags')" />
-
-    <div class="grid grid-cols-2 gap-2">
-        <x-select label="Lokasi Rak" wire:model.lazy="rack" :list="$rackLists" :error="$errors->first('rack')" />
-
-        <x-select label="Subrak" wire:model.lazy="subrack" :list="$subrackLists" :error="$errors->first('subrack')" />
-    </div>
 
     <div x-data="{ isShowing: false }">
         <a href="#" x-on:click.prevent="isShowing = !isShowing" class="text-blue-700 font-medium"
             x-text="isShowing == false ? 'Tampilkan input lainnya' : 'Sembunyikan'"></a>
         <div x-show="isShowing" class="mt-4 flex flex-col space-y-4">
-            <x-input.date label="Akhir Garansi" wire:model.lazy="inputs.warranty_period"
+            <x-input.date label="Akhir garansi" wire:model.lazy="inputs.warranty_period"
                 :error="$errors->first('inputs.warranty_period')" />
 
             <x-input type="number" label="Masa pakai" wire:model.lazy="inputs.lifetime"

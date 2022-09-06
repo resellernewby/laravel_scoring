@@ -16,7 +16,7 @@
                     </div>
                     <input wire:model="search"
                         class="block w-full bg-white py-2 pl-10 pr-3 border border-gray-200 rounded-md focus:text-gray-500 focus:border-transparent focus:ring-0 placeholder-gray-500 focus:placeholder-gray-200 sm:text-sm"
-                        placeholder="Cari barang..." type="search">
+                        placeholder="Cari gudang..." type="search">
                 </div>
             </div>
             <div class="flex items-center space-x-2">

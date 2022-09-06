@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\ConsumableController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,5 @@ Route::get('/', function () {
 Route::get('/consumables', ConsumableController::class)->name('consumable');
 Route::get('/assets', AssetController::class)->name('asset');
 Route::get('/warehouses', WarehouseController::class)->name('warehouse');
+Route::get('/tags', TagController::class)->name('tag');
     // });
