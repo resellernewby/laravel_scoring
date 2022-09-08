@@ -273,9 +273,8 @@
                                         class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                         id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                         <span class="sr-only">Open user menu</span>
-                                        <img class="h-8 w-8 rounded-full"
-                                            src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
-                                            alt="">
+                                        <img class="h-8 w-8 rounded-full" src="{{ asset('images/admin.png') }}"
+                                            alt="Avatar">
                                     </button>
                                 </div>
 
@@ -291,8 +290,14 @@
                                     tabindex="-1" x-cloak>
                                     <!-- Active: "bg-gray-100", Not Active: "" -->
 
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1">Sign out</a>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();"
+                                        class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">Log
+                                        out</a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    </form>
                                 </div>
                             </div>
                         </div>

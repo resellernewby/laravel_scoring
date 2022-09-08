@@ -5,15 +5,19 @@ namespace App\Http\Livewire\Asset;
 use App\Models\Asset;
 use App\Models\Brand;
 use App\Models\StatusAsset;
+use App\Models\Subrack;
 use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 use LivewireUI\Modal\ModalComponent;
 
 class Duplicate extends ModalComponent
 {
     public $brandLists;
     public $statusLists;
+    public $subrackLists;
     public $inputs;
-    public $tags;
+    public $tags = [];
+    public $subrack;
 
     protected $rules = [
         'inputs.name' => 'required|max:255',
@@ -49,6 +53,11 @@ class Duplicate extends ModalComponent
         $this->brandLists = Brand::pluck('name', 'id');
         $this->statusLists = StatusAsset::pluck('name', 'id');
         $this->tagLists = Tag::pluck('name', 'id');
+        $subracks = Subrack::with('rack.warehouse')->get();
+        $this->subrackLists = collect();
+        foreach ($subracks as $subrack) {
+            $this->subrackLists->put($subrack->id, "{$subrack?->rack?->warehouse?->name} ({$subrack?->rack->name} / {$subrack->name})");
+        }
     }
 
     public function render()
@@ -58,15 +67,18 @@ class Duplicate extends ModalComponent
 
     public function store()
     {
-        $validatedData = $this->validate();
-        $asset = Asset::create($validatedData['inputs']);
+        DB::transaction(function () {
+            $validatedData = $this->validate();
+            $asset = Asset::create($validatedData['inputs']);
+            $asset->subracks()->sync($this->subrack);
 
-        if (count($this->tags) > 0) {
-            $asset->tags()->sync($this->tags);
-        }
+            if (count($this->tags) > 0) {
+                $asset->tags()->sync($this->tags);
+            }
 
-        $this->emit('assetTable');
-        $this->closeModal();
-        $this->notify('Asset baru berhasil ditambahkan');
+            $this->emit('assetTable');
+            $this->closeModal();
+            $this->notify('Asset baru berhasil ditambahkan');
+        });
     }
 }

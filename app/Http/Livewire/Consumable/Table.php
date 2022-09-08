@@ -11,6 +11,7 @@ class Table extends Component
     use WithPagination;
 
     public $search = '';
+    public $isDelete = false;
 
     protected $listeners = [
         'consumableTable' => '$refresh'
@@ -19,7 +20,7 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Consumable::query()
-            ->with(['brand', 'subracks'])
+            ->with(['brand', 'subracks', 'addConsumables'])
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->latest('id');
     }
@@ -36,13 +37,16 @@ class Table extends Component
         ]);
     }
 
-    public function showBillingDetail($userDetailID)
+    public function destroy(Consumable $consumable)
     {
-        $this->emit('openModal', 'dash.billing.detail', ['userDetail' => $userDetailID]);
-    }
+        $this->isDelete = false;
 
-    public function showEditSaldo($userDetailID)
-    {
-        $this->emit('openModal', 'dash.balance.edit', ['userDetail' => $userDetailID]);
+        if ($consumable->addConsumables()->count() > 0) {
+            $this->notify($consumable->name . ' tidak bisa dihapus!', 'error');
+            return;
+        }
+
+        $consumable->delete();
+        $this->notify($consumable->name . ' berhasil dihapus');
     }
 }

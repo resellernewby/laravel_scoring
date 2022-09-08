@@ -21,10 +21,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Route::middleware(['auth', 'role:admin'])
-//     ->group(function () {
-Route::get('/consumables', ConsumableController::class)->name('consumable');
-Route::get('/assets', AssetController::class)->name('asset');
-Route::get('/warehouses', WarehouseController::class)->name('warehouse');
-Route::get('/tags', TagController::class)->name('tag');
-    // });
+Route::middleware(['auth', 'role:admin'])
+    ->group(function () {
+        Route::get('/consumables', ConsumableController::class)->name('consumable');
+        Route::get('/assets', AssetController::class)->name('asset');
+        Route::get('/warehouses', WarehouseController::class)->name('warehouse');
+        Route::get('/tags', TagController::class)->name('tag');
+    });

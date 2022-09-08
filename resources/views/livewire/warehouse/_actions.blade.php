@@ -20,7 +20,12 @@
         </svg>
         Edit
     </x-dropdown.item>
-    <x-dropdown.item>
+    @if ($isDelete)
+    <div class="px-4">
+        <x-button.confirmation yes="destroy({{ $warehouse->id }})" no="$set('isDelete', false)" />
+    </div>
+    @else
+    <x-dropdown.item wire:click="$set('isDelete', true)">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd"
@@ -29,4 +34,5 @@
         </svg>
         Hapus
     </x-dropdown.item>
+    @endif
 </x-dropdown>

@@ -11,6 +11,7 @@ class Table extends Component
     use WithPagination;
 
     public $search = '';
+    public $isDelete = false;
 
     protected $listeners = [
         'assetTable' => '$refresh'
@@ -34,5 +35,13 @@ class Table extends Component
         return view('livewire.asset.table', [
             'assets' => $this->rows
         ]);
+    }
+
+    public function destroy(Asset $asset)
+    {
+        $asset->delete();
+        $this->isDelete = false;
+
+        $this->notify('Asset berhasil dihapus');
     }
 }

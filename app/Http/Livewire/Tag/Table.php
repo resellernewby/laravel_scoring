@@ -11,6 +11,7 @@ class Table extends Component
     use WithPagination;
 
     public $search = '';
+    public $isDelete;
 
     protected $listeners = [
         'tagTable' => '$refresh'
@@ -34,5 +35,18 @@ class Table extends Component
         return view('livewire.tag.table', [
             'tags' => $this->rows
         ]);
+    }
+
+    public function destroy(Tag $tag)
+    {
+        $this->isDelete = false;
+
+        if ($tag->assets()->count() > 0 || $tag->consumables()->count() > 0) {
+            $this->notify($tag->name . ' tidak bisa dihapus!', 'warning');
+            return;
+        }
+
+        $tag->delete();
+        $this->notify($tag->name . ' berhasil dihapus');
     }
 }

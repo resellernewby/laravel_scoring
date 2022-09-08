@@ -16,7 +16,7 @@ class Edit extends ModalComponent
     public $rackLists;
     public $subrackLists;
     public Asset $inputs;
-    public $tags;
+    public $tags = [];
     public $subrack;
 
     protected $rules = [
