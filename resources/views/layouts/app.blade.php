@@ -31,8 +31,7 @@
         <div class="hidden w-28 bg-indigo-700 overflow-y-auto md:block">
             <div class="w-full py-6 flex flex-col items-center">
                 <div class="flex-shrink-0 flex items-center">
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-                        alt="Workflow">
+                    <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="Logo">
                 </div>
                 <div class="flex-1 mt-6 w-full px-2 space-y-1">
                     <a href="{{ route('consumable') }}"
