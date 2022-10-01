@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Tag;
+namespace App\Http\Livewire\Brand;
 
-use App\Models\Tag;
+use App\Models\Brand;
 use LivewireUI\Modal\ModalComponent;
 
 class Create extends ModalComponent
@@ -14,23 +14,23 @@ class Create extends ModalComponent
     ];
 
     protected $messages = [
-        'inputs.name.required' => 'Nama tag harus diisi!',
-        'inputs.name.max' => 'Nama tag lebih dari 50 karakter'
+        'inputs.name.required' => 'Nama merek harus diisi!',
+        'inputs.name.max' => 'Nama merek lebih dari 50 karakter'
     ];
 
     public function render()
     {
-        return view('livewire.tag.create');
+        return view('livewire.brand.create');
     }
 
     public function store()
     {
         $validatedData = $this->validate();
         $validatedData['inputs']['slug'] = $validatedData['inputs']['name'];
-        Tag::create($validatedData['inputs']);
+        Brand::create($validatedData['inputs']);
 
-        $this->emit('tagTable');
+        $this->emit('brandTable');
         $this->closeModal();
-        $this->notify('Tag baru berhasil ditambahkan');
+        $this->notify('Merek baru berhasil ditambahkan');
     }
 }

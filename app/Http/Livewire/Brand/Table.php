@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Tag;
+namespace App\Http\Livewire\Brand;
 
 use App\Models\Brand;
 use Livewire\Component;
