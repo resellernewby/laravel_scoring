@@ -17,13 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('brand_id')->constrained();
             $table->string('name');
-            $table->integer('qty')->default(0);
             $table->string('image')->nullable();
             $table->string('barcode')->nullable();
             $table->tinyInteger('lifetime')->nullable();
             $table->text('description')->nullable();
             $table->decimal('item_price', 14, 0)->default(0);
-            $table->dateTime('purchase_at')->nullable();
             $table->timestamps();
         });
     }

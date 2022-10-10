@@ -12,10 +12,18 @@
             removeItems: true,
             removeItemButton: true,
             allowHTML: true,
-            maxItemCount: 3,
-            renderChoiceLimit: 30,
+            maxItemCount: 10,
+            renderChoiceLimit: 20,
+            searchEnabled: true,
+            searchChoices: true,
+            searchFloor: 1,
+            searchResultLimit: 5,
+            searchFields: ['label', 'value'],
             classNames: {
-                containerInner: '',
+                containerInner: 'rounded-md border p-1',
+                input: 'py-1',
+                item: 'choices__item bg-secondary',
+                highlightedState: 'bg-gray-300',
             },
         });
 

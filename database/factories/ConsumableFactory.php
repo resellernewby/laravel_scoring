@@ -23,13 +23,11 @@ class ConsumableFactory extends Factory
         return [
             'brand_id' => Brand::pluck('id')->random(),
             'name' => fake()->randomElement(['laptop', 'komputer', 'meja', 'TV', 'kursi', 'AC', 'Kulkas', 'Lemari', 'Rack', 'Server', 'Motor', 'Mobil', 'Kipas', 'HP', 'Kamera', 'Drone', 'Lighting', 'Tripod']),
-            'qty' => fake()->randomDigit(),
             'image' => 'Image.jpg',
             'barcode' => fake()->isbn13(),
             'lifetime' => fake()->randomDigit(),
             'description' => 'Lorem ipsum dolor sit amet',
-            'item_price' => fake()->randomNumber(6, true),
-            'purchase_at' => fake()->dateTimeThisDecade()
+            'item_price' => fake()->randomNumber(6, true)
         ];
     }
 }

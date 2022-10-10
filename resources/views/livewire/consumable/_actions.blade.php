@@ -20,7 +20,7 @@
         </svg>
         Edit
     </x-dropdown.item>
-    @if ($consumable->addConsumables->count() < 1) @if ($isDelete) <div class="px-4">
+    @if ($consumable->consumableTransactions->count() < 1) @if ($isDelete) <div class="px-4">
         <x-button.confirmation yes="destroy({{ $consumable->id }})" no="$set('isDelete', false)" />
         </div>
         @else

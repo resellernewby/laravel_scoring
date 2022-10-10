@@ -26,11 +26,6 @@ class WarehouseSeeder extends Seeder
                 'name' => 'Gudang B',
                 'description' => 'Lorem ipsum dolor sit amet',
                 'pj' => 'Doni'
-            ],
-            [
-                'name' => 'Gudang C',
-                'description' => 'Lorem ipsum dolor sit amet',
-                'pj' => 'Andi'
             ]
         ]);
 
@@ -44,11 +39,7 @@ class WarehouseSeeder extends Seeder
                 [
                     'name' => 'Rak 2',
                     'description' => 'tempat nyimpen spare part'
-                ],
-                [
-                    'name' => 'Rak 3',
-                    'description' => 'tempat nyimpen alat tulis'
-                ],
+                ]
             ]);
 
             foreach ($racks as $rack) {
@@ -60,11 +51,7 @@ class WarehouseSeeder extends Seeder
                     [
                         'name' => 'B2',
                         'description' => 'perbautan'
-                    ],
-                    [
-                        'name' => 'C3',
-                        'description' => 'Perbukuan'
-                    ],
+                    ]
                 ]);
             }
         }

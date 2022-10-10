@@ -3,7 +3,7 @@
         <div class="sm:flex sm:space-x-4 sm:items-center sm:justify-between sm:px-6 sm:py-4 px-3 py-3.5">
             <!-- Search -->
             <div class="w-full sm:w-64">
-                Daftar Rak di gudang {{ $warehouse->name }}
+                Daftar Rak di <strong>{{ $warehouse->name }}</strong>
             </div>
             <div class="flex items-center space-x-2">
                 <x-button.primary onclick="Livewire.emit('openModal', 'rack.create')"
@@ -26,12 +26,21 @@
                 @forelse ($warehouse->racks as $rack)
                 <tr wire:loading.class.delay="opacity-50">
                     <td class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm">
-                        <div class="font-medium text-gray-900">
-                            {{ $rack->name }}
+                        <div x-data="{ open: false }">
+                            <div @click="open = !open" class="flex items-center">
+                                <x-icon.o-chevron-down x-show="open" class="h-5 w-5" />
+                                <x-icon.o-chevron-right x-show="!open" class="h-5 w-5" />
+                                <p class="font-medium text-gray-900">
+                                    {{ $rack->name }}
+                                </p>
+                            </div>
+                            <div x-show.transition.in.duration.800ms="open" class="border rounded-md p-4">
+                                //subraklist
+                            </div>
                         </div>
                     </td>
                     <td class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium">
-                        //action
+                        @include('livewire.rack._actions')
                     </td>
                 </tr>
                 @empty

@@ -19,6 +19,7 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <livewire:styles />
@@ -315,6 +316,7 @@
     @livewire('livewire-ui-modal')
     <livewire:scripts />
     <x-notification />
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
     @stack('script')
 </body>
 

@@ -36,12 +36,8 @@ class AddStock extends ModalComponent
     {
         $validatedData = $this->validate();
 
-        $this->consumable->addConsumables()
+        $this->consumable->consumableTransactions()
             ->create($validatedData['inputs']);
-
-        $this->consumable->increment('qty', $validatedData['inputs']['qty'], [
-            'purchase_at' => $validatedData['inputs']['purchase_at']
-        ]);
 
         $this->emit('consumableTable');
         $this->closeModal();

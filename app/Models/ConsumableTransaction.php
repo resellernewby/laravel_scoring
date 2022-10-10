@@ -6,24 +6,31 @@ use App\Traits\Numeric;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AddConsumable extends Model
+class ConsumableTransaction extends Model
 {
     use HasFactory;
     use Numeric;
 
     protected $fillable = [
+        'type',
         'qty',
         'purchase_cost',
         'purchase_at',
+        'by'
     ];
 
     protected $casts = [
-        'purchase_at' => 'date'
+        'purchase_at' => 'datetime'
     ];
 
     public function consumable()
     {
         return $this->belongsTo(Consumable::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 
     public function setPurchaseCostAttribute($value)

@@ -13,7 +13,12 @@
             removeItemButton: true,
             allowHTML: true,
             maxItemCount: 1,
-            renderChoiceLimit: 30,
+            renderChoiceLimit: 20,
+            searchEnabled: true,
+            searchChoices: true,
+            searchFloor: 1,
+            searchResultLimit: 5,
+            searchFields: ['label', 'value'],
         });
 
         for (const [value, label] of Object.entries(values)) {

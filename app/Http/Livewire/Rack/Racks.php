@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class Racks extends Component
 {
+    public $isDelete;
+
     public function mount(Warehouse $warehouse)
     {
         $this->warehouse = $warehouse->load('racks');

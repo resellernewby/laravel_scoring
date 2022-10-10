@@ -20,7 +20,8 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Consumable::query()
-            ->with(['brand', 'subracks', 'addConsumables'])
+            ->with(['brand', 'subracks', 'consumableTransactions'])
+            ->withSum('consumableTransactions', 'qty')
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->latest('id');
     }

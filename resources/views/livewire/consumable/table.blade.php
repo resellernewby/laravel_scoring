@@ -63,7 +63,7 @@
                             <span>{{ $consumable?->brand?->name }}/Rp.{{ number_format($consumable->item_price)
                                 }}</span>
                             <span class="hidden sm:inline"> · </span>
-                            <span>{{ $consumable->qty }}</span>
+                            <span>{{ $consumable->consumable_transactions_sum_qty }}</span>
                         </div>
                         @if (!$loop->first)
                         <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
@@ -79,7 +79,7 @@
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ $consumable->qty }}
+                        {{ $consumable->consumable_transactions_sum_qty }}
                     </td>
                     <td class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                         @foreach ($consumable->subracks as $subrak)

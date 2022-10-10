@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('add_consumables', function (Blueprint $table) {
+        Schema::create('consumable_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('consumable_id')->constrained();
+            $table->foreignId('location_id')->nullable()->constrained();
+            $table->enum('type', ['in', 'out'])->default('in');
             $table->integer('qty');
             $table->decimal('purchase_cost', 14, 0)->default(0);
             $table->dateTime('purchase_at')->nullable();
+            $table->string('by')->nullable();
             $table->timestamps();
         });
     }

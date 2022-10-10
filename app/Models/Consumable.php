@@ -14,13 +14,11 @@ class Consumable extends Model
     protected $fillable = [
         'brand_id',
         'name',
-        'qty',
         'image',
         'barcode',
         'lifetime',
         'description',
         'item_price',
-        'purchase_at'
     ];
 
     public function tags()
@@ -38,14 +36,14 @@ class Consumable extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function addConsumables()
+    public function consumableTransactions()
     {
-        return $this->hasMany(AddConsumable::class);
+        return $this->hasMany(ConsumableTransaction::class);
     }
 
     public function locations()
     {
-        return $this->belongsToMany(Location::class)->withPivot('qty', 'used_by');
+        return $this->belongsToMany(Location::class)->withPivot('qty');
     }
 
     public function setItemPriceAttribute($value)
