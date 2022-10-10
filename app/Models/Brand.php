@@ -13,4 +13,14 @@ class Brand extends Model
         'name',
         'description'
     ];
+
+    public function assets()
+    {
+        return $this->hasMany(Asset::class);
+    }
+
+    public function consumables()
+    {
+        return $this->hasMany(Consumable::class);
+    }
 }

@@ -13,7 +13,7 @@
         <x-input type="number" label="Masa pakai" wire:model.lazy="inputs.lifetime"
             :error="$errors->first('inputs.lifetime')" help-text="Masa pakai dalam bulan" />
 
-        <x-input.money label="Harga item" leading-add-on="Rp" wire:model.lazy="inputs.item_price"
+        <x-input.money label="Harga pcs" leading-add-on="Rp" wire:model.lazy="inputs.item_price"
             :error="$errors->first('inputs.item_price')" />
     </div>
 

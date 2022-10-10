@@ -1,41 +1,40 @@
 <?php
 
-namespace App\Http\Livewire\Tag;
+namespace App\Http\Livewire\Brand;
 
-use App\Models\Tag;
+use App\Models\Brand;
 use LivewireUI\Modal\ModalComponent;
 
 class Edit extends ModalComponent
 {
-    public Tag $inputs;
+    public Brand $inputs;
 
     protected $rules = [
         'inputs.name' => 'required|max:50'
     ];
 
     protected $messages = [
-        'inputs.name.required' => 'Nama tag harus diisi!',
-        'inputs.name.max' => 'Nama tag lebih dari 50 karakter'
+        'inputs.name.required' => 'Nama merek harus diisi!',
+        'inputs.name.max' => 'Nama merek lebih dari 50 karakter'
     ];
 
-    public function mount(Tag $tag)
+    public function mount(Brand $brand)
     {
-        $this->inputs = $tag;
+        $this->inputs = $brand;
     }
 
     public function render()
     {
-        return view('livewire.tag.edit');
+        return view('livewire.brand.edit');
     }
 
     public function update()
     {
         $this->validate();
-        $this->inputs['slug'] = $this->inputs['name'];
         $this->inputs->save();
 
-        $this->emit('tagTable');
+        $this->emit('brandTable');
         $this->closeModal();
-        $this->notify('Tag berhasil diupdate');
+        $this->notify('Merek berhasil diupdate');
     }
 }

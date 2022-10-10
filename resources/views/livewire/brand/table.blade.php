@@ -44,6 +44,9 @@
                         <div class="font-medium text-gray-900">
                             {{ $brand->name }}
                         </div>
+                        @if (!$loop->first)
+                        <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
+                        @endif
                     </td>
                     <td
                         class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
