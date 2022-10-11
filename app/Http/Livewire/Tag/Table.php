@@ -27,7 +27,7 @@ class Table extends Component
 
     public function getRowsProperty()
     {
-        return $this->rowsQuery->paginate(5);
+        return $this->rowsQuery->paginate(10);
     }
 
     public function render()
