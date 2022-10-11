@@ -36,6 +36,7 @@ class AddRack extends ModalComponent
         $this->warehouse->racks()->create($validatedData['inputs']);
 
         $this->emit('warehouseTable');
+        $this->emit('rackTable');
         $this->closeModal();
         $this->notify('Rak baru berhasil ditambahkan');
     }
