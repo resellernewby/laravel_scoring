@@ -60,7 +60,7 @@
                             {{ $consumable->name }}
                         </div>
                         <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                            <span>{{ $consumable?->brand?->name }}/Rp.{{ number_format($consumable->item_price)
+                            <span>{{ $consumable?->brand?->name }}/Rp{{ number_format($consumable->item_price)
                                 }}</span>
                             <span class="hidden sm:inline"> · </span>
                             <span>{{ $consumable->consumable_transactions_sum_qty }}</span>
@@ -75,7 +75,7 @@
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ number_format($consumable->item_price) }}
+                        Rp{{ number_format($consumable->item_price) }}
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">

@@ -10,7 +10,7 @@
     <x-input label="Barcode" wire:model.lazy="inputs.barcode" :error="$errors->first('inputs.barcode')" />
 
     <div class="grid grid-cols-2 gap-2">
-        <x-input type="number" label="Masa pakai" wire:model.lazy="inputs.lifetime"
+        <x-input.addon-right type="number" label="Masa pakai" leading-add-on="Bulan" wire:model.lazy="inputs.lifetime"
             :error="$errors->first('inputs.lifetime')" help-text="Masa pakai dalam bulan" />
 
         <x-input.money label="Harga pcs" leading-add-on="Rp" wire:model.lazy="inputs.item_price"

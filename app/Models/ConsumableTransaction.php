@@ -12,6 +12,7 @@ class ConsumableTransaction extends Model
     use Numeric;
 
     protected $fillable = [
+        'location_id',
         'type',
         'qty',
         'purchase_cost',

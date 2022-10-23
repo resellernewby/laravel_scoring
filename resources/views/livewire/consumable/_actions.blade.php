@@ -1,13 +1,13 @@
 <x-dropdown label="Opsi">
     <x-dropdown.item
         onclick="Livewire.emit('openModal', 'consumable.add-stock', {{ json_encode(['consumable' => $consumable->id]) }})">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-            class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500">
-            <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
-                clip-rule="evenodd" />
-        </svg>
+        <x-icon.plus-circle class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
         Tambah stok
+    </x-dropdown.item>
+    <x-dropdown.item
+        onclick="Livewire.emit('openModal', 'consumable.reduce-stock', {{ json_encode(['consumable' => $consumable->id]) }})">
+        <x-icon.minus-circle class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
+        Kurangi stok
     </x-dropdown.item>
     <x-dropdown.item
         onclick="Livewire.emit('openModal', 'consumable.edit', {{ json_encode(['consumable' => $consumable->id]) }})">

@@ -45,7 +45,7 @@
                     Status
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Lokasi
+                    Deskripsi
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
@@ -60,7 +60,7 @@
                             {{ $asset->name }}
                         </div>
                         <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                            <span>{{ $asset?->brand?->name }}/Rp.{{ number_format($asset->purchase_cost)
+                            <span>{{ $asset?->brand?->name }}/Rp{{ number_format($asset->purchase_cost)
                                 }}</span>
                             <span class="hidden sm:inline"> · </span>
                             <span>{{ $asset?->statusAsset?->name }}</span>
@@ -75,7 +75,7 @@
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                        {{ number_format($asset->purchase_cost) }}
+                        Rp{{ number_format($asset->purchase_cost) }}
                     </td>
                     <td
                         class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
@@ -97,7 +97,16 @@
                         {{ $subrak->rack?->warehouse?->name }} ({{ $subrak->rack?->name .'/'. $subrak->name }})
                         @endforeach
                         @else
-                        {{ $asset->used_by }}
+                        @if (in_array($asset->status_asset_id, [2, 3]))
+                        <p>Pengguna: <strong>{{ $asset->used_by }}</strong></p>
+                        <p>Pada: {{ $asset->used_at != null ? date('d-m-Y', strtotime($asset->used_at)) : '' }}</p>
+                        @else
+                        <p>Peminjam: <strong>{{ $asset->used_by }}</strong></p>
+                        <p>Tgl pinjam: {{ $asset->rent_at != null ? date('d-m-Y', strtotime($asset->rent_at)) : '' }}
+                        </p>
+                        <p>Tgl kembali: {{ $asset->rent_end != null ? date('d-m-Y', strtotime($asset->rent_end)) : '' }}
+                        </p>
+                        @endif
                         @endif
                     </td>
                     <td
