@@ -55,8 +55,8 @@
                         <span class="mt-2">Asset</span>
                     </a>
 
-                    <a href="#"
-                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                    <a href="{{ route('history') }}"
+                        class="{{ request()->routeIs('history') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="text-indigo-300 group-hover:text-white h-6 w-6">
                             <path stroke-linecap="round" stroke-linejoin="round"

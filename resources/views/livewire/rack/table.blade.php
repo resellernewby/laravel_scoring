@@ -28,14 +28,21 @@
                 <tr wire:loading.class.delay="opacity-50">
                     <td class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm">
                         <div x-data="{ open: false }">
-                            <div @click="open = !open" class="flex items-center mb-1">
-                                <x-icon.o-chevron-down x-show="open" class="h-5 w-5" />
-                                <x-icon.o-chevron-right x-show="!open" class="h-5 w-5" />
-                                <p class="font-medium text-gray-900">
-                                    {{ $rack->name }} <span class="text-gray-500">({{ $rack->description }})</span>
-                                </p>
+                            <div @click="open = !open">
+                                <div class="flex items-center mb-1">
+                                    <x-icon.o-chevron-down x-show="open" class="h-5 w-5" />
+                                    <x-icon.o-chevron-right x-show="!open" class="h-5 w-5" />
+                                    <p class="font-medium text-gray-900">
+                                        {{ $rack->name }} <span class="text-gray-500">({{ $rack->description }})</span>
+                                    </p>
+                                </div>
+                                <div class="pl-5 text-gray-500">
+                                    Jumlah subrak:
+                                    <span class="text-gray-900">{{ $rack->subracks->count() }}</span>
+                                </div>
                             </div>
-                            <div x-show.transition.in.duration.800ms="open" class="border rounded-md p-4" x-cloak>
+                            <div x-show.transition.in.duration.800ms="open" class="border rounded-md p-4 mt-2 ml-5"
+                                x-cloak>
                                 <div>
                                     <div class="mb-6">
                                         <a href="#"

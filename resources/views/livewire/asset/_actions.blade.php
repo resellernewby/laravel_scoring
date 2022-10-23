@@ -20,6 +20,11 @@
         </svg>
         Duplikat
     </x-dropdown.item>
+    <x-dropdown.item
+        onclick="Livewire.emit('openModal', 'asset.change-status', {{ json_encode(['asset' => $asset->id]) }})">
+        <x-icon.o-edit class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
+        Ganti status
+    </x-dropdown.item>
     @if ($isDelete)
     <div class="px-4">
         <x-button.confirmation yes="destroy({{ $asset->id }})" no="$set('isDelete', false)" />
