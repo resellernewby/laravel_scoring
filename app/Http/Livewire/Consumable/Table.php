@@ -42,7 +42,7 @@ class Table extends Component
     {
         $this->isDelete = false;
 
-        if ($consumable->addConsumables()->count() > 0) {
+        if ($consumable->consumableTransactions()->count() > 0) {
             $this->notify($consumable->name . ' tidak bisa dihapus!', 'error');
             return;
         }
