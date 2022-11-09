@@ -30,7 +30,10 @@ class Create extends ModalComponent
         Brand::create($validatedData['inputs']);
 
         $this->emit('brandTable');
+        $this->emit('assetCreate');
+        $this->emit('consumableCreate');
         $this->closeModal();
+
         $this->notify('Merek baru berhasil ditambahkan');
     }
 }

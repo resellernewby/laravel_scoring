@@ -243,8 +243,8 @@
                     <div class="flex-1 flex justify-between px-4 sm:px-6">
                         <div class="flex-1 flex">
                             <form class="w-full flex md:ml-0" action="#" method="GET">
-                                <label for="desktop-search-field" class="sr-only">Search all files</label>
-                                <label for="mobile-search-field" class="sr-only">Search all files</label>
+                                <label for="desktop-search-field" class="sr-only">Search</label>
+                                <label for="mobile-search-field" class="sr-only">Search</label>
                                 <div class="relative w-full text-gray-400 focus-within:text-gray-600">
                                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center">
                                         <!-- Heroicon name: solid/search -->
@@ -260,7 +260,7 @@
                                         placeholder="Search" type="search">
                                     <input name="desktop-search-field" id="desktop-search-field"
                                         class="hidden h-full w-full border-transparent py-2 pl-8 pr-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:block"
-                                        placeholder="Search all files" type="search">
+                                        placeholder="Search" type="search">
                                 </div>
                             </form>
                         </div>

@@ -4,8 +4,18 @@
     <x-select.multiple label="Lokasi penyimpanan" wire:model="subracks" :list="$subrackLists"
         :error="$errors->first('subracks')" />
 
-    <x-select label="Merek" wire:model.lazy="inputs.brand_id" :list="$brandLists"
-        :error="$errors->first('inputs.brand_id')" />
+    <div class="flex space-x-2">
+        <div class="w-full">
+            <x-select label="Merek" wire:model.lazy="inputs.brand_id" :list="$brandLists"
+                :error="$errors->first('inputs.brand_id')" />
+        </div>
+        <div class="flex flex-col justify-end">
+            <x-button.secondary onclick="Livewire.emit('openModal', 'brand.create')" class="flex items-center"
+                title="Tambah merek">
+                <x-icon.plus class="h-5 w-5" />
+            </x-button.secondary>
+        </div>
+    </div>
 
     <x-input label="Barcode" wire:model.lazy="inputs.barcode" :error="$errors->first('inputs.barcode')" />
 

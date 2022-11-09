@@ -19,6 +19,10 @@ class Create extends ModalComponent
     public $tags = [];
     public $subrack = [];
 
+    protected $listeners = [
+        'assetCreate' => 'refreshBrand'
+    ];
+
     protected $rules = [
         'inputs.name' => 'required|max:255',
         'inputs.status_asset_id' => 'required',
@@ -80,5 +84,10 @@ class Create extends ModalComponent
         $this->emit('assetTable');
         $this->closeModal();
         $this->notify('Asset baru berhasil ditambahkan');
+    }
+
+    public function refreshBrand()
+    {
+        $this->brandLists = Brand::pluck('name', 'id');
     }
 }

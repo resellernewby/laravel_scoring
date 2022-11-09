@@ -17,6 +17,10 @@ class Create extends ModalComponent
     public $tags = [];
     public $subracks = [];
 
+    protected $listeners = [
+        'consumableCreate' => 'refreshBrand'
+    ];
+
     protected $rules = [
         'inputs.name' => 'required|max:255',
         'inputs.brand_id' => 'required',
@@ -62,5 +66,10 @@ class Create extends ModalComponent
         $this->emit('consumableTable');
         $this->closeModal();
         $this->notify('Barang baru berhasil ditambahkan');
+    }
+
+    public function refreshBrand()
+    {
+        $this->brandLists = Brand::pluck('name', 'id');
     }
 }

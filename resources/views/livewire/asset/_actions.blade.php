@@ -1,5 +1,6 @@
 <x-dropdown label="Opsi">
-    <x-dropdown.item onclick="Livewire.emit('openModal', 'asset.edit', {{ json_encode(['asset' => $asset->id]) }})">
+    <x-dropdown.item class="flex"
+        onclick="Livewire.emit('openModal', 'asset.edit', {{ json_encode(['asset' => $asset->id]) }})">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path
@@ -9,7 +10,7 @@
         </svg>
         Edit
     </x-dropdown.item>
-    <x-dropdown.item
+    <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'asset.duplicate', {{ json_encode(['asset' => $asset->id]) }})">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -20,7 +21,7 @@
         </svg>
         Duplikat
     </x-dropdown.item>
-    <x-dropdown.item
+    <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'asset.change-status', {{ json_encode(['asset' => $asset->id]) }})">
         <x-icon.o-edit class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
         Ganti status
@@ -30,7 +31,7 @@
         <x-button.confirmation yes="destroy({{ $asset->id }})" no="$set('isDelete', false)" />
     </div>
     @else
-    <x-dropdown.item wire:click="$set('isDelete', true)">
+    <x-dropdown.item class="flex" wire:click="$set('isDelete', true)">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd"

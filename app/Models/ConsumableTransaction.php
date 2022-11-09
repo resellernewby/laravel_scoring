@@ -43,4 +43,9 @@ class ConsumableTransaction extends Model
     {
         $this->attributes['purchase_at'] = date('Y-m-d', strtotime($value));
     }
+
+    public function scopeWhereDateBetween($query, $fieldName, $fromDate, $todate)
+    {
+        return $query->whereDate($fieldName, '>=', $fromDate)->whereDate($fieldName, '<=', $todate);
+    }
 }

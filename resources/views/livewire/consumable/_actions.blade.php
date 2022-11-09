@@ -1,15 +1,15 @@
 <x-dropdown label="Opsi">
-    <x-dropdown.item
+    <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'consumable.add-stock', {{ json_encode(['consumable' => $consumable->id]) }})">
         <x-icon.plus-circle class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
         Tambah stok
     </x-dropdown.item>
-    <x-dropdown.item
+    <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'consumable.reduce-stock', {{ json_encode(['consumable' => $consumable->id]) }})">
         <x-icon.minus-circle class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
         Kurangi stok
     </x-dropdown.item>
-    <x-dropdown.item
+    <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'consumable.edit', {{ json_encode(['consumable' => $consumable->id]) }})">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -24,7 +24,7 @@
         <x-button.confirmation yes="destroy({{ $consumable->id }})" no="$set('isDelete', false)" />
         </div>
         @else
-        <x-dropdown.item wire:click="$set('isDelete', true)">
+        <x-dropdown.item class="flex" wire:click="$set('isDelete', true)">
             <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd"

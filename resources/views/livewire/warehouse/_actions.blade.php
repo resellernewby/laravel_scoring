@@ -1,5 +1,5 @@
 <x-dropdown label="Opsi">
-    <x-dropdown.item
+    <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'warehouse.add-rack', {{ json_encode(['warehouse' => $warehouse->id]) }})">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
             class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500">
@@ -9,7 +9,7 @@
         </svg>
         Tambah Rak
     </x-dropdown.item>
-    <x-dropdown.item href="{{ route('showRacks', $warehouse->id) }}">
+    <x-dropdown.item class="flex" href="{{ route('showRacks', $warehouse->id) }}">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
             class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500">
             <path fill-rule="evenodd"
@@ -21,7 +21,7 @@
         </svg>
         Rincian gudang
     </x-dropdown.item>
-    <x-dropdown.item
+    <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'warehouse.edit', {{ json_encode(['warehouse' => $warehouse->id]) }})">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -37,7 +37,7 @@
         <x-button.confirmation yes="destroy({{ $warehouse->id }})" no="$set('isDelete', false)" />
     </div>
     @else
-    <x-dropdown.item wire:click="$set('isDelete', true)">
+    <x-dropdown.item class="flex" wire:click="$set('isDelete', true)">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd"

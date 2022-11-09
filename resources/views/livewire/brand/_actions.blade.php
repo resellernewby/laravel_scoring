@@ -1,5 +1,6 @@
 <x-dropdown label="Opsi">
-    <x-dropdown.item onclick="Livewire.emit('openModal', 'brand.edit', {{ json_encode(['brand' => $brand->id]) }})">
+    <x-dropdown.item class="flex"
+        onclick="Livewire.emit('openModal', 'brand.edit', {{ json_encode(['brand' => $brand->id]) }})">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path
@@ -14,7 +15,7 @@
         <x-button.confirmation yes="destroy({{ $brand->id }})" no="$set('isDelete', false)" />
     </div>
     @else
-    <x-dropdown.item wire:click="$set('isDelete', true)">
+    <x-dropdown.item class="flex" wire:click="$set('isDelete', true)">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd"

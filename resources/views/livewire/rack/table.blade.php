@@ -25,7 +25,7 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($warehouse->racks as $rack)
-                <tr wire:loading.class.delay="opacity-50">
+                <tr wire:loading.class.delay="opacity-50" class="hover:bg-gray-50">
                     <td class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm">
                         <div x-data="{ open: false }">
                             <div @click="open = !open">
