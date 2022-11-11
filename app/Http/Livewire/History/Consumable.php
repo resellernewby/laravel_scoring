@@ -40,7 +40,10 @@ class Consumable extends Component
     {
         return ConsumableTransaction::query()
             ->with(['consumable', 'location'])
-            ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
+            ->when($this->search, fn ($query) => $query->whereHas(
+                'consumable',
+                fn ($q) => $q->where('name', 'like', '%' . $this->search . '%')
+            ))
             ->when($this->filters['status'], fn ($query) => $query->where('type', $this->filters['status']))
             ->when($this->filters['start_date'], fn ($query) => $query->whereDate('created_at', '>=', $this->filters['start_date']))
             ->when($this->filters['end_date'], fn ($query) => $query->whereDate('created_at', '<=', $this->filters['end_date']))
