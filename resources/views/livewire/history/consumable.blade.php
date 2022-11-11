@@ -24,8 +24,8 @@
                     <x-select label="Status" wire:model.debounce.500ms="filters.status" :list="$statusLists" />
                     <div class="space-y-2 bg-gray-100 pb-2">
                         <span>Rentang tanggal</span>
-                        <x-input.date label="Dari" wire:model.lazy="filters.start_date" />
-                        <x-input.date label="Sampai" wire:model.lazy="filters.end_date" />
+                        <x-input type="date" label="Dari" wire:model.lazy="filters.start_date" />
+                        <x-input type="date" label="Sampai" wire:model.lazy="filters.end_date" />
                     </div>
                     <x-select label="Merek" wire:model.debounce.500ms="filters.brand" :list="$brandLists" />
                 </x-dropdown>
@@ -50,7 +50,10 @@
                     Qty
                 </th>
                 <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Deskripsi
+                    Keterangan
+                </th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Tanggal
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
@@ -92,7 +95,7 @@
                         @if ($consumable->type == 'in')
                         <div class="flex flex-col">
                             <span class="font-semibold">Harga: {{ number_format($consumable->purchase_cost) }}</span>
-                            <span>Tgl beli: {{ date('m-d-Y', strtotime($consumable->purchase_at)) }}</span>
+                            <span>Tgl beli: {{ $consumable->purchase_at->format('d M Y') }}</span>
                         </div>
                         @else
                         <div class="flex flex-col">
@@ -100,6 +103,10 @@
                             <span>Oleh: {{ $consumable->by }}</span>
                         </div>
                         @endif
+                    </td>
+                    <td
+                        class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                        {{ $consumable->created_at->format('d M Y') }}
                     </td>
                     <td
                         class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">

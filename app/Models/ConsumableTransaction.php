@@ -21,7 +21,8 @@ class ConsumableTransaction extends Model
     ];
 
     protected $casts = [
-        'purchase_at' => 'datetime'
+        'purchase_at' => 'datetime',
+        'created_at' => 'datetime',
     ];
 
     public function consumable()
