@@ -12,7 +12,7 @@ class ConsumableTransaction extends Model
     use Numeric;
 
     protected $fillable = [
-        'location_id',
+        'warehouse_id',
         'type',
         'qty',
         'purchase_cost',
@@ -30,9 +30,9 @@ class ConsumableTransaction extends Model
         return $this->belongsTo(Consumable::class);
     }
 
-    public function location()
+    public function warehouse()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(Warehouse::class);
     }
 
     public function setPurchaseCostAttribute($value)

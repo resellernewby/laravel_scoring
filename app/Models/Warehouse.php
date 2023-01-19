@@ -12,7 +12,8 @@ class Warehouse extends Model
     protected $fillable = [
         'name',
         'description',
-        'pj'
+        'pj',
+        'type'
     ];
 
     public function racks()
