@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subrackables', function (Blueprint $table) {
-            $table->bigInteger('subrack_id');
-            $table->bigInteger('subrackable_id');
-            $table->string('subrackable_type');
+        Schema::create('asset_specifications', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('asset_id')->constrained();
+            $table->string('name');
+            $table->string('value');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subrackables');
+        Schema::dropIfExists('asset_specifications');
     }
 };

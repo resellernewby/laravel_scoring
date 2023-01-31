@@ -15,13 +15,9 @@ return new class extends Migration
     {
         Schema::create('consumables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('brand_id')->constrained();
-            $table->string('name');
-            $table->string('image')->nullable();
-            $table->string('barcode')->nullable();
-            $table->tinyInteger('lifetime')->nullable();
-            $table->text('description')->nullable();
-            $table->decimal('item_price', 14, 0)->default(0);
+            $table->foreignId('asset_id')->constrained();
+            $table->unsignedInteger('qty');
+            $table->unsignedInteger('lifetime');
             $table->timestamps();
         });
     }

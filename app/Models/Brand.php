@@ -18,9 +18,4 @@ class Brand extends Model
     {
         return $this->hasMany(Asset::class);
     }
-
-    public function consumables()
-    {
-        return $this->hasMany(Consumable::class);
-    }
 }

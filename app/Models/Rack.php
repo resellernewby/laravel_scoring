@@ -19,8 +19,8 @@ class Rack extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function subracks()
+    public function assets()
     {
-        return $this->hasMany(Subrack::class);
+        return $this->belongsToMany(Asset::class);
     }
 }

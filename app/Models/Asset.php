@@ -12,50 +12,61 @@ class Asset extends Model
     use Numeric;
 
     protected $fillable = [
+        'suplier_id',
         'brand_id',
-        'status_asset_id',
-        'name',
-        'image',
-        'serial',
         'barcode',
-        'purchase_cost',
-        'lifetime',
-        'description',
-        'warranty_period',
-        'purchase_at',
-        'used_at',
-        'used_by',
-        'rent_at',
-        'rent_end'
+        'name',
+        'type',
+        'current_price'
     ];
+
+    public function consumable()
+    {
+        return $this->hasOne(Consumable::class);
+    }
+
+    public function nonConsumables()
+    {
+        return $this->hasMany(NonConsumable::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function assetSpecifications()
+    {
+        return $this->hasMany(AssetSpecification::class);
+    }
+
+    public function weeklyReports()
+    {
+        return $this->hasMany(WeeklyReport::class);
+    }
+
+    public function racks()
+    {
+        return $this->belongsToMany(Rack::class);
+    }
+
+    public function warehouses()
+    {
+        return $this->belongsToMany(Warehouse::class);
+    }
 
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->belongsToMany(Tag::class);
     }
 
-    public function subracks()
+    public function suplier()
     {
-        return $this->morphToMany(Subrack::class, 'subrackable');
-    }
-
-    public function locations()
-    {
-        return $this->belongsToMany(Location::class)->withPivot('used_by', 'current');
+        return $this->belongsTo(Suplier::class);
     }
 
     public function brand()
     {
         return $this->belongsTo(Brand::class);
-    }
-
-    public function statusAsset()
-    {
-        return $this->belongsTo(StatusAsset::class);
-    }
-
-    public function setPurchaseCostAttribute($value)
-    {
-        $this->attributes['purchase_cost'] =  $this->getNumeric($value);
     }
 }

@@ -12,12 +12,17 @@ class Warehouse extends Model
     protected $fillable = [
         'name',
         'description',
-        'pj',
+        'pic',
         'type'
     ];
 
     public function racks()
     {
         return $this->hasMany(Rack::class);
+    }
+
+    public function assets()
+    {
+        return $this->belongsToMany(Asset::class);
     }
 }

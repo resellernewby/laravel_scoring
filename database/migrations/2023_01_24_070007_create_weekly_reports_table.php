@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status_assets', function (Blueprint $table) {
+        Schema::create('weekly_reports', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('item_color');
+            $table->foreignId('asset_id')->constrained();
+            $table->unsignedInteger('qty_in')->nullable();
+            $table->unsignedInteger('qty_out')->nullable();
+            $table->tinyInteger('week');
+            $table->tinyInteger('month');
+            $table->integer('year');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_assets');
+        Schema::dropIfExists('weekly_reports');
     }
 };

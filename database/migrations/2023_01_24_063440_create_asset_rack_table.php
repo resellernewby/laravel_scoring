@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('taggables', function (Blueprint $table) {
-            $table->bigInteger('tag_id');
-            $table->bigInteger('taggable_id');
-            $table->string('taggable_type');
+        Schema::create('asset_rack', function (Blueprint $table) {
+            $table->foreignId('asset_id')->constrained('assets');
+            $table->foreignId('rack_id')->constrained('racks');
+            $table->unsignedInteger('qty')->nullable();
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taggables');
+        Schema::dropIfExists('asset_rack');
     }
 };

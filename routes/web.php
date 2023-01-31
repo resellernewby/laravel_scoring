@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CheckinConsumablController;
 use App\Http\Controllers\ConsumableController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\RackController;
@@ -26,7 +27,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])
     ->group(function () {
-        Route::get('/consumables', ConsumableController::class)->name('consumable');
+        Route::get('/consumables', ConsumableController::class)->name('consumable.index');
+        Route::get('/consumables/check-in', CheckinConsumablController::class)->name('consumable.checkin');
         Route::get('/assets', AssetController::class)->name('asset');
         Route::get('/histories', HistoryController::class)->name('history');
         Route::get('/warehouses', WarehouseController::class)->name('warehouse');

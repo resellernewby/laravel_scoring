@@ -14,17 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(3)->create();
+        \App\Models\User::factory()->create();
         \App\Models\Brand::factory(5)->create();
+        \App\Models\Suplier::factory(5)->create();
 
         $this->call([
             LocationSeeder::class,
             WarehouseSeeder::class,
             TagSeeder::class,
-            StatusAssetSeeder::class,
+            ConsumableSeeder::class,
+            NonConsumableSeeder::class,
         ]);
-
-        \App\Models\Asset::factory(10)->create();
-        \App\Models\Consumable::factory(10)->create();
     }
 }

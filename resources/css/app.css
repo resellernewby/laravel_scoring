@@ -1,5 +1,7 @@
 @import "flatpickr/dist/flatpickr.min.css";
 @import "choices.js/public/assets/styles/choices.min.css";
+@import 'filepond/dist/filepond.min.css';
+@import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 @tailwind base;
 @tailwind components;
@@ -7,4 +9,21 @@
 
 [x-cloak] {
     display: none !important;
+}
+
+.filepond--item {
+    width: calc(33.33% - 0.5em);
+    height: fit-content;
+}
+
+/* .filepond--credits {
+    display: none;
+} */
+
+.inp-custom {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    width: 12ch !important;
+    border: none;
+    border-radius: 0.375rem;
 }

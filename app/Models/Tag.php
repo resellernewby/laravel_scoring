@@ -16,16 +16,6 @@ class Tag extends Model
 
     public function assets()
     {
-        return $this->morphedByMany(Asset::class, 'taggable');
-    }
-
-    public function consumables()
-    {
-        return $this->morphedByMany(Consumable::class, 'taggable');
-    }
-
-    public function setSlugAttribute($val)
-    {
-        $this->attributes['slug'] = Str::slug($val);
+        return $this->belongsToMany(Asset::class);
     }
 }

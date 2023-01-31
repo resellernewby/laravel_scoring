@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subracks', function (Blueprint $table) {
+        Schema::create('damaged_non_consumable_sales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rack_id')->constrained();
-            $table->string('name');
-            $table->text('description');
+            $table->foreignId('returned_non_consumable_id')->constrained();
+            $table->dateTime('sold_at');
+            $table->string('sold_to', 150);
+            $table->string('sold_by', 150);
+            $table->decimal('sold_price', 14, 0)->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subracks');
+        Schema::dropIfExists('damaged_non_consumable_sales');
     }
 };

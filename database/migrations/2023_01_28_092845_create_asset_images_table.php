@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('asset_location', function (Blueprint $table) {
-            $table->bigInteger('asset_id');
-            $table->bigInteger('location_id');
-            $table->string('used_by')->nullable();
-            $table->boolean('current')->default(false);
+        Schema::create('asset_images', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('asset_id')->constrained();
+            $table->string('name');
+            $table->string('path');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_location');
+        Schema::dropIfExists('asset_images');
     }
 };

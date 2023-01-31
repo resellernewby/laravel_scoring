@@ -20,12 +20,12 @@ class WarehouseSeeder extends Seeder
             [
                 'name' => 'Gudang A',
                 'description' => 'Lorem ipsum dolor sit amet',
-                'pj' => 'Amar'
+                'pic' => 'Amar'
             ],
             [
                 'name' => 'Gudang B',
                 'description' => 'Lorem ipsum dolor sit amet',
-                'pj' => 'Doni'
+                'pic' => 'Doni'
             ]
         ]);
 
@@ -41,19 +41,6 @@ class WarehouseSeeder extends Seeder
                     'description' => 'tempat nyimpen spare part'
                 ]
             ]);
-
-            foreach ($racks as $rack) {
-                $rack->subracks()->createMany([
-                    [
-                        'name' => 'A1',
-                        'description' => 'Persabunan'
-                    ],
-                    [
-                        'name' => 'B2',
-                        'description' => 'perbautan'
-                    ]
-                ]);
-            }
         }
     }
 }

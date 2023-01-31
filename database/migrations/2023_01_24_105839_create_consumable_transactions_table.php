@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('consumable_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('consumable_id')->constrained();
-            $table->foreignId('location_id')->nullable()->constrained();
-            $table->enum('type', ['in', 'out'])->default('in');
-            $table->integer('qty');
-            $table->decimal('purchase_cost', 14, 0)->default(0);
-            $table->dateTime('purchase_at')->nullable();
-            $table->string('by')->nullable();
+            $table->foreignId('location_id')->constrained();
+            $table->string('action', 50);
+            $table->unsignedInteger('qty');
+            $table->dateTime('date');
+            $table->string('user', 150);
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('add_consumables');
+        Schema::dropIfExists('consumable_transactions');
     }
 };

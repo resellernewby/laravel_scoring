@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('consumable_transactions', function (Blueprint $table) {
-            $table->foreignId('warehouse_id')
-                ->nullable()
-                ->after('location_id')
-                ->constrained();
+        Schema::create('asset_tag', function (Blueprint $table) {
+            $table->foreignId('asset_id')->constrained('assets');
+            $table->foreignId('tag_id')->constrained('tags');
         });
     }
 
@@ -28,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('consumable_transactions', function (Blueprint $table) {
-            $table->dropColumn('warehouse_id');
-        });
+        Schema::dropIfExists('asset_tag');
     }
 };

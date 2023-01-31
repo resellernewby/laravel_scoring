@@ -2,27 +2,19 @@
 
 namespace App\Models;
 
-use App\Traits\Numeric;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Consumable extends Model
+class AssetSpecification extends Model
 {
     use HasFactory;
-    use Numeric;
 
     protected $fillable = [
-        'qty',
-        'lifetime',
+        'name', 'value'
     ];
 
     public function asset()
     {
         return $this->belongsTo(Asset::class);
-    }
-
-    public function consumableTransactions()
-    {
-        return $this->hasMany(ConsumableTransaction::class);
     }
 }

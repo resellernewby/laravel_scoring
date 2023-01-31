@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('assets', function (Blueprint $table) {
+        Schema::create('non_consumable_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('suplier_id')->constrained();
-            $table->foreignId('brand_id')->constrained();
-            $table->string('name');
-            $table->string('barcode', 50)->unique();
-            $table->enum('type', ['consumable', 'non-consumable']);
-            $table->decimal('current_price', 14, 0)->default(0);
+            $table->foreignId('non_consumable_id')->constrained();
+            $table->foreignId('location_id')->constrained();
+            $table->string('action', 50);
+            $table->string('condition', 50);
+            $table->dateTime('date')->nullable();
+            $table->string('user', 150)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assets');
+        Schema::dropIfExists('non_consumable_transactions');
     }
 };

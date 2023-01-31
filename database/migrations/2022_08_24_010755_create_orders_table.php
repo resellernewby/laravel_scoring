@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('consumable_location', function (Blueprint $table) {
-            $table->bigInteger('consumable_id');
-            $table->bigInteger('location_id');
-            $table->integer('qty')->nullable();
-            $table->string('used_by')->nullable();
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 150);
+            $table->string('status', 50);
+            $table->dateTime('date');
+            $table->string('location', 50)->nullable();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consumable_location');
+        Schema::dropIfExists('orders');
     }
 };

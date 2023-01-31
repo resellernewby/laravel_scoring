@@ -4,72 +4,106 @@ namespace App\Http\Livewire\Consumable;
 
 use App\Models\Brand;
 use App\Models\Consumable;
-use App\Models\Subrack;
+use App\Models\Rack;
+use App\Models\Suplier;
 use App\Models\Tag;
-use LivewireUI\Modal\ModalComponent;
+use App\Models\Warehouse;
+use Illuminate\Support\Collection;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
-class Create extends ModalComponent
+class Create extends Component
 {
-    public $brandLists;
-    public $tagLists;
-    public $subrackLists;
-    public $inputs = [];
+    use WithFileUploads;
+
+    public Collection $storages;
+    public $images = [];
     public $tags = [];
-    public $subracks = [];
+    public $inputs = [];
+    public $qty;
+    public $lifetime;
+    public $warehouse_ids;
+    public $rack_id;
 
     protected $listeners = [
         'consumableCreate' => 'refreshBrand'
     ];
 
-    protected $rules = [
-        'inputs.name' => 'required|max:255',
-        'inputs.brand_id' => 'required',
-        'inputs.barcode' => 'nullable',
-        'inputs.item_price' => 'required',
-        'inputs.lifetime' => 'nullable',
-        'inputs.description' => 'nullable'
-    ];
-
-    protected $messages = [
-        'inputs.name.required' => 'Nama barang harus diisi!',
-        'inputs.name.max' => 'Nama barang maksimal 255 karakter',
-        'inputs.brand_id.required' => 'Merek barang harus dipilih!',
-        'inputs.item_price.required' => 'Harga item harus diisi!'
-    ];
-
     public function mount()
     {
-        $this->brandLists = Brand::pluck('name', 'id');
-        $this->tagLists = Tag::pluck('name', 'id');
-        $subracks = Subrack::with('rack.warehouse')->get();
-        $this->subrackLists = collect();
-        foreach ($subracks as $subrack) {
-            $this->subrackLists->put($subrack->id, "{$subrack?->rack?->warehouse?->name} ({$subrack?->rack->name} / {$subrack->name})");
-        }
+        $this->storages = collect([
+            [
+                'warehouse_id' => '',
+                'rack_id' => '',
+                'qty' => ''
+            ]
+        ]);
+    }
+
+    public function addInput()
+    {
+        $this->storages->push([
+            'warehouse_id' => '',
+            'rack_id' => '',
+            'qty' => ''
+        ]);
+    }
+
+    public function removeInput($key)
+    {
+        $this->storages->pull($key);
     }
 
     public function render()
     {
-        return view('livewire.consumable.create');
+        return view('livewire.consumable.create', [
+            'tagLists' => $this->tagLists,
+            'brandLists' => $this->brandLists,
+            'suplierLists' => $this->suplierLists,
+            'warehouseLists' => $this->warehouseLists,
+            'rackLists' => $this->rackLists
+        ]);
     }
 
     public function store()
     {
-        $validatedData = $this->validate();
-        $consumable = Consumable::create($validatedData['inputs']);
-        $consumable->subracks()->sync($this->subracks);
-
-        if (count($this->tags) > 0) {
-            $consumable->tags()->sync($this->tags);
-        }
-
         $this->emit('consumableTable');
         $this->closeModal();
         $this->notify('Barang baru berhasil ditambahkan');
     }
 
-    public function refreshBrand()
+    public function getTagListsProperty()
     {
-        $this->brandLists = Brand::pluck('name', 'id');
+        return Tag::pluck('name', 'id');
+    }
+
+    public function getBrandListsProperty()
+    {
+        return Brand::pluck('name', 'id');
+    }
+
+    public function getSuplierListsProperty()
+    {
+        return Suplier::pluck('name', 'id');
+    }
+
+    public function getWarehouseListsProperty()
+    {
+        return Warehouse::pluck('name', 'id');
+    }
+
+    public function getRackListsProperty()
+    {
+        // dd($this->warehouse_ids);
+        if (!$this->warehouse_ids) {
+            return;
+        }
+
+        $data = [];
+        foreach ($this->warehouse_ids as $key => $value) {
+            $data[$key] = Rack::where('warehouse_id', $value)->pluck('name', 'id');
+        }
+
+        return $data;
     }
 }

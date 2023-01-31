@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Consumable;
 
+use App\Models\Asset;
 use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Consumable;
@@ -13,34 +14,22 @@ class Table extends Component
 {
     use WithPagination;
 
-    public $tagLists;
-    public $brandLists;
-    public $warehouseLists;
     public $search = '';
     public $isDelete = false;
     public $filters = [
         'tag' => '',
         'brand' => '',
-        'warehouse' => '',
-        'status' => ''
+        'warehouse' => ''
     ];
 
     protected $listeners = [
         'consumableTable' => '$refresh'
     ];
 
-    public function mount()
-    {
-        $this->tagLists = Tag::pluck('name', 'id');
-        $this->brandLists = Brand::pluck('name', 'id');
-        $this->warehouseLists = Warehouse::pluck('name', 'id');
-    }
-
     public function getRowsQueryProperty()
     {
-        return Consumable::query()
-            ->with(['brand', 'subracks', 'consumableTransactions'])
-            ->withSum('consumableTransactions', 'qty')
+        return Asset::query()
+            ->with(['consumable', 'brand', 'racks.warehouse', 'tags'])
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->when($this->filters['tag'], fn ($query) => $query->whereHas(
                 'tags',
@@ -48,15 +37,10 @@ class Table extends Component
             ))
             ->when($this->filters['brand'], fn ($query) => $query->where('brand_id', $this->filters['brand']))
             ->when($this->filters['warehouse'], fn ($query) => $query->whereHas(
-                'subracks',
-                fn ($q) => $q->whereHas(
-                    'rack',
-                    fn ($q) => $q->whereHas(
-                        'warehouse',
-                        fn ($q) => $q->where('id', $this->filters['warehouse'])
-                    )
-                )
+                'warehouses',
+                fn ($q) => $q->where('id', $this->filters['warehouse'])
             ))
+            ->where('type', 'consumable')
             ->latest('id');
     }
 
@@ -68,7 +52,8 @@ class Table extends Component
     public function render()
     {
         return view('livewire.consumable.table', [
-            'consumables' => $this->rows
+            'consumables' => $this->rows,
+            'lists' => $this->lists
         ]);
     }
 
@@ -83,5 +68,14 @@ class Table extends Component
 
         $consumable->delete();
         $this->notify($consumable->name . ' berhasil dihapus');
+    }
+
+    public function getListsProperty()
+    {
+        return [
+            'tags' => Tag::pluck('name', 'id'),
+            'brands' => Brand::pluck('name', 'id'),
+            'warehouses' => Warehouse::pluck('name', 'id'),
+        ];
     }
 }

@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('warehouses', function (Blueprint $table) {
-            $table->char('type', 1)->default(1)
-                ->after('pj')
-                ->comment('1 warehouse, 0 lokasi distribusi');
+        Schema::create('supliers', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('phone', 25)->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('warehouses', function (Blueprint $table) {
-            $table->dropColumn('type');
-        });
+        Schema::dropIfExists('supliers');
     }
 };
