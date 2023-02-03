@@ -24,17 +24,19 @@ class ConsumableRequest extends FormRequest
     public function rules()
     {
         return [
-            'inputs.suplier_id' => ['required'],
-            'inputs.brand_id' => ['required'],
-            'inputs.name' => ['required', 'max:255'],
-            'inputs.barcode' => ['required', 'unique:assets,barcode'],
-            'inputs.current_price' => ['required', 'min:3', 'max:20'],
-            'qty' => ['nullable'],
+            'asset.suplier_id' => ['required'],
+            'asset.brand_id' => ['required'],
+            'asset.name' => ['required', 'max:255'],
+            'asset.barcode' => ['required', 'unique:assets,barcode'],
+            'asset.current_price' => ['required', 'min:3', 'max:20'],
+            'rack.*.warehouse_id' => ['required'],
+            'rack.*.id' => ['required'],
+            'rack.*.qty' => ['nullable', 'numeric'],
+            'tag_ids.*' => ['required'],
             'lifetime' => ['nullable'],
-            'warehouse_id' => ['required'],
-            'rack_id' => ['required_if:warehouse_id'],
-            'tags' => ['required'],
-            'images.*' => ['nullable', 'image', 'max:4096']
+            'images.*' => ['nullable', 'image', 'max:4096'],
+            'spec.*.name' => ['nullable'],
+            'spec.*.value' => ['nullable'],
         ];
     }
 

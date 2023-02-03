@@ -15,4 +15,8 @@ class Order extends Model
         'date',
         'location'
     ];
+
+    protected $casts = [
+        'date' => 'datetime'
+    ];
 }

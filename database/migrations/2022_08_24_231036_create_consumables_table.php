@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('asset_id')->constrained();
             $table->unsignedInteger('qty');
-            $table->unsignedInteger('lifetime');
+            $table->unsignedInteger('lifetime')->nullable()->comment('in month');
             $table->timestamps();
         });
     }

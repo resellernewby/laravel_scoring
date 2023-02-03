@@ -69,4 +69,9 @@ class Asset extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function assetImages()
+    {
+        return $this->hasMany(AssetImage::class);
+    }
 }
