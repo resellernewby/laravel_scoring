@@ -74,4 +74,13 @@ class Asset extends Model
     {
         return $this->hasMany(AssetImage::class);
     }
+
+    public function imageFirst()
+    {
+        return $this->hasOne(AssetImage::class)
+            ->main()
+            ->withDefault([
+                'image_thumb_url' => public_path('images/no_image.png')
+            ]);
+    }
 }

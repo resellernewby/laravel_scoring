@@ -29,7 +29,13 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Asset::query()
-            ->with(['consumable', 'brand', 'racks.warehouse', 'tags'])
+            ->with([
+                'consumable',
+                'brand',
+                'racks.warehouse',
+                'tags',
+                'imageFirst'
+            ])
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->when($this->filters['tag'], fn ($query) => $query->whereHas(
                 'tags',

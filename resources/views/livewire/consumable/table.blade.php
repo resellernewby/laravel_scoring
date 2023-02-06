@@ -59,8 +59,10 @@
                     <tr wire:loading.class.delay="opacity-50">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                            <div class="font-medium text-gray-900">
-                                {{ $consumable->name }}
+                            <div class="flex items-center space-x-2 font-semibold text-gray-900">
+                                <img src="{{ $consumable->imageFirst?->image_thumb_url }}" class="w-14 h-14 rounded-md"
+                                    alt="{{ $consumable->imageFirst?->name }}">
+                                <span>{{ $consumable->name }}</span>
                             </div>
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
                                 <span>{{ $consumable?->brand?->name }}/Rp{{ number_format($consumable->current_price) }}</span>
@@ -80,11 +82,11 @@
                             Rp{{ number_format($consumable->current_price) }}
                         </td>
                         <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             {{ $consumable->consumable->qty }}
                         </td>
                         <td
-                            class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            class="px-3 py-3.5 text-sm text-gray-500 font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             @foreach ($consumable->racks as $rack)
                                 {{ $rack->warehouse?->name }}
                                 ({{ $rack->name }})

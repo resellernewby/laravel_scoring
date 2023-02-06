@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Traits\Numeric;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CreateConsumableItem
 {
@@ -72,21 +73,22 @@ class CreateConsumableItem
                     $extension = $image->getClientOriginalExtension();
                     $filename = uniqid() . '.' . $extension;
                     $filename_thumb = str_replace(".{$extension}", "_thumb.{$extension}", $filename);
-                    $destination = storage_path('app/public/consumables/' . $filename);
-                    $destination_thumb = storage_path('app/public/consumables/thumbnails/' . $filename_thumb);
+                    $directory = config('setting.consumable.image.directory');
+                    $destination = Storage::path("{$directory}/" . $filename);
+                    $destination_thumb = Storage::path("{$directory}/" . $filename_thumb);
 
-                    Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
+                    Image::make($image->getRealPath())->resize(config('setting.consumable.image.width'), null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save($destination);
 
-                    Image::make($image->getRealPath())->resize(150, null, function ($constraint) {
+                    Image::make($image->getRealPath())->resize(config('setting.consumable.image.thumbnail.width'), config('setting.consumable.image.thumbnail.width'), function ($constraint) {
                         $constraint->aspectRatio();
+                        $constraint->upsize();
                     })->save($destination_thumb);
 
                     $collectImage[] = [
                         'name' => $filename,
-                        'path' => $destination,
-                        'main' => ($key === 0 ? '1' : '0')
+                        'main' => ($key === 0 ? true : false)
                     ];
                 }
 

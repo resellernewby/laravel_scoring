@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('asset_id')->constrained();
             $table->string('name');
-            $table->string('path');
-            $table->enum('main', [0, 1]);
+            $table->boolean('main');
             $table->timestamps();
         });
     }

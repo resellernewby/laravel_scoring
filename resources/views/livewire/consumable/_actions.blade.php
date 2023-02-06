@@ -1,4 +1,4 @@
-<x-dropdown label="Opsi">
+<x-dropdown label="Opsi" class="py-1">
     <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'consumable.add-stock', {{ json_encode(['consumable' => $consumable->id]) }})">
         <x-icon.plus-circle class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />

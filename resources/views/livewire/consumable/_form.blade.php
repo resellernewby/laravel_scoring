@@ -41,6 +41,9 @@
 
     <x-input label="Barcode*" wire:model.lazy="asset.barcode" :error="$errors->first('asset.barcode')" />
 
+    <x-input.addon-right label="Masa pakai" wire:model.lazy="lifetime" leading-add-on="Bulan"
+        help-text="Masa pakai dalam bulan" :error="$errors->first('lifetime')" />
+
     @foreach ($storages as $key => $input)
         <div class="bg-gray-50 border-dashed border-2 border-indigo-600 rounded-md p-2">
             <x-select id="rack_{{ $key }}_warehouse_id" label="Gudang penyimpanan*"
