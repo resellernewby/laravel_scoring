@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Consumable;
 use App\Actions\Consumables\CreateConsumableItem;
 use App\Http\Requests\ConsumableRequest;
 use App\Models\Brand;
+use App\Models\FundsSource;
 use App\Models\Rack;
 use App\Models\Suplier;
 use App\Models\Tag;
@@ -23,11 +24,16 @@ class Create extends Component
     public $asset = [];
     public $spec = [];
     public $rack = [];
-    public $tag_ids = [];
+    public $tag_ids;
+    // public $tag_ids = [];
+    public $funds_source_id;
     public $lifetime;
 
     protected $listeners = [
-        'consumableCreate' => 'refreshBrand'
+        'tagCreated' => '$refresh',
+        'brandCreated' => '$refresh',
+        'suplierCreated' => '$refresh',
+        'fundsCreated' => '$refresh'
     ];
 
     public function mount()
@@ -81,6 +87,7 @@ class Create extends Component
             'tagLists' => $this->tagLists,
             'brandLists' => $this->brandLists,
             'suplierLists' => $this->suplierLists,
+            'fundsLists' => $this->fundsLists,
             'warehouseLists' => $this->warehouseLists,
             'rackLists' => $this->rackLists
         ]);
@@ -112,22 +119,27 @@ class Create extends Component
 
     public function getTagListsProperty()
     {
-        return Tag::pluck('name', 'id');
+        return Tag::oldest('name')->pluck('name', 'id');
     }
 
     public function getBrandListsProperty()
     {
-        return Brand::pluck('name', 'id');
+        return Brand::oldest('name')->pluck('name', 'id');
     }
 
     public function getSuplierListsProperty()
     {
-        return Suplier::pluck('name', 'id');
+        return Suplier::oldest('name')->pluck('name', 'id');
+    }
+
+    public function getFundsListsProperty()
+    {
+        return FundsSource::oldest('name')->pluck('name', 'id');
     }
 
     public function getWarehouseListsProperty()
     {
-        return Warehouse::pluck('name', 'id');
+        return Warehouse::oldest('name')->pluck('name', 'id');
     }
 
     public function getRackListsProperty()
@@ -138,7 +150,9 @@ class Create extends Component
 
         $data = [];
         foreach ($this->rack as $key => $value) {
-            $data[$key] = Rack::where('warehouse_id', $value['warehouse_id'])->pluck('name', 'id');
+            $data[$key] = Rack::where('warehouse_id', $value['warehouse_id'])
+                ->oldest('name')
+                ->pluck('name', 'id');
         }
 
         return $data;

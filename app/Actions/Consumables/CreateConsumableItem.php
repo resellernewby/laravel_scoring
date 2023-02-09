@@ -56,7 +56,8 @@ class CreateConsumableItem
             $order = Order::create([
                 'name' => $item->suplier->name,
                 'status' => 'new item',
-                'date' => now()
+                'date' => now(),
+                'funds_source_id' => $input['funds_source_id']
             ]);
 
             // create transaction from suplier

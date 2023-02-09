@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Asset;
 use App\Models\Brand;
+use App\Models\FundsSource;
 use App\Models\Location;
 use App\Models\Order;
 use App\Models\Suplier;
@@ -37,7 +38,8 @@ class NonConsumableSeeder extends Seeder
         $order = Order::create([
             'name' => 'CV. Teknik',
             'status' => 'new stock',
-            'date' => now()
+            'date' => now(),
+            'funds_source_id' => FundsSource::pluck('id')->random()
         ]);
 
         $asset->transactions()->create([

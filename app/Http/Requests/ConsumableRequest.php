@@ -31,25 +31,37 @@ class ConsumableRequest extends FormRequest
             'asset.current_price' => ['required', 'min:3', 'max:20'],
             'rack.*.warehouse_id' => ['required'],
             'rack.*.id' => ['required'],
-            'rack.*.qty' => ['nullable', 'numeric'],
-            'tag_ids.*' => ['required'],
+            'rack.*.qty' => ['required', 'numeric'],
+            'tag_ids' => ['required'],
+            // 'tag_ids.*' => ['required'],
+            'funds_source_id' => ['required'],
             'lifetime' => ['nullable'],
             'images.*' => ['nullable', 'image', 'max:4096'],
-            'spec.*.name' => ['nullable'],
-            'spec.*.value' => ['nullable'],
+            'spec.*.name' => ['nullable', 'string', 'max:50'],
+            'spec.*.value' => ['nullable', 'string', 'max:100'],
         ];
     }
 
     public function messages()
     {
         return [
-            'inputs.suplier_id.required' => 'suplier barang harus dipilih!',
-            'inputs.brand_id.required' => 'Merek barang harus dipilih!',
-            'inputs.name.required' => 'Nama barang harus diisi!',
-            'inputs.name.max' => 'Nama barang maksimal 255 karakter',
-            'inputs.barcode.required' => 'Barcode barang harus diisi!',
-            'inputs.current_price.required' => 'Harga item harus diisi!',
-            'warehouse_id.required' => 'Gudang penyimpanan harus dipilih!',
+            'asset.suplier_id.required' => 'suplier barang harus dipilih!',
+            'asset.brand_id.required' => 'Merek barang harus dipilih!',
+            'asset.name.required' => 'Nama barang harus diisi!',
+            'asset.name.max' => 'Nama barang maksimal 255 karakter',
+            'asset.barcode.required' => 'Barcode barang harus diisi!',
+            'asset.barcode.unique' => 'Barcode tersedia, silahkan tambah stok barang',
+            'asset.current_price.required' => 'Harga item harus diisi!',
+            'asset.current_price.min' => 'Harga minimal 3 digits',
+            'asset.current_price.max' => 'Harga maksimal 20 digits',
+            'rack.*.warehouse_id.required' => 'Gudang penyimpanan harus dipilih!',
+            'rack.*.id.numeric' => 'Rack harus dipilih!',
+            'rack.*.qty.required' => 'Qty harus diisi!',
+            'rack.*.qty.numeric' => 'Qty harus berupa angka!',
+            'tag_ids.required' => 'Kategori harus dipilih!',
+            'funds_source_id.required' => 'Sumber dana harus dipilih!',
+            'images.*.image' => 'File harus berupa gambar!',
+            'images.*.max' => 'Gambar maksimal 4 MB'
         ];
     }
 }

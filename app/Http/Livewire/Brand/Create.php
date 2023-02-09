@@ -26,14 +26,16 @@ class Create extends ModalComponent
     public function store()
     {
         $validatedData = $this->validate();
-        $validatedData['inputs']['slug'] = $validatedData['inputs']['name'];
         Brand::create($validatedData['inputs']);
 
-        $this->emit('brandTable');
-        $this->emit('assetCreate');
-        $this->emit('consumableCreate');
+        $this->emit('brandCreated');
         $this->closeModal();
 
         $this->notify('Merek baru berhasil ditambahkan');
+    }
+
+    public static function modalMaxWidth(): string
+    {
+        return 'md';
     }
 }

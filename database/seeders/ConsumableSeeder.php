@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Asset;
 use App\Models\Brand;
+use App\Models\FundsSource;
 use App\Models\Order;
 use App\Models\Suplier;
 use App\Models\Warehouse;
@@ -29,13 +30,17 @@ class ConsumableSeeder extends Seeder
         ]);
 
         $warehouse = Warehouse::with('racks')->inRandomOrder()->first();
-        $consumableAsset->warehouses()->attach($warehouse->id, ['qty' => 1, 'price' => fake()->randomNumber(6, true)]);
+        $consumableAsset->warehouses()->attach($warehouse->id, [
+            'qty' => 1,
+            'price' => fake()->randomNumber(6, true)
+        ]);
         $consumableAsset->racks()->attach($warehouse->racks->first()->id, ['qty' => 1]);
 
         $order = Order::create([
             'name' => 'CV. Rafah',
             'status' => 'new stock',
-            'date' => now()
+            'date' => now(),
+            'funds_source_id' => FundsSource::pluck('id')->random()
         ]);
 
         $consumableAsset->transactions()->create([

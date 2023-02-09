@@ -187,7 +187,8 @@
                                         class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6 6h.008v.008H6V6z" />
                                     </svg>
                                     <span>Tags</span>
                                 </a>
@@ -340,8 +341,8 @@
                                         <div
                                             class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                                             <!-- Heroicon name: solid/search -->
-                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                fill="currentColor" aria-hidden="true">
+                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path fill-rule="evenodd"
                                                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                                     clip-rule="evenodd" />
@@ -423,7 +424,8 @@
                                     </tr>
 
                                     <tr>
-                                        <td class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm border-t border-transparent">
+                                        <td
+                                            class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm border-t border-transparent">
                                             <div class="font-medium text-gray-900">
                                                 Startup
 

@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create();
         \App\Models\Brand::factory(5)->create();
         \App\Models\Suplier::factory(5)->create();
+        \App\Models\FundsSource::factory(2)->create();
 
         $this->call([
             LocationSeeder::class,

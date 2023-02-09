@@ -9,18 +9,22 @@
                         <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                             <x-icon.search class="h-5 w-5" />
                         </div>
-                        <input wire:model="search"
+                        <input wire:model.debounce.500ms="search"
                             class="block w-full bg-white py-2 pl-10 pr-3 border border-gray-200 rounded-md focus:text-gray-500 focus:border-blue-500 focus:ring-blue-500 placeholder-gray-500 focus:placeholder-gray-200 sm:text-sm"
                             placeholder="Cari barang..." type="search">
                     </div>
                 </div>
                 <x-dropdown label="Filter" divider>
-                    <x-select label="Tag" wire:model.debounce.500ms="filters.tag" :list="$lists['tags']" />
+                    <x-select label="Kategori" wire:model.debounce.500ms="filters.tag" :list="$lists['tags']" />
                     <x-select label="Merek" wire:model.debounce.500ms="filters.brand" :list="$lists['brands']" />
                     <x-select label="Gudang" wire:model.debounce.500ms="filters.warehouse" :list="$lists['warehouses']" />
                 </x-dropdown>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-8">
+                <button class="relative inline-block">
+                    <x-icon.o-shopping-cart class="w-6 h-6 text-gray-700 fill-current" />
+                </button>
+
                 <x-button.primary link="{{ route('consumable.checkin') }}" class="flex whitespace-nowrap items-center">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Check in
                 </x-button.primary>
@@ -48,7 +52,7 @@
                     Gudang
                 </th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Tag
+                    Kategori
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
@@ -56,7 +60,7 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($consumables as $consumable)
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:loading.class.delay="opacity-50" wire:key="consumable-{{ $consumable->id }}">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div class="flex items-center space-x-2 font-semibold text-gray-900">
@@ -101,7 +105,7 @@
                             @endforeach
                         </td>
                         <td
-                            class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
+                            class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             @include('livewire.consumable._actions')
                             @if (!$loop->first)
                                 <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>

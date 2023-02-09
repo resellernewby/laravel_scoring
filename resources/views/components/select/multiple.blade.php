@@ -10,6 +10,7 @@
     itemSelectText: '',
     removeItems: true,
     removeItemButton: true,
+    duplicateItemsAllowed: false,
     allowHTML: true,
     maxItemCount: 10,
     renderChoiceLimit: 20,

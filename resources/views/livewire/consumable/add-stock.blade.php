@@ -1,30 +1,16 @@
 <div>
-    <x-modal form-action="store">
-        <x-slot name="title">
-            Tambah stok barang {{ $consumable->name }}
-        </x-slot>
+    <!-- Search -->
+    <div class="mt-10 w-full shadow-sm md:rounded-lg">
+        <label for="search" class="sr-only">Search</label>
+        <div class="relative text-gray-500 focus-within:text-gray-600">
+            <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                <x-icon.search class="h-5 w-5" />
+            </div>
+            <input wire:model="search"
+                class="block w-full bg-white py-2 pl-10 pr-3 border border-gray-200 rounded-md md:rounded-lg focus:text-gray-500 focus:border-transparent focus:ring-0 placeholder-gray-500 focus:placeholder-gray-200 sm:text-sm"
+                placeholder="Cari nama barang atau barcode..." type="search">
+        </div>
+    </div>
 
-        <x-slot name="content">
-            @include('livewire.consumable._form-stock')
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-button.secondary wire:click="$emit('closeModal')" wire:loading.remove wire:target="store">
-                Batal
-            </x-button.secondary>
-            <x-button.primary type="submit" wire:loading.remove wire:target="store" class="ml-2">
-                Tambahkan
-            </x-button.primary>
-            <x-button.primary wire:loading.flex wire:target="store" class="inline-flex items-center" disabled>
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
-                </svg>
-                Processing..
-            </x-button.primary>
-        </x-slot>
-    </x-modal>
+    <div></div>
 </div>

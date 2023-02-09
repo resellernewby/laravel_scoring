@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Consumable;
 
+use App\Models\Asset;
 use App\Models\Consumable;
 use LivewireUI\Modal\ModalComponent;
 
@@ -9,6 +10,7 @@ class AddStock extends ModalComponent
 {
     public $consumable;
     public $inputs = [];
+    public $search;
 
     protected $rules = [
         'inputs.qty' => 'required|max:10',
@@ -42,6 +44,11 @@ class AddStock extends ModalComponent
         $this->emit('consumableTable');
         $this->closeModal();
         $this->notify('Jumlah barang berhasil ditambahkan');
+    }
+
+    public function getItemsProperty()
+    {
+        #
     }
 
     public static function modalMaxWidth(): string

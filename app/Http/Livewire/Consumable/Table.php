@@ -36,7 +36,7 @@ class Table extends Component
                 'tags',
                 'imageFirst'
             ])
-            ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
+            ->when($this->search, fn ($query) => $query->search($this->search))
             ->when($this->filters['tag'], fn ($query) => $query->whereHas(
                 'tags',
                 fn ($q) => $q->where('id', $this->filters['tag'])

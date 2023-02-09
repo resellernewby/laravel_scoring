@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Numeric;
+use App\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,7 @@ class Asset extends Model
 {
     use HasFactory;
     use Numeric;
+    use Search;
 
     protected $fillable = [
         'suplier_id',
@@ -18,6 +20,10 @@ class Asset extends Model
         'name',
         'type',
         'current_price'
+    ];
+
+    protected $search = [
+        'barcode', 'name'
     ];
 
     public function consumable()

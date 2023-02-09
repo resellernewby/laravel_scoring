@@ -3,9 +3,9 @@
 
     <div class="flex space-x-4">
         <div class="w-full">
-            <x-select.multiple label="Kategori*" wire:model="tag_ids" :list="$tagLists" :error="$errors->first('tag_ids')" />
+            <x-select label="Kategori*" wire:model.lazy="tag_ids" :list="$tagLists" :error="$errors->first('tag_ids')" />
         </div>
-        <div class="flex flex-col justify-end">
+        <div class="flex flex-col mt-6">
             <x-button.secondary onclick="Livewire.emit('openModal', 'tag.create')" class="flex items-center"
                 title="Tambah merek baru">
                 <x-icon.plus class="h-5 w-5" />
@@ -17,7 +17,7 @@
         <div class="w-full">
             <x-select label="Merek*" wire:model.lazy="asset.brand_id" :list="$brandLists" :error="$errors->first('asset.brand_id')" />
         </div>
-        <div class="flex flex-col justify-end">
+        <div class="flex flex-col mt-6">
             <x-button.secondary onclick="Livewire.emit('openModal', 'brand.create')" class="flex items-center"
                 title="Tambah merek baru">
                 <x-icon.plus class="h-5 w-5" />
@@ -29,9 +29,21 @@
         <div class="w-full">
             <x-select label="Suplier*" wire:model.lazy="asset.suplier_id" :list="$suplierLists" :error="$errors->first('asset.suplier_id')" />
         </div>
-        <div class="flex flex-col justify-end">
+        <div class="flex flex-col mt-6">
             <x-button.secondary onclick="Livewire.emit('openModal', 'suplier.create')" class="flex items-center"
                 title="Tambah merek baru">
+                <x-icon.plus class="h-5 w-5" />
+            </x-button.secondary>
+        </div>
+    </div>
+
+    <div class="flex space-x-4">
+        <div class="w-full">
+            <x-select label="Sumber dana*" wire:model.lazy="funds_source_id" :list="$fundsLists" :error="$errors->first('funds_source_id')" />
+        </div>
+        <div class="flex flex-col mt-6">
+            <x-button.secondary onclick="Livewire.emit('openModal', 'funds-source.create')" class="flex items-center"
+                title="Tambah sumber dana baru">
                 <x-icon.plus class="h-5 w-5" />
             </x-button.secondary>
         </div>
@@ -40,9 +52,6 @@
     <x-input.money label="Harga pcs*" leading-add-on="Rp" wire:model.lazy="asset.current_price" :error="$errors->first('asset.current_price')" />
 
     <x-input label="Barcode*" wire:model.lazy="asset.barcode" :error="$errors->first('asset.barcode')" />
-
-    <x-input.addon-right label="Masa pakai" wire:model.lazy="lifetime" leading-add-on="Bulan"
-        help-text="Masa pakai dalam bulan" :error="$errors->first('lifetime')" />
 
     @foreach ($storages as $key => $input)
         <div class="bg-gray-50 border-dashed border-2 border-indigo-600 rounded-md p-2">
@@ -84,11 +93,14 @@
         imagePreviewMaxHeight="200" allowFileTypeValidation acceptedFileTypes="['image/*']" allowFileSizeValidation
         maxFileSize="4mb" maxFiles="6" />
 
-    <div class="mt-8 space-y-4">
+    <x-input.addon-right label="Masa pakai" wire:model.lazy="lifetime" leading-add-on="Bulan"
+        help-text="Masa pakai dalam bulan" :error="$errors->first('lifetime')" />
+
+    <div class="mt-4 space-y-4">
         @foreach ($specifications as $k => $i)
             <div class="flex space-x-4 bg-gray-50 rounded-md p-2">
                 <div class="w-full">
-                    <x-input id="spec{{ $k }}_name" label="Keterangan"
+                    <x-input id="spec{{ $k }}_name" label="Keterangan spesifikasi"
                         wire:model.lazy="spec.{{ $k }}.name" :error="$errors->first('spec.{{ $k }}.name')" placeholder="mis. Berat" />
                 </div>
 

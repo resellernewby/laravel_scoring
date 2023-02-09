@@ -8,6 +8,7 @@ use LivewireUI\Modal\ModalComponent;
 class Create extends ModalComponent
 {
     public $inputs;
+    public $iteration = 0;
 
     protected $rules = [
         'inputs.name' => 'required|max:50'
@@ -29,8 +30,14 @@ class Create extends ModalComponent
         $validatedData['inputs']['slug'] = $validatedData['inputs']['name'];
         Tag::create($validatedData['inputs']);
 
-        $this->emit('tagTable');
+        $this->emit('tagCreated');
         $this->closeModal();
         $this->notify('Tag baru berhasil ditambahkan');
+        $this->iteration++;
+    }
+
+    public static function modalMaxWidth(): string
+    {
+        return 'md';
     }
 }
