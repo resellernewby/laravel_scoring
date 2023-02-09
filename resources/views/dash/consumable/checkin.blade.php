@@ -3,7 +3,7 @@
         <h1 class="flex-1 text-2xl font-bold text-gray-900">Check-in Asset Habis Pakai</h1>
 
         <!-- Tab -->
-        <div x-data="{ tab: window.location.hash ? window.location.hash : '#new-item' }" class="mt-5">
+        <div x-data="{ tab: window.location.hash ? window.location.hash : '#add-stock' }" class="mt-5">
             <div class="sm:hidden">
                 <label for="tabs" class="sr-only">Select a tab</label>
                 <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
@@ -40,7 +40,7 @@
             </div>
 
             <div x-show="tab == '#add-stock'" x-cloak>
-                <livewire:consumable.add-stock />
+                <livewire:consumable.search-item />
             </div>
 
             <div x-show="tab == '#new-item'" x-cloak>
