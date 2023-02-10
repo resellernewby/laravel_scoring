@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('asset_id')->constrained('assets');
             $table->foreignId('rack_id')->constrained('racks');
             $table->unsignedInteger('qty')->nullable();
-            $table->decimal('price', 14, 0)->nullable()->comment('Harga barang saat input stok');
         });
     }
 

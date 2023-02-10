@@ -20,8 +20,11 @@ class ConsumableSeeder extends Seeder
      */
     public function run()
     {
+        $funds_source_id = FundsSource::pluck('id')->random();
+        $suplier_id = Suplier::pluck('id')->random();
         $consumableAsset = Asset::create([
-            'suplier_id' => Suplier::pluck('id')->random(),
+            'funds_source_id' => $funds_source_id,
+            'suplier_id' => $suplier_id,
             'brand_id' => Brand::pluck('id')->random(),
             'barcode' => fake()->isbn13(),
             'name' => fake()->randomElement(['catridge', 'spidol', 'tissue', 'kertas', 'tinta']),
@@ -32,25 +35,25 @@ class ConsumableSeeder extends Seeder
         $warehouse = Warehouse::with('racks')->inRandomOrder()->first();
         $consumableAsset->warehouses()->attach($warehouse->id);
         $consumableAsset->racks()->attach($warehouse->racks->first()->id, [
-            'qty' => 24,
-            'price' => fake()->randomNumber(6, true)
+            'qty' => 24
         ]);
 
         $order = Order::create([
             'name' => 'CV. Rafah',
             'status' => 'new stock',
-            'date' => now(),
-            'funds_source_id' => FundsSource::pluck('id')->random()
+            'date' => '2023-02-08',
+            'funds_source_id' => $funds_source_id,
+            'suplier_id' => $suplier_id
         ]);
 
         $consumableAsset->transactions()->create([
             'order_id' => $order->id,
-            'qty' => mt_rand(1, 10),
+            'qty' => 24,
             'price' => fake()->randomNumber(6, true)
         ]);
 
         $consumableAsset->consumable()->create([
-            'qty' => mt_rand(10, 100),
+            'qty' => 24,
             'lifetime' => fake()->randomDigit()
         ]);
     }

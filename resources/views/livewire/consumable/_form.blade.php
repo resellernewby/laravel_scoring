@@ -39,7 +39,8 @@
 
     <div class="flex space-x-4">
         <div class="w-full">
-            <x-select label="Sumber dana*" wire:model.lazy="funds_source_id" :list="$fundsLists" :error="$errors->first('funds_source_id')" />
+            <x-select label="Sumber dana*" wire:model.lazy="asset.funds_source_id" :list="$fundsLists"
+                :error="$errors->first('asset.funds_source_id')" />
         </div>
         <div class="flex flex-col mt-6">
             <x-button.secondary onclick="Livewire.emit('openModal', 'funds-source.create')" class="flex items-center"

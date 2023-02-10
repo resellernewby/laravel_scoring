@@ -21,31 +21,35 @@ class NonConsumableSeeder extends Seeder
      */
     public function run()
     {
+        $funds_source_id = FundsSource::pluck('id')->random();
+        $suplier_id = Suplier::pluck('id')->random();
         $asset = Asset::create([
-            'suplier_id' => Suplier::pluck('id')->random(),
+            'funds_source_id' => $funds_source_id,
+            'suplier_id' => $suplier_id,
             'brand_id' => Brand::pluck('id')->random(),
             'barcode' => fake()->isbn13(),
             'name' => fake()->randomElement(['laptop', 'komputer', 'meja', 'TV', 'kursi', 'AC', 'Kulkas', 'Lemari', 'Rack', 'Server', 'Motor', 'Mobil', 'Kipas', 'HP', 'Kamera', 'Drone', 'Lighting', 'Tripod']),
             'type' => 'non-consumable',
-            'current_price' => fake()->randomNumber(6, true)
+            'current_price' => 500000
         ]);
 
 
         $warehouse = Warehouse::with('racks')->inRandomOrder()->first();
         $asset->warehouses()->attach($warehouse->id);
-        $asset->racks()->attach($warehouse->racks->first()->id, ['qty' => 2, 'price' => fake()->randomNumber(6, true)]);
+        $asset->racks()->attach($warehouse->racks->first()->id, ['qty' => 2]);
 
         $order = Order::create([
             'name' => 'CV. Teknik',
             'status' => 'new stock',
             'date' => now(),
-            'funds_source_id' => FundsSource::pluck('id')->random()
+            'funds_source_id' => $funds_source_id,
+            'suplier_id' => $suplier_id
         ]);
 
         $asset->transactions()->create([
             'order_id' => $order->id,
             'qty' => 2,
-            'price' => fake()->randomNumber(6, true)
+            'price' => 500000
         ]);
 
         $asset->nonConsumables()->createMany([
@@ -55,7 +59,7 @@ class NonConsumableSeeder extends Seeder
                 'serial' => fake()->ean13(),
                 'economic_age' => fake()->randomDigit(),
                 'residual_value' => fake()->randomNumber(5, true),
-                'price' => fake()->randomNumber(6, true),
+                'price' => 500000,
                 'condition' => fake()->randomElement(['poor', 'fair', 'good', 'excellent']),
                 'current_status' => 'in stock', //fake()->randomElement(['in use', 'in stock', 'damaged']),
                 'purchase_date' => fake()->dateTimeThisDecade(),
@@ -68,7 +72,7 @@ class NonConsumableSeeder extends Seeder
                 'serial' => fake()->ean13(),
                 'economic_age' => fake()->randomDigit(),
                 'residual_value' => fake()->randomNumber(5, true),
-                'price' => fake()->randomNumber(6, true),
+                'price' => 500000,
                 'condition' => fake()->randomElement(['poor', 'fair', 'good', 'excellent']),
                 'current_status' => 'in stock',
                 'purchase_date' => fake()->dateTimeThisDecade(),

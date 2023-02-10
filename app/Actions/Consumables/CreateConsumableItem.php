@@ -28,8 +28,7 @@ class CreateConsumableItem
             $total_qty = 0;
             foreach ($input['rack'] as $rack) {
                 $item->racks()->attach($rack['id'], [
-                    'qty' => $rack['qty'],
-                    'price' => $input['asset']['current_price']
+                    'qty' => $rack['qty']
                 ]);
 
                 $item->warehouses()->attach($rack['warehouse_id']);
@@ -55,7 +54,8 @@ class CreateConsumableItem
                 'name' => $item->suplier->name,
                 'status' => 'new item',
                 'date' => $input['purchase_at'],
-                'funds_source_id' => $input['funds_source_id']
+                'funds_source_id' => $input['asset']['funds_source_id'],
+                'suplier_id' => $input['asset']['suplier_id']
             ]);
 
             // create transaction from suplier
@@ -68,11 +68,15 @@ class CreateConsumableItem
             //Save images
             if (!empty($input['images'])) {
                 $collectImage = [];
+                $directory = config('setting.consumable.image.directory');
+                if (!is_dir(Storage::path($directory))) {
+                    mkdir(Storage::path($directory), 0755, true);
+                }
+
                 foreach ($input['images'] as $key => $image) {
                     $extension = $image->getClientOriginalExtension();
                     $filename = uniqid() . '.' . $extension;
                     $filename_thumb = str_replace(".{$extension}", "_thumb.{$extension}", $filename);
-                    $directory = config('setting.consumable.image.directory');
                     $destination = Storage::path("{$directory}/" . $filename);
                     $destination_thumb = Storage::path("{$directory}/" . $filename_thumb);
 

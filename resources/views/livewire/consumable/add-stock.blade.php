@@ -1,9 +1,4 @@
 <div>
-    @if ($errors->any())
-        @foreach ($errors->all() as $item)
-            @dump($item)
-        @endforeach
-    @endif
     @if ($asset)
         <div class="-mx-4 my-10 shadow bg-white sm:-mx-6 md:mx-0 md:rounded-lg">
             <form wire:submit.prevent="store">
@@ -26,13 +21,10 @@
                             </div>
                         </div>
 
-                        <x-input.money label="Harga pcs" leading-add-on="Rp" wire:model.lazy="asset.current_price"
-                            :error="$errors->first('asset.current_price')" />
-
                         <div class="flex space-x-4">
                             <div class="w-full">
-                                <x-select label="Sumber dana*" wire:model.lazy="funds_source_id" :list="$fundsLists"
-                                    :error="$errors->first('funds_source_id')" />
+                                <x-select label="Sumber dana*" wire:model.lazy="asset.funds_source_id" :list="$fundsLists"
+                                    :error="$errors->first('asset.funds_source_id')" />
                             </div>
                             <div class="flex flex-col mt-6">
                                 <x-button.secondary onclick="Livewire.emit('openModal', 'funds-source.create')"
@@ -41,6 +33,9 @@
                                 </x-button.secondary>
                             </div>
                         </div>
+
+                        <x-input.money label="Harga pcs" leading-add-on="Rp" wire:model.lazy="asset.current_price"
+                            :error="$errors->first('asset.current_price')" />
 
                         <div>
                             <x-input.date label="Tanggal beli" wire:model.lazy="purchase_at" :error="$errors->first('purchase_at')" />

@@ -15,6 +15,7 @@ class Asset extends Model
 
     protected $fillable = [
         'suplier_id',
+        'funds_source_id',
         'brand_id',
         'barcode',
         'name',
@@ -54,7 +55,7 @@ class Asset extends Model
     public function racks()
     {
         return $this->belongsToMany(Rack::class)
-            ->withPivot(['qty', 'price']);
+            ->withPivot(['qty']);
     }
 
     public function warehouses()

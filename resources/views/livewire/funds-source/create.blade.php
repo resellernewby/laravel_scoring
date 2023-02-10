@@ -1,7 +1,7 @@
 <div>
     <x-modal form-action="store">
         <x-slot name="title">
-            Tambah merek
+            Tambah sumber dana
         </x-slot>
 
         <x-slot name="content">

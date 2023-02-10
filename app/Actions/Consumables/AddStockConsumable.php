@@ -24,8 +24,7 @@ class AddStockConsumable
                 // Klo menambahkan ke rak yang sama
                 if (isset($storedRacks[$rack['id']])) {
                     $item->racks()->updateExistingPivot($rack['id'], [
-                        'qty' => ($rack['qty'] + $storedRacks[$rack['id']]),
-                        'price' => $input['asset']['current_price']
+                        'qty' => ($rack['qty'] + $storedRacks[$rack['id']])
                     ]);
 
                     $item->warehouses()->syncWithoutDetaching($rack['warehouse_id']);
@@ -34,8 +33,7 @@ class AddStockConsumable
                 }
 
                 $item->racks()->attach($rack['id'], [
-                    'qty' => $rack['qty'],
-                    'price' => $input['asset']['current_price']
+                    'qty' => $rack['qty']
                 ]);
 
                 $item->warehouses()->syncWithoutDetaching($rack['warehouse_id']);
@@ -54,7 +52,8 @@ class AddStockConsumable
                 'name' => $suplierName,
                 'status' => 'add stock',
                 'date' => $input['purchase_at'],
-                'funds_source_id' => $input['funds_source_id']
+                'funds_source_id' => $input['asset']['funds_source_id'],
+                'suplier_id' => $input['asset']['suplier_id']
             ]);
 
             // Create Transaction add stock from suplier

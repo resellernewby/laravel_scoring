@@ -14,7 +14,8 @@ class Order extends Model
         'status',
         'date',
         'location',
-        'funds_source_id'
+        'funds_source_id',
+        'suplier_id'
     ];
 
     protected $casts = [

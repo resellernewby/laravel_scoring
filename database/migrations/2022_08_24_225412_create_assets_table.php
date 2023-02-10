@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('suplier_id')->constrained();
+            $table->foreignId('funds_source_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->string('name');
             $table->string('barcode', 50)->unique();

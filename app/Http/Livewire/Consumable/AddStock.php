@@ -17,7 +17,6 @@ class AddStock extends Component
     public Collection $storages;
     public Asset $asset;
     public $rack = [];
-    public $funds_source_id;
     public $purchase_at;
 
     protected $listeners = [

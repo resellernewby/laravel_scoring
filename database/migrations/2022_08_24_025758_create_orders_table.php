@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('location', 50)->nullable();
             $table->foreignId('funds_source_id')->nullable()->constrained();
+            $table->foreignId('suplier_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
