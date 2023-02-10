@@ -53,7 +53,8 @@ class Asset extends Model
 
     public function racks()
     {
-        return $this->belongsToMany(Rack::class);
+        return $this->belongsToMany(Rack::class)
+            ->withPivot(['qty', 'price']);
     }
 
     public function warehouses()

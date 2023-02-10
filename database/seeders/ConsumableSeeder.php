@@ -30,11 +30,11 @@ class ConsumableSeeder extends Seeder
         ]);
 
         $warehouse = Warehouse::with('racks')->inRandomOrder()->first();
-        $consumableAsset->warehouses()->attach($warehouse->id, [
-            'qty' => 1,
+        $consumableAsset->warehouses()->attach($warehouse->id);
+        $consumableAsset->racks()->attach($warehouse->racks->first()->id, [
+            'qty' => 24,
             'price' => fake()->randomNumber(6, true)
         ]);
-        $consumableAsset->racks()->attach($warehouse->racks->first()->id, ['qty' => 1]);
 
         $order = Order::create([
             'name' => 'CV. Rafah',

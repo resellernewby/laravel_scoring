@@ -28,6 +28,7 @@ class Create extends Component
     // public $tag_ids = [];
     public $funds_source_id;
     public $lifetime;
+    public $purchase_at;
 
     protected $listeners = [
         'tagCreated' => '$refresh',

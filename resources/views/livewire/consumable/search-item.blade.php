@@ -20,12 +20,17 @@
                 @foreach ($consumables as $consumable)
                     <li wire:key="consumable-{{ $consumable->id }}" wire:click="selected({{ $consumable->id }})"
                         @if ($loop->last) id="last_record" @endif
-                        class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white"
+                        class="relative group cursor-pointer select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white"
                         role="option" tabindex="-1">
                         <div class="flex items-center">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                alt="" class="h-6 w-6 flex-shrink-0 rounded-full">
-                            <span class="ml-3 truncate">{{ $consumable->name }}</span>
+                            <img src="{{ $consumable->imageFirst?->image_thumb_url }}"
+                                alt="{{ $consumable->imageFirst?->name }}" class="h-14 w-14 flex-shrink-0 rounded">
+                            <div class="ml-3">
+                                <p class="truncate text-lg font-semibold text-gray-700 group-hover:text-white">
+                                    {{ $consumable->name }}</p>
+                                <span
+                                    class="truncate text-gray-500 group-hover:text-white">{{ $consumable->barcode }}</span>
+                            </div>
                         </div>
                     </li>
                 @endforeach
@@ -40,7 +45,7 @@
                                 @if (isset($search))
                                     Data tidak tersedia
                                 @else
-                                    Ketik untuk melihat data
+                                    Ketik untuk menampilkan data
                                 @endif
                             </span>
                         </div>
@@ -55,19 +60,10 @@
     </div>
 
     <script>
-        const lastRecord = document.getElementById('last_record');
-        const options = {
-            root: null,
-            threshold: 1,
-            rootMargin: '0px'
-        }
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    @this.loadMore()
-                }
-            });
-        }, options);
-        observer.observe(lastRecord);
+        window.onscroll = function(ev) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                window.livewire.emit('loadMore');
+            }
+        };
     </script>
 </div>

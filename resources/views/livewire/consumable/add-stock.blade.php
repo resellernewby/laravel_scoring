@@ -1,17 +1,53 @@
 <div>
-    @if ($consumable)
+    @if ($errors->any())
+        @foreach ($errors->all() as $item)
+            @dump($item)
+        @endforeach
+    @endif
+    @if ($asset)
         <div class="-mx-4 my-10 shadow bg-white sm:-mx-6 md:mx-0 md:rounded-lg">
             <form wire:submit.prevent="store">
                 <div class="sm:flex sm:space-x-8 sm:justify-between sm:px-6 sm:py-4 px-3 py-3.5">
                     <div class="w-2/5 flex flex-col space-y-4">
-                        <x-input label="Nama barang" value="{{ $consumable->name }}" disabled />
+                        <x-input label="Nama barang" value="{{ $asset->name }}" disabled />
 
-                        <x-input label="Barcode" value="{{ $consumable->barcode }}" disabled />
+                        <x-input label="Barcode" value="{{ $asset->barcode }}" disabled />
 
-                        <x-input.money label="Harga pcs" leading-add-on="Rp" wire:model.lazy="price"
-                            :error="$errors->first('price')" />
+                        <div class="flex space-x-4">
+                            <div class="w-full">
+                                <x-select label="Suplier*" wire:model.lazy="asset.suplier_id" :list="$suplierLists"
+                                    :error="$errors->first('asset.suplier_id')" />
+                            </div>
+                            <div class="flex flex-col mt-6">
+                                <x-button.secondary onclick="Livewire.emit('openModal', 'suplier.create')"
+                                    class="flex items-center" title="Tambah merek baru">
+                                    <x-icon.plus class="h-5 w-5" />
+                                </x-button.secondary>
+                            </div>
+                        </div>
 
-                        <x-input.date label="Tanggal beli" wire:model.lazy="purchase_at" :error="$errors->first('purchase_at')" />
+                        <x-input.money label="Harga pcs" leading-add-on="Rp" wire:model.lazy="asset.current_price"
+                            :error="$errors->first('asset.current_price')" />
+
+                        <div class="flex space-x-4">
+                            <div class="w-full">
+                                <x-select label="Sumber dana*" wire:model.lazy="funds_source_id" :list="$fundsLists"
+                                    :error="$errors->first('funds_source_id')" />
+                            </div>
+                            <div class="flex flex-col mt-6">
+                                <x-button.secondary onclick="Livewire.emit('openModal', 'funds-source.create')"
+                                    class="flex items-center" title="Tambah sumber dana baru">
+                                    <x-icon.plus class="h-5 w-5" />
+                                </x-button.secondary>
+                            </div>
+                        </div>
+
+                        <div>
+                            <x-input.date label="Tanggal beli" wire:model.lazy="purchase_at" :error="$errors->first('purchase_at')" />
+                            @if ($errors->first('purchase_at'))
+                                <div class="mt-1 text-red-500 text-sm">{{ $errors->first('purchase_at') }}</div>
+                            @endif
+                        </div>
                     </div>
                     <div class="w-3/5 flex flex-col space-y-4 pt-6">
                         @foreach ($storages as $key => $input)

@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('asset_warehouse', function (Blueprint $table) {
             $table->foreignId('asset_id')->constrained('assets');
             $table->foreignId('warehouse_id')->constrained('warehouses');
-            $table->unsignedInteger('qty')->nullable();
-            $table->decimal('price', 14, 0)->nullable()->comment('Harga barang saat input stok');
         });
     }
 

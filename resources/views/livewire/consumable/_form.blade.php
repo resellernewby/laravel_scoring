@@ -53,6 +53,13 @@
 
     <x-input label="Barcode*" wire:model.lazy="asset.barcode" :error="$errors->first('asset.barcode')" />
 
+    <div>
+        <x-input.date label="Tanggal beli" wire:model.lazy="purchase_at" :error="$errors->first('purchase_at')" />
+        @if ($errors->first('purchase_at'))
+            <div class="mt-1 text-red-500 text-sm">{{ $errors->first('purchase_at') }}</div>
+        @endif
+    </div>
+
     @foreach ($storages as $key => $input)
         <div class="bg-gray-50 border-dashed border-2 border-indigo-600 rounded-md p-2">
             <x-select id="rack_{{ $key }}_warehouse_id" label="Gudang penyimpanan*"

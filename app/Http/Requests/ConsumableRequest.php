@@ -39,6 +39,7 @@ class ConsumableRequest extends FormRequest
             'images.*' => ['nullable', 'image', 'max:4096'],
             'spec.*.name' => ['nullable', 'string', 'max:50'],
             'spec.*.value' => ['nullable', 'string', 'max:100'],
+            'purchase_at' => ['required', 'date_format:Y-m-d']
         ];
     }
 
@@ -61,7 +62,9 @@ class ConsumableRequest extends FormRequest
             'tag_ids.required' => 'Kategori harus dipilih!',
             'funds_source_id.required' => 'Sumber dana harus dipilih!',
             'images.*.image' => 'File harus berupa gambar!',
-            'images.*.max' => 'Gambar maksimal 4 MB'
+            'images.*.max' => 'Gambar maksimal 4 MB',
+            'purchase_at.required' => 'Tanggal beli harus diisi!',
+            'purchase_at.date_format' => 'Format tanggal harus YYYY-mm-dd',
         ];
     }
 }

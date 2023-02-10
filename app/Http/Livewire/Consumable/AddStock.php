@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Consumable;
 
+use App\Actions\Consumables\AddStockConsumable;
 use App\Http\Requests\AddStockRequest;
 use App\Models\Asset;
+use App\Models\FundsSource;
 use App\Models\Rack;
+use App\Models\Suplier;
 use App\Models\Warehouse;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -12,9 +15,9 @@ use Livewire\Component;
 class AddStock extends Component
 {
     public Collection $storages;
-    public $consumableID;
+    public Asset $asset;
     public $rack = [];
-    public $price;
+    public $funds_source_id;
     public $purchase_at;
 
     protected $listeners = [
@@ -46,30 +49,34 @@ class AddStock extends Component
         $this->storages->pull($key);
     }
 
-    public function setID($consumableID)
+    public function setID($assetID)
     {
-        $this->consumableID = $consumableID;
+        $this->asset = Asset::find($assetID);
     }
 
     public function render()
     {
         return view('livewire.consumable.add-stock', [
-            'consumable' => $this->consumable,
+            'suplierLists' => $this->suplierLists,
+            'fundsLists' => $this->fundsLists,
             'warehouseLists' => $this->warehouseLists,
             'rackLists' => $this->rackLists
         ]);
     }
 
-    public function store()
+    public function store(AddStockConsumable $addStock)
     {
+        // Validate data
         $validatedData = $this->validate();
+        $validatedData['asset_id'] = $this->asset->id;
 
-        $this->consumable->consumableTransactions()
-            ->create($validatedData['inputs']);
+        // Add Stock
+        $addStock->handle($validatedData);
 
         $this->emit('consumableTable');
-        $this->closeModal();
-        $this->notify('Jumlah barang berhasil ditambahkan');
+        $this->notify('Stok barang berhasil ditambahkan');
+
+        return redirect()->route('consumable.index');
     }
 
     public function rules()
@@ -82,9 +89,14 @@ class AddStock extends Component
         return (new AddStockRequest())->messages();
     }
 
-    public function getConsumableProperty()
+    public function getSuplierListsProperty()
     {
-        return Asset::find($this->consumableID);
+        return Suplier::oldest('name')->pluck('name', 'id');
+    }
+
+    public function getFundsListsProperty()
+    {
+        return FundsSource::oldest('name')->pluck('name', 'id');
     }
 
     public function getWarehouseListsProperty()

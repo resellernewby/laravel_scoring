@@ -28,13 +28,11 @@ class CreateConsumableItem
             $total_qty = 0;
             foreach ($input['rack'] as $rack) {
                 $item->racks()->attach($rack['id'], [
-                    'qty' => $rack['qty']
-                ]);
-
-                $item->warehouses()->attach($rack['warehouse_id'], [
                     'qty' => $rack['qty'],
                     'price' => $input['asset']['current_price']
                 ]);
+
+                $item->warehouses()->attach($rack['warehouse_id']);
 
                 $total_qty += $rack['qty'];
             }
@@ -56,7 +54,7 @@ class CreateConsumableItem
             $order = Order::create([
                 'name' => $item->suplier->name,
                 'status' => 'new item',
-                'date' => now(),
+                'date' => $input['purchase_at'],
                 'funds_source_id' => $input['funds_source_id']
             ]);
 

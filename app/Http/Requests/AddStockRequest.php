@@ -24,10 +24,12 @@ class AddStockRequest extends FormRequest
     public function rules()
     {
         return [
+            'asset.suplier_id' => ['required'],
+            'asset.current_price' => ['required', 'min:3', 'max:20'],
             'rack.*.warehouse_id' => ['required'],
             'rack.*.id' => ['required'],
-            'rack.*.qty' => ['required', 'numeric', 'max:5'],
-            'price' => ['required', 'min:3', 'max:15'],
+            'rack.*.qty' => ['required', 'numeric'],
+            'funds_source_id' => ['required'],
             'purchase_at' => ['required', 'date_format:Y-m-d']
         ];
     }
@@ -35,12 +37,15 @@ class AddStockRequest extends FormRequest
     public function messages()
     {
         return [
-            'rack.*.warehouse_id.required' => 'Gudang harus dipilih!',
-            'rack.*.id.required' => 'Rack harus dipilih!',
-            'rack.*.qty' => 'Qty barang harus diisi!',
-            'price.required' => 'Harga pcs harus diisi!',
-            'price.min' => 'Harga pcs minimal 3 digits',
-            'price.max' => 'Harga pcs maksimal 15 digits',
+            'asset.suplier_id.required' => 'suplier barang harus dipilih!',
+            'asset.current_price.required' => 'Harga item harus diisi!',
+            'asset.current_price.min' => 'Harga minimal 3 digits',
+            'asset.current_price.max' => 'Harga maksimal 20 digits',
+            'rack.*.warehouse_id.required' => 'Gudang penyimpanan harus dipilih!',
+            'rack.*.id.numeric' => 'Rack harus dipilih!',
+            'rack.*.qty.required' => 'Qty harus diisi!',
+            'rack.*.qty.numeric' => 'Qty harus berupa angka!',
+            'funds_source_id.required' => 'Sumber dana harus dipilih!',
             'purchase_at.required' => 'Tanggal beli harus diisi!',
             'purchase_at.date_format' => 'Format tanggal harus YYYY-mm-dd',
         ];

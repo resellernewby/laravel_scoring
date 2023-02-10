@@ -12,6 +12,10 @@ class SearchItem extends Component
     public $totalRecords;
     public $search;
 
+    protected $listeners = [
+        'loadMore'
+    ];
+
     public function loadMore()
     {
         $this->limit += 10;
