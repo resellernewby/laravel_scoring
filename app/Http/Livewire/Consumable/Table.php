@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Consumable;
 
 use App\Models\Asset;
 use App\Models\Brand;
+use App\Models\Cart;
 use Livewire\Component;
 use App\Models\Consumable;
 use App\Models\Tag;
@@ -61,6 +62,21 @@ class Table extends Component
             'consumables' => $this->rows,
             'lists' => $this->lists
         ]);
+    }
+
+    public function addCart($id)
+    {
+        $item = Asset::find($id);
+        if ($item->cart()->where('user_id', auth()->id())->count() > 0) {
+            $item->cart()->increment('qty');
+        } else {
+            $item->cart()->create([
+                'user_id' => auth()->id(),
+                'qty' => 1
+            ]);
+        }
+
+        $this->emit('addToCart');
     }
 
     public function destroy(Consumable $consumable)

@@ -21,9 +21,7 @@
                 </x-dropdown>
             </div>
             <div class="flex items-center space-x-8">
-                <button class="relative inline-block">
-                    <x-icon.o-shopping-cart class="w-6 h-6 text-gray-700 fill-current" />
-                </button>
+                <livewire:cart.index />
 
                 <x-button.primary link="{{ route('consumable.checkin') }}" class="flex whitespace-nowrap items-center">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Check in

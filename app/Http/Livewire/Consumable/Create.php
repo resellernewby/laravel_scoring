@@ -110,12 +110,12 @@ class Create extends Component
 
     public function rules()
     {
-        return (new ConsumableRequest)->rules();
+        return (new ConsumableRequest())->rules();
     }
 
     public function messages()
     {
-        return (new ConsumableRequest)->messages();
+        return (new ConsumableRequest())->messages();
     }
 
     public function getTagListsProperty()

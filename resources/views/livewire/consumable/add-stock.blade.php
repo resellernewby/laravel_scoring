@@ -49,18 +49,19 @@
                             <div class="bg-gray-50 border-dashed border-2 border-indigo-600 rounded-md p-2">
                                 <x-select id="rack_{{ $key }}_warehouse_id" label="Gudang penyimpanan*"
                                     wire:model.lazy="rack.{{ $key }}.warehouse_id" :list="$warehouseLists"
-                                    :error="$errors->first('rack.{{ $key }}.warehouse_id')" />
+                                    :error="$errors->first('rack.{{ $key }}.warehouse_id')" required />
 
                                 <div class="mt-4 flex items-center space-x-4">
                                     <div class="w-3/5">
                                         <x-select id="rack_{{ $key }}" label="Rak*"
                                             wire:model.lazy="rack.{{ $key }}.id" :list="$rackLists[$key] ?? null"
-                                            :error="$errors->first('rack.{{ $key }}.id')" />
+                                            :error="$errors->first('rack.{{ $key }}.id')" required />
                                     </div>
 
                                     <div class="w-2/5">
                                         <x-input id="rack_{{ $key }}_qty" type="number" label="Qty*"
-                                            wire:model.lazy="rack.{{ $key }}.qty" :error="$errors->first('rack.{{ $key }}.qty')" />
+                                            wire:model.lazy="rack.{{ $key }}.qty" :error="$errors->first('rack.{{ $key }}.qty')"
+                                            required />
                                     </div>
                                 </div>
 

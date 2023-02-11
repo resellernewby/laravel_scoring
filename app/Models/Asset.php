@@ -78,6 +78,11 @@ class Asset extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
     public function assetImages()
     {
         return $this->hasMany(AssetImage::class);
