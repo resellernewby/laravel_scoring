@@ -45,9 +45,19 @@ class Index extends Component
 
     public function checkout(CheckoutCartItem $cartItems)
     {
-        foreach ($this->cart as $crt => $rack) {
+        dd($this->cart);
+        foreach ($this->cart as $cartId => $rack) {
+            $error = false;
+            foreach ($rack as $rackId => $rackValue) {
+                if (!$rackValue) {
+                    continue;
+                }
+
+                dd($rackValue);
+            }
             #
         }
+
         $cartItems->handle($this->carts);
     }
 

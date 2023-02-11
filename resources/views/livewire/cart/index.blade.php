@@ -110,8 +110,9 @@
                                                                     <div class="relative flex items-start">
                                                                         <div class="flex h-5 items-center">
                                                                             <input
-                                                                                wire:model.lazy="cart.{{ $cart->id }}.{{ $rack->id }}"
+                                                                                wire:model.lazy="cart.{{ $cart->id }}.rack.{{ $rack->id }}"
                                                                                 type="checkbox"
+                                                                                value="{{ $rack->pivot->qty }}"
                                                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                                                         </div>
                                                                         <div class="ml-3 text-sm">
