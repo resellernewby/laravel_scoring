@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    public $cart = [];
+
     protected $listeners = [
         'addToCart' => '$refresh'
     ];
@@ -43,12 +45,15 @@ class Index extends Component
 
     public function checkout(CheckoutCartItem $cartItems)
     {
+        foreach ($this->cart as $crt => $rack) {
+            #
+        }
         $cartItems->handle($this->carts);
     }
 
     public function getCartsProperty()
     {
-        return Cart::with(['asset'])
+        return Cart::with(['asset.racks.warehouse'])
             ->where('user_id', auth()->id())
             ->get();
     }

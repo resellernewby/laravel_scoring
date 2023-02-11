@@ -49,30 +49,31 @@
                                         @if (count($carts) > 0)
                                             <ul role="list" class="-my-6 divide-y divide-gray-200">
                                                 @foreach ($carts as $cart)
-                                                    <li class="flex py-6">
-                                                        <div
-                                                            class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                            <img src="{{ $cart->asset->imageFirst?->image_thumb_url }}"
-                                                                alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
-                                                                class="h-full w-full object-cover object-center">
-                                                        </div>
-
-                                                        <div class="ml-4 flex flex-1 flex-col">
-                                                            <div>
-                                                                <div
-                                                                    class="flex justify-between text-base font-medium text-gray-900">
-                                                                    <h3>
-                                                                        <a href="#">{{ $cart->asset->name }}</a>
-                                                                    </h3>
-                                                                </div>
-                                                                <p class="mt-1 text-sm text-gray-500">
-                                                                    {{ $cart->asset->brand->name }}
-                                                                </p>
+                                                    <li class="flex flex-col py-6">
+                                                        <div class="flex">
+                                                            <div
+                                                                class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                <img src="{{ $cart->asset->imageFirst?->image_thumb_url }}"
+                                                                    alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
+                                                                    class="h-full w-full object-cover object-center">
                                                             </div>
-                                                            <div class="flex flex-1 items-end justify-between text-sm">
-                                                                <div class="flex items-center space-x-2">
-                                                                    <span class="text-gray-500">Qty</span>
-                                                                    <div class="inline-flex items-center">
+
+                                                            <div class="ml-4 flex flex-1 flex-col">
+                                                                <div>
+                                                                    <div
+                                                                        class="flex justify-between text-base font-medium text-gray-900">
+                                                                        <h3>
+                                                                            <a
+                                                                                href="#">{{ $cart->asset->name }}</a>
+                                                                        </h3>
+                                                                    </div>
+                                                                    <p class="mt-1 text-sm text-gray-500">
+                                                                        {{ $cart->asset->brand->name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    class="flex flex-1 items-center justify-between text-sm">
+                                                                    <div class="flex items-center">
                                                                         <button
                                                                             wire:click="decrement({{ $cart->id }})"
                                                                             class="relative inline-block"
@@ -89,14 +90,43 @@
                                                                                 class="w-6 h-6 text-indigo-700" />
                                                                         </button>
                                                                     </div>
-                                                                </div>
 
-                                                                <div class="flex">
-                                                                    <button wire:click="remove({{ $cart->id }})"
-                                                                        type="button"
-                                                                        class="font-medium text-indigo-600 hover:text-indigo-500">Hapus</button>
+                                                                    <div class="flex">
+                                                                        <button wire:click="remove({{ $cart->id }})"
+                                                                            class="inline-flex items-center group text-gray-500">
+                                                                            <x-icon.o-trash
+                                                                                class="w-6 h-6 group-hover:text-indigo-700" />
+                                                                            <span
+                                                                                class="group-hover:text-indigo-700">Hapus</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+
+                                                        <div class="mt-4">
+                                                            <fieldset class="grid grid-cols-2 gap-2">
+                                                                @foreach ($cart->asset->racks as $rack)
+                                                                    <div class="relative flex items-start">
+                                                                        <div class="flex h-5 items-center">
+                                                                            <input
+                                                                                wire:model.lazy="cart.{{ $cart->id }}.{{ $rack->id }}"
+                                                                                type="checkbox"
+                                                                                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                                                        </div>
+                                                                        <div class="ml-3 text-sm">
+                                                                            <label class="font-medium text-gray-700">
+                                                                                {{ $rack->name }}
+                                                                                <span class="text-gray-500">(Qty:
+                                                                                    {{ $rack->pivot->qty }})</span>
+                                                                            </label>
+                                                                            <p class="text-gray-500 text-sm">
+                                                                                {{ $rack->warehouse->name }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </fieldset>
                                                         </div>
                                                     </li>
                                                 @endforeach
