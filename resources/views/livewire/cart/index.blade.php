@@ -21,20 +21,20 @@
         <div class="fixed overflow-hidden" x-cloak>
             <div class="absolute inset-0 overflow-hidden">
                 <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                    {{-- @click.away="open = false" bisa ditambahkan disini --}}
                     <div x-show="open"
                         x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
                         x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                         x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
                         x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
                         class="pointer-events-auto w-screen max-w-md"
-                        x-description="Slide-over panel, show/hide based on slide-over state."
-                        @click.away="open = false">
+                        x-description="Slide-over panel, show/hide based on slide-over state.">
                         <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                             <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                                 <div class="flex items-start justify-between">
                                     <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Keranjang
                                     </h2>
-                                    <div class="ml-3 flex h-7 items-center">
+                                    <div class="ml-3 flex h-7 items-center" wire:loading.remove wire:target="checkout">
                                         <button x-on:click="open = false" type="button"
                                             class="-m-2 p-2 text-gray-400 hover:text-gray-500">
                                             <span class="sr-only">Close panel</span>
@@ -48,7 +48,7 @@
                                     <div class="flow-root">
                                         @if (count($carts) > 0)
                                             <ul role="list" class="-my-6 divide-y divide-gray-200">
-                                                @foreach ($carts as $cart)
+                                                @foreach ($carts as $key => $cart)
                                                     <li class="flex flex-col py-6">
                                                         <div class="flex">
                                                             <div
@@ -110,7 +110,7 @@
                                                                     <div class="relative flex items-start">
                                                                         <div class="flex h-5 items-center">
                                                                             <input
-                                                                                wire:model.lazy="cart.{{ $cart->id }}.rack.{{ $rack->id }}"
+                                                                                wire:model.lazy="item.{{ $key }}.{{ $rack->id }}"
                                                                                 type="checkbox"
                                                                                 value="{{ $rack->pivot->qty }}"
                                                                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
@@ -142,11 +142,29 @@
                             </div>
 
                             <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
-                                <div class="mt-6">
-                                    <a wire:click.prevent="checkout" href="#"
-                                        class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                                <div class="grid grid-cols-1">
+                                    <x-input wire:model.lazy="taken_by" placeholder="Nama pengambil"
+                                        :error="$errors->first('taken_by')" />
                                 </div>
-                                <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                <div class="mt-6">
+                                    <a wire:click.prevent="checkout" wire:loading.remove wire:target="checkout"
+                                        href="#"
+                                        class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                                    <x-button.primary wire:loading.flex wire:target="checkout"
+                                        class="inline-flex items-center justify-center" disabled>
+                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                        Processing...
+                                    </x-button.primary>
+                                </div>
+                                <div class="mt-6 flex justify-center text-center text-sm text-gray-500"
+                                    wire:loading.remove wire:target="checkout">
                                     <p>
                                         atau
                                         <button x-on:click="open = false" type="button"
