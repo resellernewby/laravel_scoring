@@ -64,6 +64,10 @@ class Index extends Component
             return;
         }
 
+        if (empty($this->carts)) {
+            return;
+        }
+
         foreach ($this->item as $key => $rack) {
             $error = true;
             $totalRackValue = 0;

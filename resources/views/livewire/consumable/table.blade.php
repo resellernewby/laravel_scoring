@@ -36,7 +36,7 @@
                 </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Merek
+                    Barcode
                 </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
@@ -60,14 +60,19 @@
                 @forelse ($consumables as $consumable)
                     <tr wire:loading.class.delay="opacity-50" wire:key="consumable-{{ $consumable->id }}">
                         <td
-                            class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                            <div class="flex items-center space-x-2 font-semibold text-gray-900">
+                            class="relative py-4 pl-4 sm:pl-6 pr-3 {{ !$loop->first ? 'border-t border-transparent' : '' }}">
+                            <div class="flex items-center space-x-2 font-semibold text-gray-800">
                                 <img src="{{ $consumable->imageFirst?->image_thumb_url }}" class="w-14 h-14 rounded-md"
                                     alt="{{ $consumable->imageFirst?->name }}">
-                                <span>{{ $consumable->name }}</span>
+                                <div>
+                                    <a href="" class="hover:text-indigo-700">{{ $consumable->name }}</a>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        {{ $consumable->brand->name }}
+                                    </p>
+                                </div>
                             </div>
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                                <span>{{ $consumable?->brand?->name }}/Rp{{ number_format($consumable->current_price) }}</span>
+                                <span>Rp{{ number_format($consumable->current_price) }}</span>
                                 <span class="hidden sm:inline"> · </span>
                                 <span>{{ $consumable->consumable->qty }}</span>
                             </div>
@@ -77,7 +82,7 @@
                         </td>
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            {{ $consumable?->brand?->name }}
+                            {{ $consumable->barcode }}
                         </td>
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
@@ -88,18 +93,24 @@
                             {{ $consumable->consumable->qty }}
                         </td>
                         <td
-                            class="px-3 py-3.5 text-sm text-gray-500 font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            @foreach ($consumable->racks as $rack)
-                                {{ $rack->warehouse?->name }}
-                                ({{ $rack->name }})
-                                <br>
-                            @endforeach
+                            class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            <div class="space-y-4">
+                                @foreach ($consumable->racks as $rack)
+                                    <div>
+                                        <span class="text-sm font-semibold">{{ $rack->name }} (Qty:
+                                            {{ $rack->pivot->qty }})</span>
+                                        <p class="text-xs text-gray-500">
+                                            {{ $rack->warehouse?->name }}
+                                        </p>
+                                    </div>
+                                @endforeach
+                            </div>
                         </td>
                         <td
                             class="px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             @foreach ($consumable->tags as $tag)
                                 <span
-                                    class="inline-flex rounded-full bg-gray-100 px-2 text-xs font-semibold leading-5 text-gray-800">{{ $tag->name }}</span>
+                                    class="inline-flex rounded-full bg-indigo-100 px-2 text-xs font-semibold leading-5 text-indigo-800">{{ $tag->name }}</span>
                             @endforeach
                         </td>
                         <td

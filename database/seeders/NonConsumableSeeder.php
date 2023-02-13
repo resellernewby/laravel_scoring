@@ -30,7 +30,8 @@ class NonConsumableSeeder extends Seeder
             'barcode' => fake()->isbn13(),
             'name' => fake()->randomElement(['laptop', 'komputer', 'meja', 'TV', 'kursi', 'AC', 'Kulkas', 'Lemari', 'Rack', 'Server', 'Motor', 'Mobil', 'Kipas', 'HP', 'Kamera', 'Drone', 'Lighting', 'Tripod']),
             'type' => 'non-consumable',
-            'current_price' => 500000
+            'current_price' => 500000,
+            'purchase_at' => now()
         ]);
 
 

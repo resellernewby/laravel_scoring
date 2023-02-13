@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('barcode', 50)->unique();
             $table->enum('type', ['consumable', 'non-consumable']);
             $table->decimal('current_price', 14, 0)->default(0);
+            $table->dateTime('purchase_at')->nullable();
             $table->timestamps();
         });
     }

@@ -68,6 +68,7 @@ class AddStock extends Component
         // Validate data
         $validatedData = $this->validate();
         $validatedData['asset_id'] = $this->asset->id;
+        $validatedData['asset']['purchase_at'] = $this->purchase_at;
 
         // Add Stock
         $addStock->handle($validatedData);

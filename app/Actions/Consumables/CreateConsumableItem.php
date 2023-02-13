@@ -53,7 +53,7 @@ class CreateConsumableItem
             $order = Order::create([
                 'name' => $item->suplier->name,
                 'status' => 'new item',
-                'date' => $input['purchase_at'],
+                'date' => $input['asset']['purchase_at'],
                 'funds_source_id' => $input['asset']['funds_source_id'],
                 'suplier_id' => $input['asset']['suplier_id']
             ]);

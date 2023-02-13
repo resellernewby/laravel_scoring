@@ -29,7 +29,8 @@ class ConsumableSeeder extends Seeder
             'barcode' => fake()->isbn13(),
             'name' => fake()->randomElement(['catridge', 'spidol', 'tissue', 'kertas', 'tinta']),
             'type' => 'consumable',
-            'current_price' => fake()->randomNumber(5, true)
+            'current_price' => fake()->randomNumber(5, true),
+            'purchase_at' => '2023-02-08'
         ]);
 
         $warehouse = Warehouse::with('racks')->inRandomOrder()->first();

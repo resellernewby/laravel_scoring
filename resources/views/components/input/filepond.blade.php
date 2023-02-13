@@ -2,6 +2,7 @@
     'label' => false,
     'error' => false,
     'helpText' => false,
+    'uploadedFile' => [],
 ])
 
 <div wire:ignore x-data x-init="() => {
@@ -22,6 +23,26 @@
             revert: (filename, load) => {
                 @this.removeUpload('{{ $attributes->whereStartsWith('wire:model')->first() }}', filename, load)
             },
+            load: (source, load, error, progress, abort, headers) => {
+                var myRequest = new Request(source);
+                fetch(myRequest).then((res) => {
+                    return res.blob();
+                }).then(load);
+            },
+        },
+        files: [
+            @if(isset($attributes['uploadedFile']))
+            @foreach($uploadedFiles as $pathFile) {
+                source: '{{ $pathFile }}',
+                options: {
+                    type: 'local',
+                },
+            },
+            @endforeach
+            @endif
+        ],
+        onremovefile: (error, file) => {
+            @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', null);
         }
     });
 }">

@@ -55,9 +55,9 @@
     <x-input label="Barcode*" wire:model.lazy="asset.barcode" :error="$errors->first('asset.barcode')" />
 
     <div>
-        <x-input.date label="Tanggal beli" wire:model.lazy="purchase_at" :error="$errors->first('purchase_at')" />
-        @if ($errors->first('purchase_at'))
-            <div class="mt-1 text-red-500 text-sm">{{ $errors->first('purchase_at') }}</div>
+        <x-input.date label="Tanggal beli" wire:model.lazy="asset.purchase_at" :error="$errors->first('asset.purchase_at')" />
+        @if ($errors->first('asset.purchase_at'))
+            <div class="mt-1 text-red-500 text-sm">{{ $errors->first('asset.purchase_at') }}</div>
         @endif
     </div>
 
@@ -98,9 +98,9 @@
     </x-button.secondary>
 </div>
 <div class="w-3/5">
-    <x-input.filepond label="Gambar (maks. 6 item)" wire:model="images" multiple allowImagePreview
+    <x-input.filepond label="Gambar (maks. 6 item)" wire:model.lazy="images" multiple allowImagePreview
         imagePreviewMaxHeight="200" allowFileTypeValidation acceptedFileTypes="['image/*']" allowFileSizeValidation
-        maxFileSize="4mb" maxFiles="6" />
+        maxFileSize="4mb" maxFiles="6" :uploadedFile="isset($uploadedFile) ? $uploadedFile : ''" />
 
     <x-input.addon-right label="Masa pakai" wire:model.lazy="lifetime" leading-add-on="Bulan"
         help-text="Masa pakai dalam bulan" :error="$errors->first('lifetime')" />

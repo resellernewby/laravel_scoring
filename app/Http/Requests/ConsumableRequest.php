@@ -30,6 +30,7 @@ class ConsumableRequest extends FormRequest
             'asset.barcode' => ['required', 'unique:assets,barcode'],
             'asset.current_price' => ['required', 'min:3', 'max:20'],
             'asset.funds_source_id' => ['required'],
+            'asset.purchase_at' => ['required', 'date_format:Y-m-d'],
             'rack.*.warehouse_id' => ['required'],
             'rack.*.id' => ['required'],
             'rack.*.qty' => ['required', 'numeric'],
@@ -38,8 +39,7 @@ class ConsumableRequest extends FormRequest
             'lifetime' => ['nullable'],
             'images.*' => ['nullable', 'image', 'max:4096'],
             'spec.*.name' => ['nullable', 'string', 'max:50'],
-            'spec.*.value' => ['nullable', 'string', 'max:100'],
-            'purchase_at' => ['required', 'date_format:Y-m-d']
+            'spec.*.value' => ['nullable', 'string', 'max:100']
         ];
     }
 
@@ -56,15 +56,15 @@ class ConsumableRequest extends FormRequest
             'asset.current_price.min' => 'Harga minimal 3 digits',
             'asset.current_price.max' => 'Harga maksimal 20 digits',
             'asset.funds_source_id.required' => 'Sumber dana harus dipilih!',
+            'asset.purchase_at.required' => 'Tanggal beli harus diisi!',
+            'asset.purchase_at.date_format' => 'Format tanggal harus YYYY-mm-dd',
             'rack.*.warehouse_id.required' => 'Gudang penyimpanan harus dipilih!',
             'rack.*.id.numeric' => 'Rack harus dipilih!',
             'rack.*.qty.required' => 'Qty harus diisi!',
             'rack.*.qty.numeric' => 'Qty harus berupa angka!',
             'tag_ids.required' => 'Kategori harus dipilih!',
             'images.*.image' => 'File harus berupa gambar!',
-            'images.*.max' => 'Gambar maksimal 4 MB',
-            'purchase_at.required' => 'Tanggal beli harus diisi!',
-            'purchase_at.date_format' => 'Format tanggal harus YYYY-mm-dd',
+            'images.*.max' => 'Gambar maksimal 4 MB'
         ];
     }
 }

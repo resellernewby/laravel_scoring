@@ -20,7 +20,8 @@ class Asset extends Model
         'barcode',
         'name',
         'type',
-        'current_price'
+        'current_price',
+        'purchase_at'
     ];
 
     protected $search = [
@@ -76,6 +77,11 @@ class Asset extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function fundsSource()
+    {
+        return $this->belongsTo(FundsSource::class);
     }
 
     public function cart()

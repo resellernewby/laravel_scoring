@@ -23,6 +23,22 @@ class AssetImage extends Model
         return $query->where('main', true);
     }
 
+    public function getImageUrlAttribute()
+    {
+        $imageUrl = asset('images/no_image.png');
+
+        if (!is_null($this->name)) {
+            $directory = config('setting.consumable.image.directory');
+            $imagePath = Storage::exists("{$directory}/" . $this->name);
+
+            if ($imagePath) {
+                $imageUrl = Storage::url("{$directory}/" . $this->name);
+            }
+        }
+
+        return $imageUrl;
+    }
+
     public function getImageThumbUrlAttribute()
     {
         $imageUrl = asset('images/no_image.png');
