@@ -2,7 +2,7 @@
     'label' => false,
     'error' => false,
     'helpText' => false,
-    'uploadedFile' => [],
+    'uploadedFiles' => [],
 ])
 
 <div wire:ignore x-data x-init="() => {
@@ -31,7 +31,7 @@
             },
         },
         files: [
-            @if(isset($attributes['uploadedFile']))
+            @if(count($uploadedFiles) > 0)
             @foreach($uploadedFiles as $pathFile) {
                 source: '{{ $pathFile }}',
                 options: {

@@ -20,7 +20,7 @@ class Edit extends Component
 
     public Collection $storages;
     public Collection $specifications;
-    public $uploadedFile = [];
+    public $uploadedFiles = [];
     public $images = [];
     public $asset = [];
     public $spec = [];
@@ -43,9 +43,7 @@ class Edit extends Component
         $this->tag_ids = $asset->tags->first()?->id;
         $this->lifetime = $asset->consumable->lifetime;
         foreach ($this->asset->assetImages as $image) {
-            $this->uploadedFile[] = [
-                $image->image_url
-            ];
+            array_push($this->uploadedFiles, $image->image_url);
         }
 
         $this->rack = $this->asset->racks->map(function ($item, $key) {

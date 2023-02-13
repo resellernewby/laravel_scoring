@@ -100,7 +100,7 @@
 <div class="w-3/5">
     <x-input.filepond label="Gambar (maks. 6 item)" wire:model.lazy="images" multiple allowImagePreview
         imagePreviewMaxHeight="200" allowFileTypeValidation acceptedFileTypes="['image/*']" allowFileSizeValidation
-        maxFileSize="4mb" maxFiles="6" :uploadedFile="isset($uploadedFile) ? $uploadedFile : ''" />
+        maxFileSize="4mb" maxFiles="6" :uploadedFiles="isset($uploadedFiles) ? $uploadedFiles : []" />
 
     <x-input.addon-right label="Masa pakai" wire:model.lazy="lifetime" leading-add-on="Bulan"
         help-text="Masa pakai dalam bulan" :error="$errors->first('lifetime')" />
