@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Consumable;
 
+use App\Actions\Consumables\UpdateConsumableItem;
 use App\Http\Requests\ConsumableRequest;
 use App\Models\Asset;
 use App\Models\Brand;
@@ -44,6 +45,7 @@ class Edit extends Component
         $this->lifetime = $asset->consumable->lifetime;
         foreach ($this->asset->assetImages as $image) {
             array_push($this->uploadedFiles, $image->image_url);
+            array_push($this->images, $image->id);
         }
 
         $this->rack = $this->asset->racks->map(function ($item, $key) {
@@ -116,21 +118,19 @@ class Edit extends Component
         ]);
     }
 
-    public function update()
+    public function update(UpdateConsumableItem $updateConsumable)
     {
-        $this->validate();
-        $this->inputs->save();
-        if (is_array($this->subracks) && count($this->subracks) > 0) {
-            $this->inputs->subracks()->sync($this->subracks);
-        }
+        dd($this->images);
+        // Validate data
+        $validatedData = $this->validate();
 
-        if (is_array($this->tags) && count($this->tags) > 0) {
-            $this->inputs->tags()->sync($this->tags);
-        }
+        // Create Item
+        $updateConsumable->handle($this->asset['id'], $validatedData);
 
         $this->emit('consumableTable');
-        $this->closeModal();
-        $this->notify('Item barang telah diupdate!');
+        $this->notify('Barang ' . $this->asset['name'] . ' berhasil diupdate');
+
+        return redirect()->route('consumable.index');
     }
 
     public function rules()
