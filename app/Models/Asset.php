@@ -28,6 +28,10 @@ class Asset extends Model
         'barcode', 'name'
     ];
 
+    protected $casts = [
+        'purchase_at' => 'date'
+    ];
+
     public function consumable()
     {
         return $this->hasOne(Consumable::class);

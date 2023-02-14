@@ -45,7 +45,6 @@ class Edit extends Component
         $this->lifetime = $asset->consumable->lifetime;
         foreach ($this->asset->assetImages as $image) {
             array_push($this->uploadedFiles, $image->image_url);
-            array_push($this->images, $image->id);
         }
 
         $this->rack = $this->asset->racks->map(function ($item, $key) {
@@ -120,7 +119,6 @@ class Edit extends Component
 
     public function update(UpdateConsumableItem $updateConsumable)
     {
-        dd($this->images);
         // Validate data
         $validatedData = $this->validate();
 
@@ -135,7 +133,10 @@ class Edit extends Component
 
     public function rules()
     {
-        return (new ConsumableRequest())->rules();
+        $rules = (new ConsumableRequest())->rules();
+        $rules['asset.barcode'] = ['required', 'unique:assets,barcode,' . $this->asset['id']];
+
+        return $rules;
     }
 
     public function messages()

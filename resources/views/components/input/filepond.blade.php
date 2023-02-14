@@ -42,7 +42,7 @@
             @endif
         ],
         onremovefile: (error, file) => {
-            @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', file);
+            @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', null);
         }
     });
 }">

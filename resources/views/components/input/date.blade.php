@@ -26,8 +26,15 @@
         </label>
     @endif
     <div class="mt-1">
-        <input x-data x-init="flatpickr($refs.input, {{ json_encode((object) $options) }});" x-ref="input" {{ $attributes }} type="text"
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+        <input x-data="{
+            value: @entangle($attributes->wire('model')),
+            instance: undefined,
+            init() {
+                $watch('value', value => this.instance.setDate(value, false));
+                this.instance = flatpickr(this.$refs.input, {{ json_encode((object) $options) }});
+            }
+        }" x-ref="input" x-bind:value="value" type="text"
+            {{ $attributes->merge(['class' => 'shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md']) }} />
     </div>
 
     @if ($error)

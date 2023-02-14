@@ -4,20 +4,23 @@ namespace App\Actions\Consumables;
 
 use App\Models\Asset;
 use App\Models\Order;
+use App\Traits\Numeric;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateConsumableItem
 {
+    use Numeric;
+
     public function handle($id, $input)
     {
-        dd($input['spec']);
         DB::transaction(function () use ($id, $input) {
             $input['asset']['current_price'] = $this->getNumeric($input['asset']['current_price']);
 
             // Update Item
-            $item = Asset::find($id)->update($input['asset']);
+            $item = Asset::find($id);
+            $item->update($input['asset']);
 
             // sync to category
             $item->tags()->syncWithoutDetaching($input['tag_ids']);
@@ -48,16 +51,16 @@ class UpdateConsumableItem
                 }
             }
 
-            // create order from suplier
+            // create order from updater
             $order = Order::create([
-                'name' => auth()->name,
+                'name' => auth()->user()->name,
                 'status' => 'update item',
                 'date' => $input['asset']['purchase_at'],
                 'funds_source_id' => $input['asset']['funds_source_id'],
                 'suplier_id' => $input['asset']['suplier_id']
             ]);
 
-            // create transaction from suplier
+            // create transaction from updater
             $item->transactions()->create([
                 'order_id' => $order->id,
                 'qty' => $total_qty,
