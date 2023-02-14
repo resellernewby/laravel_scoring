@@ -6,7 +6,7 @@
                 <dt class="text-base font-normal text-gray-900">Stok tersedia</dt>
                 <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
-                        {{-- {{ $available }} --}}
+                        {{ $consumables->available }}
                         <span class="ml-1 font-medium text-gray-500">Jenis</span>
                     </div>
                 </dd>
@@ -16,7 +16,7 @@
                 <dt class="text-base font-normal text-gray-900">Stok segera habis</dt>
                 <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
-                        {{-- {{ $low }} --}}
+                        {{ $consumables->lowstock }}
                         <span class="ml-1 font-medium text-gray-500">Jenis</span>
                     </div>
                 </dd>
@@ -26,7 +26,7 @@
                 <dt class="text-base font-normal text-gray-900">Stok habis</dt>
                 <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
-                        {{-- {{ $out }} --}}
+                        {{ $consumables->outstock }}
                         <span class="ml-1 font-medium text-gray-500">Jenis</span>
                     </div>
                 </dd>

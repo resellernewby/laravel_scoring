@@ -28,7 +28,7 @@ class UpdateConsumableItem
             // asign to racks and warehouses
             $total_qty = 0;
             foreach ($input['rack'] as $rack) {
-                $item->racks()->sync($rack['id'], [
+                $item->racks()->syncWithPivotValues($rack['id'], [
                     'qty' => $rack['qty']
                 ]);
 
@@ -38,7 +38,7 @@ class UpdateConsumableItem
             }
 
             // Update consumable item
-            $item->consumable()->create([
+            $item->consumable()->update([
                 'qty' => $total_qty,
                 'lifetime' => $input['lifetime']
             ]);
