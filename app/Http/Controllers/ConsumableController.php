@@ -16,9 +16,15 @@ class ConsumableController extends Controller
         return view('dash.consumable.checkin');
     }
 
-    public function show()
+    public function show(Asset $asset)
     {
-        return view('dash.consumable.show');
+        if (!$asset) {
+            abort(404);
+        }
+
+        return view('dash.consumable.show', [
+            'asset' => $asset
+        ]);
     }
 
     public function edit(Asset $asset)

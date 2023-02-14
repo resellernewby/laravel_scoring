@@ -65,7 +65,8 @@
                                 <img src="{{ $consumable->imageFirst?->image_thumb_url }}" class="w-14 h-14 rounded-md"
                                     alt="{{ $consumable->imageFirst?->name }}">
                                 <div>
-                                    <a href="" class="hover:text-indigo-700">{{ $consumable->name }}</a>
+                                    <a href="{{ route('consumable.show', $consumable->id) }}"
+                                        class="hover:text-indigo-700">{{ $consumable->name }}</a>
                                     <p class="mt-1 text-sm text-gray-500">
                                         {{ $consumable->brand->name }}
                                     </p>

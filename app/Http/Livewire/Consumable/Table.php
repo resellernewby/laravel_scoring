@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Consumable;
 
 use App\Models\Asset;
 use App\Models\Brand;
-use App\Models\Cart;
 use Livewire\Component;
 use App\Models\Consumable;
 use App\Models\Tag;
