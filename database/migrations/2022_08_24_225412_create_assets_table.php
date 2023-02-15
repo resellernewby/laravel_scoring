@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreignId('funds_source_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->string('name');
-            $table->string('barcode', 50)->unique();
+            $table->string('barcode', 15)->unique()->nullable();
+            $table->string('model', 50)->unique()->nullable();
             $table->enum('type', ['consumable', 'non-consumable']);
             $table->decimal('current_price', 14, 0)->default(0);
             $table->dateTime('purchase_at')->nullable();

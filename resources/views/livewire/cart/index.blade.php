@@ -146,6 +146,18 @@
                                     <x-input wire:model.lazy="taken_by" placeholder="Nama pengambil"
                                         :error="$errors->first('taken_by')" />
                                 </div>
+                                <div class="flex space-x-4 mt-4">
+                                    <div class="w-full">
+                                        <x-select wire:model.lazy="location_id" placeholder="Lokasi distribusi"
+                                            :list="$locationLists" :error="$errors->first('location_id')" />
+                                    </div>
+                                    <div class="flex flex-col mt-1">
+                                        <x-button.secondary onclick="Livewire.emit('openModal', 'location.create')"
+                                            class="flex items-center" title="Tambah lokasi baru">
+                                            <x-icon.plus class="h-5 w-5" />
+                                        </x-button.secondary>
+                                    </div>
+                                </div>
                                 <div class="mt-6">
                                     <a wire:click.prevent="checkout" wire:loading.class.remove="hover:bg-indigo-700"
                                         wire:loading.attr="disabled" href="#"

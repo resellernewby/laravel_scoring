@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Asset;
 
-class ConsumableController extends Controller
+class NonConsumableController extends Controller
 {
     public function index()
     {
-        return view('consumable.index');
+        return view('non-consumable.index');
     }
 
     public function checkin()
     {
-        return view('consumable.checkin');
+        return view('non-consumable.checkin');
     }
 
     public function show(Asset $asset)
@@ -22,7 +22,7 @@ class ConsumableController extends Controller
             abort(404);
         }
 
-        return view('consumable.show', [
+        return view('non-consumable.show', [
             'asset' => $asset
         ]);
     }
@@ -33,7 +33,7 @@ class ConsumableController extends Controller
             abort(404);
         }
 
-        return view('consumable.edit', [
+        return view('non-consumable.edit', [
             'asset' => $asset
         ]);
     }

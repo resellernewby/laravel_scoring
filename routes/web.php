@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ConsumableController;
+use App\Http\Controllers\NonConsumableController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\TagController;
@@ -31,7 +32,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/consumables/{asset}', [ConsumableController::class, 'show'])->name('consumable.show');
         Route::get('/consumables/{asset}/edit', [ConsumableController::class, 'edit'])->name('consumable.edit');
         Route::get('/asset/images/{asset}', [AssetController::class, 'images'])->name('asset.images');
-        Route::get('/assets', [AssetController::class, 'index'])->name('asset');
+        Route::get('/non-consumables', [NonConsumableController::class, 'index'])->name('non-consumable.index');
         Route::get('/histories', HistoryController::class)->name('history');
         Route::get('/warehouses', WarehouseController::class)->name('warehouse');
         Route::get('/tags', TagController::class)->name('tag');

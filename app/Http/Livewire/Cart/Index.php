@@ -3,26 +3,19 @@
 namespace App\Http\Livewire\Cart;
 
 use App\Actions\Consumables\CheckoutCartItem;
+use App\Http\Requests\CheckoutRequest;
 use App\Models\Cart;
+use App\Models\Location;
 use Livewire\Component;
 
 class Index extends Component
 {
     public $item = [];
     public $taken_by;
+    public $location_id;
 
     protected $listeners = [
         'addToCart' => '$refresh'
-    ];
-
-    protected $rules = [
-        'taken_by' => ['required', 'string', 'max:150']
-    ];
-
-    protected $messages = [
-        'taken_by.required' => 'Nama pengambil harus diisi!',
-        'taken_by.string' => 'Nama pengambil harus berupa huruf',
-        'taken_by.max' => 'Nama pengambil maksimal 150 karakter'
     ];
 
     public function increment(Cart $cart)
@@ -53,7 +46,8 @@ class Index extends Component
     public function render()
     {
         return view('livewire.cart.index', [
-            'carts' => $this->carts
+            'carts' => $this->carts,
+            'locationLists' => $this->locationLists
         ]);
     }
 
@@ -101,7 +95,7 @@ class Index extends Component
 
         $this->validate();
 
-        $cartItems->handle($this->carts, $this->taken_by);
+        $cartItems->handle($this->carts, $this->taken_by, $this->location_id);
 
         $this->emit('consumableTable');
         $this->notify('Chekout barang berhasil diproses');
@@ -109,10 +103,25 @@ class Index extends Component
         return redirect()->route('consumable.index');
     }
 
+    public function rules()
+    {
+        return (new CheckoutRequest())->rules();
+    }
+
+    public function messages()
+    {
+        return (new CheckoutRequest())->messages();
+    }
+
     public function getCartsProperty()
     {
         return Cart::with(['asset.racks.warehouse'])
             ->where('user_id', auth()->id())
             ->get();
+    }
+
+    public function getLocationListsProperty()
+    {
+        return Location::oldest('name')->pluck('name', 'id');
     }
 }

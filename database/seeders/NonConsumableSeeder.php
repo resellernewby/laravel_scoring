@@ -28,6 +28,7 @@ class NonConsumableSeeder extends Seeder
             'suplier_id' => $suplier_id,
             'brand_id' => Brand::pluck('id')->random(),
             'barcode' => fake()->isbn13(),
+            'model' => fake()->regexify('[A-Z]{5}[0-4]{3}'),
             'name' => fake()->randomElement(['laptop', 'komputer', 'meja', 'TV', 'kursi', 'AC', 'Kulkas', 'Lemari', 'Rack', 'Server', 'Motor', 'Mobil', 'Kipas', 'HP', 'Kamera', 'Drone', 'Lighting', 'Tripod']),
             'type' => 'non-consumable',
             'current_price' => 500000,

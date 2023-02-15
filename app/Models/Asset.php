@@ -18,6 +18,7 @@ class Asset extends Model
         'funds_source_id',
         'brand_id',
         'barcode',
+        'model',
         'name',
         'type',
         'current_price',
@@ -25,7 +26,7 @@ class Asset extends Model
     ];
 
     protected $search = [
-        'barcode', 'name'
+        'barcode', 'model', 'name'
     ];
 
     protected $casts = [
