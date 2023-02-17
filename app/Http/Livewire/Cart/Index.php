@@ -15,7 +15,8 @@ class Index extends Component
     public $location_id;
 
     protected $listeners = [
-        'addToCart' => '$refresh'
+        'addToCart' => '$refresh',
+        'locationCreated' => '$refresh'
     ];
 
     public function increment(Cart $cart)

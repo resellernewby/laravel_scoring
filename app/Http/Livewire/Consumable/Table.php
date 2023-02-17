@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Consumable;
 use App\Models\Asset;
 use App\Models\Brand;
 use Livewire\Component;
-use App\Models\Consumable;
 use App\Models\Tag;
 use App\Models\Warehouse;
 use Livewire\WithPagination;
@@ -78,17 +77,17 @@ class Table extends Component
         $this->emit('addToCart');
     }
 
-    public function destroy(Consumable $consumable)
+    public function destroy(Asset $asset)
     {
         $this->isDelete = false;
 
-        if ($consumable->consumableTransactions()->count() > 0) {
-            $this->notify($consumable->name . ' tidak bisa dihapus!', 'error');
+        if ($asset->consumable->consumableTransactions()->count() > 0) {
+            $this->notify($asset->name . ' punya riwayat pemakaian, tidak bisa dihapus!', 'warning');
             return;
         }
 
-        $consumable->delete();
-        $this->notify($consumable->name . ' berhasil dihapus');
+        $asset->delete();
+        $this->notify($asset->name . ' berhasil dihapus');
     }
 
     public function getListsProperty()

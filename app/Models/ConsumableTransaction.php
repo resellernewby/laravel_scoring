@@ -16,4 +16,18 @@ class ConsumableTransaction extends Model
         'date',
         'user'
     ];
+
+    protected $casts = [
+        'date' => 'date'
+    ];
+
+    public function consumable()
+    {
+        return $this->belongsTo(Consumable::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

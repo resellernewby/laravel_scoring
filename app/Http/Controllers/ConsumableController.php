@@ -16,11 +16,17 @@ class ConsumableController extends Controller
         return view('consumable.checkin');
     }
 
-    public function show(Asset $asset)
+    public function show($asset)
     {
-        if (!$asset) {
-            abort(404);
-        }
+        $asset = Asset::query()
+            ->with([
+                'consumable.consumableTransactions',
+                'brand',
+                'suplier',
+                'fundsSource',
+                'racks.warehouse'
+            ])
+            ->findOrFail($asset);
 
         return view('consumable.show', [
             'asset' => $asset

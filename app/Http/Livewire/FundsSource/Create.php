@@ -16,7 +16,7 @@ class Create extends ModalComponent
 
     protected $messages = [
         'inputs.name.required' => 'Sumber dana harus diisi!',
-        'inputs.name.max' => 'Sumber dana lebih dari 50 karakter',
+        'inputs.name.max' => 'Sumber dana maksimal 50 karakter',
         'inputs.code.required' => 'Kode harus diisi!',
         'inputs.code.unique' => 'Kode sudah tersedia!',
         'inputs.code.max' => 'Kode maksimal 50 karakter'
