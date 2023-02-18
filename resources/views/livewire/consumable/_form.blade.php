@@ -7,7 +7,7 @@
         </div>
         <div class="flex flex-col mt-6">
             <x-button.secondary onclick="Livewire.emit('openModal', 'tag.create')" class="flex items-center"
-                title="Tambah merek baru">
+                title="Tambah kategori baru">
                 <x-icon.plus class="h-5 w-5" />
             </x-button.secondary>
         </div>

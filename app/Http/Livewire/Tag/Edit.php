@@ -36,6 +36,6 @@ class Edit extends ModalComponent
 
         $this->emit('tagTable');
         $this->closeModal();
-        $this->notify('Tag berhasil diupdate');
+        $this->notify('Kategori berhasil diupdate');
     }
 }

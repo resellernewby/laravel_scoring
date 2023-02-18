@@ -5,7 +5,17 @@
         </x-slot>
 
         <x-slot name="content">
-            @include('livewire.tag._form')
+            <div class="flex space-x-4">
+                <div class="w-full">
+                    <x-select label="Kategori*" wire:model.lazy="ids" :list="$tagLists" :error="$errors->first('ids')" />
+                </div>
+                <div class="flex flex-col mt-6">
+                    <x-button.secondary onclick="Livewire.emit('openModal', 'tag.create')" class="flex items-center"
+                        title="Tambah kategori baru">
+                        <x-icon.plus class="h-5 w-5" />
+                    </x-button.secondary>
+                </div>
+            </div>
         </x-slot>
 
         <x-slot name="footer">
@@ -16,8 +26,8 @@
                 Tambahkan
             </x-button.primary>
             <x-button.primary wire:loading.flex wire:target="store" class="inline-flex items-center" disabled>
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                         stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor"

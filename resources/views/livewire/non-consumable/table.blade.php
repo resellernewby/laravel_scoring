@@ -36,15 +36,11 @@
                 </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Barcode
+                    Model
                 </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                     Harga pcs
-                </th>
-                <th scope="col"
-                    class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Qty
                 </th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Gudang
@@ -52,51 +48,52 @@
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Kategori
                 </th>
+                <th scope="col"
+                    class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
+                    <span class="sr-only">Penggunaan</span>
+                </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
                 </th>
             </x-slot>
             <x-slot name="body">
-                @forelse ($consumables as $consumable)
-                    <tr wire:loading.class.delay="opacity-50" wire:key="consumable-{{ $consumable->id }}">
+                @forelse ($assets as $asset)
+                    <tr wire:loading.class.delay="opacity-50" wire:key="consumable-{{ $asset->id }}">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div class="flex items-center space-x-2 font-semibold text-gray-800">
-                                <img src="{{ $consumable->imageFirst?->image_thumb_url }}" class="w-14 h-14 rounded-md"
-                                    alt="{{ $consumable->imageFirst?->name }}">
+                                <img src="{{ $asset->imageFirst?->image_thumb_url }}" class="w-14 h-14 rounded-md"
+                                    alt="{{ $asset->imageFirst?->name }}">
                                 <div>
-                                    <a href="{{ route('consumable.show', $consumable->id) }}"
-                                        class="hover:text-indigo-700">{{ $consumable->name }}</a>
+                                    <a href="{{ route('consumable.show', $asset->id) }}"
+                                        class="hover:text-indigo-700">{{ $asset->name }} dfagadgag adgasdg adgaasdgag
+                                        dgdghhd</a>
                                     <p class="mt-1 text-sm text-gray-500">
-                                        {{ $consumable->brand->name }}
+                                        {{ $asset->brand->name }}
                                     </p>
                                 </div>
                             </div>
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                                <span>Rp{{ number_format($consumable->current_price) }}</span>
+                                <span>Rp{{ number_format($asset->current_price) }}</span>
                                 <span class="hidden sm:inline"> · </span>
-                                <span>{{ $consumable->consumable->qty }}</span>
+                                <span>{{ $asset->nonConsumables->count() }}</span>
                             </div>
                             @if (!$loop->first)
                                 <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
                             @endif
                         </td>
                         <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            {{ $consumable->barcode }}
-                        </td>
-                        <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            Rp{{ number_format($consumable->current_price) }}
-                        </td>
-                        <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            {{ $consumable->consumable->qty }}
+                            {{ $asset->model }}
+                        </td>
+                        <td
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            Rp{{ number_format($asset->current_price) }}
                         </td>
                         <td
                             class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             <div class="space-y-4">
-                                @foreach ($consumable->racks as $rack)
+                                @foreach ($asset->racks as $rack)
                                     <div>
                                         <span class="text-sm font-semibold">{{ $rack->name }} (Qty:
                                             {{ $rack->pivot->qty }})</span>
@@ -109,13 +106,19 @@
                         </td>
                         <td
                             class="px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            @foreach ($consumable->tags as $tag)
+                            @foreach ($asset->tags as $tag)
                                 <x-badge color="purple" text="{{ $tag->name }}" />
                             @endforeach
                         </td>
                         <td
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            <x-badge color="purple" text="25 tersedia" />
+                            <x-badge color="green" text="15 digunakan" />
+                            <x-badge color="gray" text="2 rusak" />
+                        </td>
+                        <td
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                            @include('livewire.consumable._actions')
+                            @include('livewire.non-consumable._actions')
                             @if (!$loop->first)
                                 <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>
                             @endif
@@ -135,7 +138,7 @@
         </x-table>
 
         <div class="sm:px-6 sm:py-4 px-3 py-3.5">
-            {{ $consumables->links() }}
+            {{ $assets->links() }}
         </div>
     </div>
 </div>

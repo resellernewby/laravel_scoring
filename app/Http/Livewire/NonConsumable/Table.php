@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Consumable;
+namespace App\Http\Livewire\NonConsumable;
 
 use App\Models\Asset;
 use App\Models\Brand;
@@ -22,7 +22,7 @@ class Table extends Component
     ];
 
     protected $listeners = [
-        'consumableTable' => '$refresh',
+        'nonConsumableTable' => '$refresh',
         'taggedToAsset' => '$refresh'
     ];
 
@@ -30,7 +30,7 @@ class Table extends Component
     {
         return Asset::query()
             ->with([
-                'consumable',
+                'nonConsumables',
                 'brand',
                 'racks.warehouse',
                 'tags',
@@ -46,7 +46,7 @@ class Table extends Component
                 'warehouses',
                 fn ($q) => $q->where('id', $this->filters['warehouse'])
             ))
-            ->where('type', 'consumable')
+            ->where('type', 'non-consumable')
             ->latest('id');
     }
 
@@ -57,8 +57,8 @@ class Table extends Component
 
     public function render()
     {
-        return view('livewire.consumable.table', [
-            'consumables' => $this->rows,
+        return view('livewire.non-consumable.table', [
+            'assets' => $this->rows,
             'lists' => $this->lists
         ]);
     }
