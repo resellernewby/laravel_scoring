@@ -66,8 +66,7 @@
                                     alt="{{ $asset->imageFirst?->name }}">
                                 <div>
                                     <a href="{{ route('consumable.show', $asset->id) }}"
-                                        class="hover:text-indigo-700">{{ $asset->name }} dfagadgag adgasdg adgaasdgag
-                                        dgdghhd</a>
+                                        class="hover:text-indigo-700">{{ $asset->name }}</a>
                                     <p class="mt-1 text-sm text-gray-500">
                                         {{ $asset->brand->name }}
                                     </p>
