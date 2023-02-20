@@ -33,6 +33,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/consumables/{asset}/edit', [ConsumableController::class, 'edit'])->name('consumable.edit');
         Route::get('/asset/images/{asset}', [AssetController::class, 'images'])->name('asset.images');
         Route::get('/non-consumables', [NonConsumableController::class, 'index'])->name('non-consumable.index');
+        Route::get('/non-consumables/check-in', [NonConsumableController::class, 'checkin'])->name('non-consumable.checkin');
         Route::get('/histories', HistoryController::class)->name('history');
         Route::get('/warehouses', WarehouseController::class)->name('warehouse');
         Route::get('/tags', TagController::class)->name('tag');

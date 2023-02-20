@@ -23,6 +23,6 @@
     @endif
 
     @if ($helpText)
-        <p class="mt-1 text-xs text-gray-500">{{ $helpText }}</p>
+        <span class="mt-1 text-xs text-gray-500">{{ $helpText }}</span>
     @endif
 </div>
