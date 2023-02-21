@@ -28,7 +28,7 @@ class AssetImage extends Model
         $imageUrl = asset('images/no_image.png');
 
         if (!is_null($this->name)) {
-            $directory = config('setting.consumable.image.directory');
+            $directory = config('setting.asset.image.directory');
             $imagePath = Storage::exists("{$directory}/" . $this->name);
 
             if ($imagePath) {
@@ -44,7 +44,7 @@ class AssetImage extends Model
         $imageUrl = asset('images/no_image.png');
 
         if (!is_null($this->name)) {
-            $directory = config('setting.consumable.image.directory');
+            $directory = config('setting.asset.image.directory');
             $ext = substr(strrchr($this->name, '.'), 1);
             $thumbnail = str_replace(".{$ext}", "_thumb.{$ext}", $this->name);
             $imagePath = Storage::exists("{$directory}/" . $thumbnail);

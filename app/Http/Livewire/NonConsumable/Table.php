@@ -22,7 +22,7 @@ class Table extends Component
     ];
 
     protected $listeners = [
-        'nonConsumableTable' => '$refresh',
+        'nonconsumableTable' => '$refresh',
         'taggedToAsset' => '$refresh'
     ];
 

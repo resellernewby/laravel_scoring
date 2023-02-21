@@ -1,6 +1,8 @@
 <div class="w-2/5 flex flex-col space-y-4">
     <x-input label="Nama barang*" wire:model.lazy="asset.name" :error="$errors->first('asset.name')" />
 
+    <x-input label="Model barang*" wire:model.lazy="asset.model" :error="$errors->first('asset.model')" />
+
     <div class="flex space-x-4">
         <div class="w-full">
             <x-select label="Kategori*" wire:model.lazy="tag_ids" :list="$tagLists" :error="$errors->first('tag_ids')" />
@@ -61,19 +63,24 @@
         @endif
     </div>
 
-    <x-input.addon-right label="Masa ekonomis" wire:model.lazy="economic_age" leading-add-on="Bulan"
-        help-text="Masa ekonomis dalam bulan" :error="$errors->first('economic_age')" />
+    <x-input.addon-right label="Masa ekonomis" wire:model.lazy="nonconsumable.economic_age" leading-add-on="Bulan"
+        help-text="Masa ekonomis dalam bulan" :error="$errors->first('nonconsumable.economic_age')" />
 
-    <x-input.money label="Nilai residu" leading-add-on="Rp" wire:model.lazy="residual_value" :error="$errors->first('residual_value')"
-        help-text="Harga/nilai sisa aset yang sudah berakhir umur ekonomisnya" />
+    <x-input.money label="Nilai residu" leading-add-on="Rp" wire:model.lazy="nonconsumable.residual_value"
+        :error="$errors->first('nonconsumable.residual_value')" help-text="Harga/nilai sisa aset yang sudah berakhir umur ekonomisnya" />
 
-    <div>
+    {{-- <div>
         <label class="block text-sm font-medium text-gray-700">Kondisi barang</label>
         <div class="mt-1 flex space-x-8 items-center">
-            <x-input.radio label="Baru" wire:model.lazy="condition" :error="$errors->first('condition')" />
-            <x-input.radio label="Bekas" wire:model.lazy="condition" :error="$errors->first('condition')" />
+            <x-input.radio label="Baru" wire:model.lazy="condition" value="new" :error="$errors->first('nonconsumable.condition')" />
+            <x-input.radio label="Bekas" wire:model.lazy="condition" value="second" :error="$errors->first('nonconsumable.condition')" />
         </div>
-    </div>
+    </div> --}}
+
+    <x-input.addon-right label="Masa garansi" wire:model.lazy="nonconsumable.warranty_period" leading-add-on="Bulan"
+        help-text="Masa garansi dalam bulan" :error="$errors->first('nonconsumable.warranty_period')" />
+
+    <x-input label="Penyedia garansi" wire:model.lazy="nonconsumable.warranty_provider" :error="$errors->first('nonconsumable.warranty_provider')" />
 </div>
 <div class="w-3/5">
     <x-input.filepond label="Gambar (maks. 6 item)" wire:model.lazy="images" multiple allowImagePreview

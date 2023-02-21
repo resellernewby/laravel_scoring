@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\NonConsumable;
 
-use App\Actions\Consumables\CreateConsumableItem;
-use App\Http\Requests\ConsumableRequest;
+use App\Actions\NonConsumables\CreateNonConsumableItem;
+use App\Http\Requests\NonConsumableRequest;
 use App\Models\Brand;
 use App\Models\FundsSource;
 use App\Models\Rack;
@@ -22,12 +22,12 @@ class Create extends Component
     public Collection $specifications;
     public $images = [];
     public $asset = [];
+    public $nonconsumable = [];
     public $spec = [];
     public $rack = [];
     public $tag_ids;
     // public $tag_ids = [];
     public $funds_source_id;
-    public $economic_age;
 
     protected $listeners = [
         'tagCreated' => '$refresh',
@@ -93,28 +93,27 @@ class Create extends Component
         ]);
     }
 
-    public function store(CreateConsumableItem $consumable)
+    public function store(CreateNonConsumableItem $nonconsumable)
     {
         // Validate data
         $validatedData = $this->validate();
+        $validatedData['nonconsumable']['purchase_date'] = $validatedData['asset']['purchase_at'];
+        $validatedData['nonconsumable']['price'] = $validatedData['asset']['current_price'];
 
         // Create Item
-        $consumable->handle($validatedData);
+        $result = $nonconsumable->handle($validatedData);
 
-        $this->emit('consumableTable');
-        $this->notify('Barang baru berhasil ditambahkan');
-
-        return redirect()->route('consumable.index');
+        $this->emit('openModal', 'non-consumable.update-serial', ['asset' => $result->id]);
     }
 
     public function rules()
     {
-        return (new ConsumableRequest())->rules();
+        return (new NonConsumableRequest())->rules();
     }
 
     public function messages()
     {
-        return (new ConsumableRequest())->messages();
+        return (new NonConsumableRequest())->messages();
     }
 
     public function getTagListsProperty()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Consumables;
+namespace App\Actions\NonConsumables;
 
 use App\Models\Asset;
 use App\Models\Order;
@@ -9,14 +9,20 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class CreateConsumableItem
+class CreateNonConsumableItem
 {
     use Numeric;
 
     public function handle($input)
     {
-        DB::transaction(function () use ($input) {
+        DB::beginTransaction();
+        try {
             $input['asset']['current_price'] = $this->getNumeric($input['asset']['current_price']);
+            $input['asset']['type'] = 'non-consumable';
+            $input['nonconsumable']['price'] = $this->getNumeric($input['nonconsumable']['price']);
+            $input['nonconsumable']['condition'] = 'excellent';
+            $input['nonconsumable']['user'] = 'Tersedia di gudang';
+            $input['nonconsumable']['current_status'] = 'In stock';
 
             // Create Item
             $item = Asset::create($input['asset']);
@@ -36,13 +42,12 @@ class CreateConsumableItem
                 $total_qty += $rack['qty'];
             }
 
-            // create consumable item
-            $item->consumable()->create([
-                'qty' => $total_qty,
-                'lifetime' => $input['lifetime']
-            ]);
+            // create non consumable item
+            for ($i = 1; $i <= $total_qty; $i++) {
+                $item->nonConsumables()->create($input['nonconsumable']);
+            }
 
-            // consumable specification
+            // non consumable specification
             if (!empty($input['spec'])) {
                 foreach ($input['spec'] as $spec) {
                     $item->assetSpecifications()->create($spec);
@@ -97,6 +102,13 @@ class CreateConsumableItem
 
                 $item->assetImages()->createmany($collectImage);
             }
-        });
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+
+        return $item;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'consumable' => [
+    'asset' => [
         'image' => [
-            'directory' => 'consumables',
+            'directory' => 'assets',
             'width' => 500,
             'thumbnail' => [
                 'width' => 150,

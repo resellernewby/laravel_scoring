@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Consumables;
+namespace App\Actions\NonConsumables;
 
 use App\Models\Asset;
 use App\Models\Order;
@@ -9,56 +9,58 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class CreateConsumableItem
+class UpdateNonConsumableItem
 {
     use Numeric;
 
-    public function handle($input)
+    public function handle($id, $input)
     {
-        DB::transaction(function () use ($input) {
+        DB::transaction(function () use ($id, $input) {
             $input['asset']['current_price'] = $this->getNumeric($input['asset']['current_price']);
 
-            // Create Item
-            $item = Asset::create($input['asset']);
+            // Update Item
+            $item = Asset::find($id);
+            $item->update($input['asset']);
 
-            // asign to category
-            $item->tags()->attach($input['tag_ids']);
+            // sync to category
+            $item->tags()->syncWithoutDetaching($input['tag_ids']);
 
             // asign to racks and warehouses
             $total_qty = 0;
             foreach ($input['rack'] as $rack) {
-                $item->racks()->attach($rack['id'], [
+                $item->racks()->syncWithPivotValues($rack['id'], [
                     'qty' => $rack['qty']
                 ]);
 
-                $item->warehouses()->attach($rack['warehouse_id']);
+                $item->warehouses()->sync($rack['warehouse_id']);
 
                 $total_qty += $rack['qty'];
             }
 
-            // create consumable item
-            $item->consumable()->create([
+            // Update consumable item
+            $item->consumable()->update([
                 'qty' => $total_qty,
                 'lifetime' => $input['lifetime']
             ]);
 
-            // consumable specification
+            // consumable update specification
+            $item->assetSpecifications()->delete();
             if (!empty($input['spec'])) {
                 foreach ($input['spec'] as $spec) {
                     $item->assetSpecifications()->create($spec);
                 }
             }
 
-            // create order from suplier
+            // create order from updater
             $order = Order::create([
-                'name' => $item->suplier->name,
-                'status' => 'new item',
+                'name' => auth()->user()->name,
+                'status' => 'update item',
                 'date' => $input['asset']['purchase_at'],
                 'funds_source_id' => $input['asset']['funds_source_id'],
                 'suplier_id' => $input['asset']['suplier_id']
             ]);
 
-            // create transaction from suplier
+            // create transaction from updater
             $item->transactions()->create([
                 'order_id' => $order->id,
                 'qty' => $total_qty,
@@ -68,7 +70,7 @@ class CreateConsumableItem
             //Save images
             if (!empty($input['images'])) {
                 $collectImage = [];
-                $directory = config('setting.asset.image.directory');
+                $directory = config('setting.consumable.image.directory');
                 if (!is_dir(Storage::path($directory))) {
                     mkdir(Storage::path($directory), 0755, true);
                 }
@@ -80,11 +82,11 @@ class CreateConsumableItem
                     $destination = Storage::path("{$directory}/" . $filename);
                     $destination_thumb = Storage::path("{$directory}/" . $filename_thumb);
 
-                    Image::make($image->getRealPath())->resize(config('setting.asset.image.width'), null, function ($constraint) {
+                    Image::make($image->getRealPath())->resize(config('setting.consumable.image.width'), null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save($destination);
 
-                    Image::make($image->getRealPath())->resize(config('setting.asset.image.thumbnail.width'), config('setting.asset.image.thumbnail.width'), function ($constraint) {
+                    Image::make($image->getRealPath())->resize(config('setting.consumable.image.thumbnail.width'), config('setting.consumable.image.thumbnail.width'), function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     })->save($destination_thumb);
