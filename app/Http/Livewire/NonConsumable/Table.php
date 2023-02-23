@@ -36,6 +36,11 @@ class Table extends Component
                 'tags',
                 'imageFirst'
             ])
+            ->withCount([
+                'nonConsumables as available' => fn ($query) => $query->where('current_status', 'in stock'),
+                'nonConsumables as used' => fn ($query) => $query->where('current_status', 'in use'),
+                'nonConsumables as damaged' => fn ($query) => $query->where('current_status', 'damaged'),
+            ])
             ->when($this->search, fn ($query) => $query->search($this->search))
             ->when($this->filters['tag'], fn ($query) => $query->whereHas(
                 'tags',

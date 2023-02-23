@@ -108,11 +108,17 @@
                                 <x-badge color="purple" text="{{ $tag->name }}" />
                             @endforeach
                         </td>
-                        <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            <x-badge color="purple" text="25 tersedia" />
-                            <x-badge color="green" text="15 digunakan" />
-                            <x-badge color="gray" text="2 rusak" />
+                        <td x-data
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 text-right lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            <x-badge color="blue" text="{{ $asset->available }}" x-tooltip.raw="Stok tersedia">
+                                <x-icon.desktop class="h-4 w-4 mr-1" />
+                            </x-badge>
+                            <x-badge color="green" text="{{ $asset->used }}" x-tooltip.raw="Digunakan">
+                                <x-icon.desktop-used class="h-4 w-4 mr-1" />
+                            </x-badge>
+                            <x-badge color="red" text="{{ $asset->damaged }}" x-tooltip.raw="Rusak">
+                                <x-icon.desktop-off class="h-4 w-4 mr-1" />
+                            </x-badge>
                         </td>
                         <td
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">

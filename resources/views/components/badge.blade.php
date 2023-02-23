@@ -35,6 +35,8 @@
     }
 @endphp
 
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $colors }}">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $colors }}"
+    {{ $attributes }}>
+    {{ $slot }}
     {{ $text }}
 </span>

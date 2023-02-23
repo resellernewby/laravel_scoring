@@ -7,8 +7,8 @@ import * as FilePond from 'filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import Tooltip from "@ryangjchandler/alpine-tooltip";
 
-Alpine.plugin(mask);
 FilePond.registerPlugin(FilePondPluginImagePreview);
 FilePond.registerPlugin(FilePondPluginFileValidateSize);
 FilePond.registerPlugin(FilePondPluginFileValidateType);
@@ -16,5 +16,7 @@ FilePond.registerPlugin(FilePondPluginFileValidateType);
 window.flatpickr = flatpickr;
 window.Choices = Choices;
 window.FilePond = FilePond;
+Alpine.plugin(mask);
+Alpine.plugin(Tooltip);
 window.Alpine = Alpine;
 Alpine.start();
