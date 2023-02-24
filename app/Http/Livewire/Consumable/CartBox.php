@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Cart;
+namespace App\Http\Livewire\Consumable;
 
 use App\Actions\Consumables\CheckoutCartItem;
 use App\Http\Requests\CheckoutRequest;
@@ -8,7 +8,7 @@ use App\Models\Cart;
 use App\Models\Location;
 use Livewire\Component;
 
-class Index extends Component
+class CartBox extends Component
 {
     public $item = [];
     public $taken_by;
@@ -46,7 +46,7 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.cart.index', [
+        return view('livewire.consumable.cart-box', [
             'carts' => $this->carts,
             'locationLists' => $this->locationLists
         ]);
@@ -117,6 +117,7 @@ class Index extends Component
     public function getCartsProperty()
     {
         return Cart::with(['asset.racks.warehouse'])
+            ->whereHas('asset', fn ($q) => $q->where('type', 'consumable'))
             ->where('user_id', auth()->id())
             ->get();
     }

@@ -56,7 +56,6 @@ class NonConsumableSeeder extends Seeder
 
         $asset->nonConsumables()->createMany([
             [
-                'location_id' => Location::pluck('id')->random(),
                 'user' => fake()->name(),
                 'serial' => fake()->ean13(),
                 'economic_age' => fake()->randomDigit(),
@@ -69,7 +68,6 @@ class NonConsumableSeeder extends Seeder
                 'warranty_provider' => 'ABc'
             ],
             [
-                'location_id' => Location::pluck('id')->random(),
                 'user' => fake()->name(),
                 'serial' => fake()->ean13(),
                 'economic_age' => fake()->randomDigit(),

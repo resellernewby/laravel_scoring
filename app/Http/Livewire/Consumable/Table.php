@@ -65,7 +65,12 @@ class Table extends Component
 
     public function addCart($id)
     {
-        $item = Asset::find($id);
+        $item = Asset::where('type', 'consumable')->find($id);
+        if (!$item) {
+            $this->notify('Data tidak ditemukan');
+            return;
+        }
+
         if ($item->cart()->where('user_id', auth()->id())->count() > 0) {
             $item->cart()->increment('qty');
         } else {

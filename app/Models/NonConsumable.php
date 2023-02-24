@@ -10,7 +10,9 @@ class NonConsumable extends Model
     use HasFactory;
 
     protected $fillable = [
-        'location_id',
+        'asset_id',
+        'non_consumable_id',
+        'non_consumable_type',
         'user',
         'serial',
         'economic_age',
@@ -23,6 +25,10 @@ class NonConsumable extends Model
         'warranty_provider'
     ];
 
+    protected $casts = [
+        'purchase_date' => 'date'
+    ];
+
     public function asset()
     {
         return $this->belongsTo(Asset::class);
@@ -33,8 +39,8 @@ class NonConsumable extends Model
         return $this->hasMany(NonConsumableTransaction::class);
     }
 
-    public function location()
+    public function nonConsumable()
     {
-        return $this->belongsTo(Location::class);
+        return $this->morphTo();
     }
 }

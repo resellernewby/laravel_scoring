@@ -3,7 +3,7 @@
         <x-icon.o-eye class="h-4 w-4 mr-1" /> Tampilkan
     </x-button.primary>
     <x-table.actions>
-        <a href="{{ route('consumable.edit', $asset->id) }}"
+        <a href="{{ route('non-consumable.edit', $asset->id) }}"
             class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
             Edit
         </a>
@@ -14,7 +14,7 @@
             </span>
             <span wire:loading wire:target="addMoreTags({{ $asset->id }})">Processing...</span>
         </div>
-        <a href="{{ route('consumable.show', $asset->id) }}"
+        <a href="{{ route('non-consumable.show', $asset->id) }}"
             class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
             Detail
         </a>

@@ -26,6 +26,7 @@ class ConsumableController extends Controller
                 'fundsSource',
                 'racks.warehouse'
             ])
+            ->where('type', 'consumable')
             ->findOrFail($asset);
 
         return view('consumable.show', [
@@ -33,11 +34,11 @@ class ConsumableController extends Controller
         ]);
     }
 
-    public function edit(Asset $asset)
+    public function edit($asset)
     {
-        if (!$asset) {
-            abort(404);
-        }
+        $asset = Asset::query()
+            ->where('type', 'consumable')
+            ->findOrFail($asset);
 
         return view('consumable.edit', [
             'asset' => $asset

@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('non_consumables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id')->constrained();
-            $table->foreignId('location_id')->nullable()->constrained();
+            // $table->foreignId('location_id')->nullable()->constrained();
+            $table->nullableMorphs('non_consumable');
             $table->string('user', 150);
             $table->string('serial', 50)->nullable();
             $table->unsignedInteger('economic_age')->nullable();
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->string('current_status', 50);
             $table->dateTime('purchase_date')->nullable();
             $table->unsignedInteger('warranty_period')->nullable()->comment('dalam bulan');
-            $table->string('warranty_provider', 50);
+            $table->string('warranty_provider', 50)->nullable();
             $table->timestamps();
         });
     }

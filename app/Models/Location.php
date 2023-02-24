@@ -13,4 +13,9 @@ class Location extends Model
         'name',
         'address'
     ];
+
+    public function nonConsumables()
+    {
+        return $this->morphMany(NonConsumable::class, 'non_consumable');
+    }
 }

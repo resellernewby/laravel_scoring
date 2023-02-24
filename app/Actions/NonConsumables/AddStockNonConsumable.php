@@ -5,13 +5,24 @@ namespace App\Actions\NonConsumables;
 use App\Models\Asset;
 use App\Models\Order;
 use App\Models\Suplier;
+use App\Traits\Numeric;
 use Illuminate\Support\Facades\DB;
 
 class AddStockNonConsumable
 {
+    use Numeric;
+
     public function handle($input)
     {
         DB::transaction(function () use ($input) {
+            $input['asset']['current_price'] = $this->getNumeric($input['asset']['current_price']);
+            $input['nonconsumable']['price'] = $this->getNumeric($input['nonconsumable']['price']);
+            $input['nonconsumable']['residual_value'] = $this->getNumeric(isset($input['nonconsumable']['residual_value']) ? $input['nonconsumable']['residual_value'] : 0);
+            $input['nonconsumable']['condition'] = 'excellent';
+            $input['nonconsumable']['user'] = 'Tersedia di gudang';
+            $input['nonconsumable']['current_status'] = 'in stock';
+            $input['nonconsumable']['non_consumable_type'] = Rack::class;
+
             // First Asset
             $item = Asset::with(['suplier', 'racks'])->find($input['asset_id']);
             $suplierName = $item->suplier->name;
@@ -21,6 +32,13 @@ class AddStockNonConsumable
             $storedRacks = $item->racks->pluck('pivot.qty', 'id')->toArray();
             foreach ($input['rack'] as $rack) {
                 $sum_qty += $rack['qty'];
+
+                // create non consumable item
+                $input['nonconsumable']['non_consumable_id'] = $rack['id'];
+                for ($i = 1; $i <= $rack['qty']; $i++) {
+                    $item->nonConsumables()->create($input['nonconsumable']);
+                }
+
                 // Klo menambahkan ke rak yang sama
                 if (isset($storedRacks[$rack['id']])) {
                     $item->racks()->updateExistingPivot($rack['id'], [
@@ -38,9 +56,6 @@ class AddStockNonConsumable
 
                 $item->warehouses()->syncWithoutDetaching($rack['warehouse_id']);
             }
-
-            // Update Total Qty in consumable
-            $item->consumable()->increment('qty', $sum_qty);
 
             // Create Order add stock from suplier
             if ($input['asset']['suplier_id'] != $item->suplier_id) {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\NonConsumable;
 
-use App\Actions\Consumables\AddStockConsumable;
-use App\Http\Requests\AddStockRequest;
+use App\Actions\NonConsumables\AddStockNonConsumable;
+use App\Http\Requests\NonConsumableAddStockRequest;
 use App\Models\Asset;
 use App\Models\FundsSource;
 use App\Models\Rack;
@@ -17,7 +17,7 @@ class AddStock extends Component
     public Collection $storages;
     public Asset $asset;
     public $rack = [];
-    public $purchase_at;
+    public $nonconsumable = [];
 
     protected $listeners = [
         'selectedItem' => 'setID'
@@ -63,30 +63,31 @@ class AddStock extends Component
         ]);
     }
 
-    public function store(AddStockConsumable $addStock)
+    public function store(AddStockNonConsumable $addStock)
     {
         // Validate data
         $validatedData = $this->validate();
         $validatedData['asset_id'] = $this->asset->id;
-        $validatedData['asset']['purchase_at'] = $this->purchase_at;
+        $validatedData['asset']['purchase_at'] = $validatedData['nonconsumable']['purchase_date'];
+        $validatedData['nonconsumable']['price'] = $validatedData['asset']['current_price'];
 
         // Add Stock
         $addStock->handle($validatedData);
 
-        $this->emit('consumableTable');
+        $this->emit('nonConsumableTable');
         $this->notify('Stok barang berhasil ditambahkan');
 
-        return redirect()->route('consumable.index');
+        return redirect()->route('non-consumable.index');
     }
 
     public function rules()
     {
-        return (new AddStockRequest())->rules();
+        return (new NonConsumableAddStockRequest())->rules();
     }
 
     public function messages()
     {
-        return (new AddStockRequest())->messages();
+        return (new NonConsumableAddStockRequest())->messages();
     }
 
     public function getSuplierListsProperty()

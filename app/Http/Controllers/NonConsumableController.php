@@ -16,22 +16,29 @@ class NonConsumableController extends Controller
         return view('non-consumable.checkin');
     }
 
-    public function show(Asset $asset)
+    public function show($asset)
     {
-        if (!$asset) {
-            abort(404);
-        }
+        $asset = Asset::query()
+            ->with([
+                'consumable.consumableTransactions',
+                'brand',
+                'suplier',
+                'fundsSource',
+                'racks.warehouse'
+            ])
+            ->where('type', 'non-consumable')
+            ->findOrFail($asset);
 
         return view('non-consumable.show', [
             'asset' => $asset
         ]);
     }
 
-    public function edit(Asset $asset)
+    public function edit($asset)
     {
-        if (!$asset) {
-            abort(404);
-        }
+        $asset = Asset::query()
+            ->where('type', 'non-consumable')
+            ->findOrFail($asset);
 
         return view('non-consumable.edit', [
             'asset' => $asset

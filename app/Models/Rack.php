@@ -23,4 +23,9 @@ class Rack extends Model
     {
         return $this->belongsToMany(Asset::class);
     }
+
+    public function nonConsumables()
+    {
+        return $this->morphMany(NonConsumable::class, 'non_consumable');
+    }
 }

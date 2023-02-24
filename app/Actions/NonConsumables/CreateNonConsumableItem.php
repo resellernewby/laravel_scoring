@@ -4,6 +4,7 @@ namespace App\Actions\NonConsumables;
 
 use App\Models\Asset;
 use App\Models\Order;
+use App\Models\Rack;
 use App\Traits\Numeric;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
@@ -20,9 +21,11 @@ class CreateNonConsumableItem
             $input['asset']['current_price'] = $this->getNumeric($input['asset']['current_price']);
             $input['asset']['type'] = 'non-consumable';
             $input['nonconsumable']['price'] = $this->getNumeric($input['nonconsumable']['price']);
+            $input['nonconsumable']['residual_value'] = $this->getNumeric($input['nonconsumable']['residual_value']);
             $input['nonconsumable']['condition'] = 'excellent';
             $input['nonconsumable']['user'] = 'Tersedia di gudang';
-            $input['nonconsumable']['current_status'] = 'In stock';
+            $input['nonconsumable']['current_status'] = 'in stock';
+            $input['nonconsumable']['non_consumable_type'] = Rack::class;
 
             // Create Item
             $item = Asset::create($input['asset']);
@@ -39,12 +42,13 @@ class CreateNonConsumableItem
 
                 $item->warehouses()->attach($rack['warehouse_id']);
 
-                $total_qty += $rack['qty'];
-            }
+                // create non consumable item
+                $input['nonconsumable']['non_consumable_id'] = $rack['id'];
+                for ($i = 1; $i <= $rack['qty']; $i++) {
+                    $item->nonConsumables()->create($input['nonconsumable']);
+                }
 
-            // create non consumable item
-            for ($i = 1; $i <= $total_qty; $i++) {
-                $item->nonConsumables()->create($input['nonconsumable']);
+                $total_qty += $rack['qty'];
             }
 
             // non consumable specification

@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Tag;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
 class Table extends Component
@@ -22,7 +23,7 @@ class Table extends Component
     ];
 
     protected $listeners = [
-        'nonconsumableTable' => '$refresh',
+        'nonConsumableTable' => '$refresh',
         'taggedToAsset' => '$refresh'
     ];
 
@@ -70,7 +71,12 @@ class Table extends Component
 
     public function addCart($id)
     {
-        $item = Asset::find($id);
+        $item = Asset::where('type', 'non-consumable')->find($id);
+        if (!$item) {
+            $this->notify('Data tidak ditemukan');
+            return;
+        }
+
         if ($item->cart()->where('user_id', auth()->id())->count() > 0) {
             $item->cart()->increment('qty');
         } else {
@@ -86,13 +92,22 @@ class Table extends Component
     public function destroy(Asset $asset)
     {
         $this->isDelete = false;
-
-        if ($asset->consumable->consumableTransactions()->count() > 0) {
+        $count = $asset->nonConsumables()
+            ->where('current_status', 'in use')->count();
+        if ($count > 0) {
             $this->notify($asset->name . ' punya riwayat pemakaian, tidak bisa dihapus!', 'warning');
             return;
         }
 
-        $asset->delete();
+        DB::transaction(function () use ($asset) {
+            $asset->warehouses()->detach();
+            $asset->racks()->detach();
+            $asset->tags()->detach();
+            $asset->nonConsumables()->delete();
+            $asset->transactions()->delete();
+            $asset->delete();
+        });
+
         $this->notify($asset->name . ' berhasil dihapus');
     }
 

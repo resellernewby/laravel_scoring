@@ -40,7 +40,8 @@
                             :error="$errors->first('asset.current_price')" />
 
                         <div>
-                            <x-input.date label="Tanggal beli" wire:model.lazy="purchase_at" :error="$errors->first('nonconsumable.purchase_date')" />
+                            <x-input.date label="Tanggal beli" wire:model.lazy="nonconsumable.purchase_date"
+                                :error="$errors->first('nonconsumable.purchase_date')" />
                             @if ($errors->first('nonconsumable.purchase_date'))
                                 <div class="mt-1 text-red-500 text-sm">
                                     {{ $errors->first('nonconsumable.purchase_date') }}</div>
