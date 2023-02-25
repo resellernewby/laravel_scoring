@@ -105,6 +105,8 @@ class Table extends Component
             $asset->tags()->detach();
             $asset->nonConsumables()->delete();
             $asset->transactions()->delete();
+            $asset->assetImages()->delete();
+            $asset->assetSpecifications()->delete();
             $asset->delete();
         });
 

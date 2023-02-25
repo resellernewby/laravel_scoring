@@ -14,7 +14,8 @@ class AddStockNonConsumable
 
     public function handle($input)
     {
-        DB::transaction(function () use ($input) {
+        DB::beginTransaction();
+        try {
             $input['asset']['current_price'] = $this->getNumeric($input['asset']['current_price']);
             $input['nonconsumable']['price'] = $this->getNumeric($input['nonconsumable']['price']);
             $input['nonconsumable']['residual_value'] = $this->getNumeric(isset($input['nonconsumable']['residual_value']) ? $input['nonconsumable']['residual_value'] : 0);
@@ -35,8 +36,9 @@ class AddStockNonConsumable
 
                 // create non consumable item
                 $input['nonconsumable']['non_consumable_id'] = $rack['id'];
+                $nonConsumables = collect();
                 for ($i = 1; $i <= $rack['qty']; $i++) {
-                    $item->nonConsumables()->create($input['nonconsumable']);
+                    $nonConsumables->push($item->nonConsumables()->create($input['nonconsumable']));
                 }
 
                 // Klo menambahkan ke rak yang sama
@@ -80,6 +82,12 @@ class AddStockNonConsumable
 
             // Update Current Price, Suplier, on Asset
             $item->update($input['asset']);
-        });
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+
+        return $nonConsumables;
     }
 }

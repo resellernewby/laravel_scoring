@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\NonConsumable;
 
 use App\Models\Asset;
+use App\Models\NonConsumable;
 use Illuminate\Support\Collection;
 use LivewireUI\Modal\ModalComponent;
 
@@ -11,12 +12,12 @@ class UpdateSerial extends ModalComponent
     public Collection $serials;
     public $limit = 10;
     public $total;
-    public $asset;
+    public $nonConsumables;
 
-    public function mount(Asset $asset)
+    public function mount($nonConsumables)
     {
-        $this->asset = $asset->load('nonConsumables');
-        $this->total = $this->asset->nonConsumables()->count();
+        $this->nonConsumables = $nonConsumables;
+        $this->total = count($nonConsumables);
         $this->limit = $this->total > $this->limit ? $this->limit : $this->total;
         $this->serials = collect();
 
@@ -57,7 +58,7 @@ class UpdateSerial extends ModalComponent
         }
 
         foreach ($this->serials as $key => $value) {
-            $this->asset->nonConsumables[$key]->update($value);
+            NonConsumable::find($this->nonConsumables[$key]['id'])->update($value);
         }
 
         $this->emit('nonconsumableTable');

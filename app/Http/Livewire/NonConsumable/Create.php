@@ -101,9 +101,9 @@ class Create extends Component
         $validatedData['nonconsumable']['price'] = $validatedData['asset']['current_price'];
 
         // Create Item
-        $result = $nonconsumable->handle($validatedData);
+        $nonConsumables = $nonconsumable->handle($validatedData);
 
-        $this->emit('openModal', 'non-consumable.update-serial', ['asset' => $result->id]);
+        $this->emit('openModal', 'non-consumable.update-serial', ['nonConsumables' => $nonConsumables]);
     }
 
     public function rules()

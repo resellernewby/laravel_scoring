@@ -72,12 +72,9 @@ class AddStock extends Component
         $validatedData['nonconsumable']['price'] = $validatedData['asset']['current_price'];
 
         // Add Stock
-        $addStock->handle($validatedData);
+        $nonConsumables = $addStock->handle($validatedData);
 
-        $this->emit('nonConsumableTable');
-        $this->notify('Stok barang berhasil ditambahkan');
-
-        return redirect()->route('non-consumable.index');
+        $this->emit('openModal', 'non-consumable.update-serial', ['nonConsumables' => $nonConsumables]);
     }
 
     public function rules()

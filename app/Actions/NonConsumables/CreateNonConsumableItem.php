@@ -44,8 +44,11 @@ class CreateNonConsumableItem
 
                 // create non consumable item
                 $input['nonconsumable']['non_consumable_id'] = $rack['id'];
+                $nonConsumables = collect();
                 for ($i = 1; $i <= $rack['qty']; $i++) {
-                    $item->nonConsumables()->create($input['nonconsumable']);
+                    $nonConsumables->push(
+                        $item->nonConsumables()->create($input['nonconsumable'])
+                    );
                 }
 
                 $total_qty += $rack['qty'];
@@ -113,6 +116,6 @@ class CreateNonConsumableItem
             throw $th;
         }
 
-        return $item;
+        return $nonConsumables;
     }
 }

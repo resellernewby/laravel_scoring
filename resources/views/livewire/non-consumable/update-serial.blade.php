@@ -1,8 +1,7 @@
 <div>
     <x-modal form-action="update">
         <x-slot name="title">
-            Input <strong>{{ $total }}</strong> Serial Number
-            <strong>{{ $asset->name }}</strong>
+            Input <strong>{{ $total }}</strong> serial number terkait
         </x-slot>
 
         <x-slot name="content">
