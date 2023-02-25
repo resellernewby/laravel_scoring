@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\NonConsumable;
 
-use App\Models\Asset;
 use App\Models\NonConsumable;
 use Illuminate\Support\Collection;
 use LivewireUI\Modal\ModalComponent;
@@ -64,5 +63,10 @@ class UpdateSerial extends ModalComponent
         $this->emit('nonConsumableTable');
         $this->notify('Barang baru berhasil ditambahkan');
         return redirect()->route('non-consumable.index');
+    }
+
+    public static function closeModalOnClickAway(): bool
+    {
+        return false;
     }
 }

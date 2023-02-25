@@ -1,5 +1,5 @@
 <div wire:key="button-{{ $asset->id }}" class="flex items-center justify-end space-x-4">
-    <x-button.primary wire:click="addCart({{ $asset->id }})" class="flex whitespace-nowrap items-center bg py-1">
+    <x-button.primary wire:click="showItems({{ $asset->id }})" class="flex whitespace-nowrap items-center bg py-1">
         <x-icon.o-eye class="h-4 w-4 mr-1" /> Tampilkan
     </x-button.primary>
     <x-table.actions>

@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\Search;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class NonConsumable extends Model
 {
     use HasFactory;
+    use Search;
 
     protected $fillable = [
         'asset_id',
@@ -23,6 +27,10 @@ class NonConsumable extends Model
         'purchase_date',
         'warranty_period',
         'warranty_provider'
+    ];
+
+    protected $search = [
+        'serial', 'user', 'warranty_provider'
     ];
 
     protected $casts = [
@@ -42,5 +50,12 @@ class NonConsumable extends Model
     public function nonConsumable()
     {
         return $this->morphTo();
+    }
+
+    public function remainingWarranty(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Carbon::now()->diffInDays($this->purchase_date->addMonth($this->warranty_period), false)
+        );
     }
 }

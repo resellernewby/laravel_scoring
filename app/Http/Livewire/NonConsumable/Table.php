@@ -69,26 +69,6 @@ class Table extends Component
         ]);
     }
 
-    public function addCart($id)
-    {
-        $item = Asset::where('type', 'non-consumable')->find($id);
-        if (!$item) {
-            $this->notify('Data tidak ditemukan');
-            return;
-        }
-
-        if ($item->cart()->where('user_id', auth()->id())->count() > 0) {
-            $item->cart()->increment('qty');
-        } else {
-            $item->cart()->create([
-                'user_id' => auth()->id(),
-                'qty' => 1
-            ]);
-        }
-
-        $this->emit('addToCart');
-    }
-
     public function destroy(Asset $asset)
     {
         $this->isDelete = false;
@@ -111,6 +91,11 @@ class Table extends Component
         });
 
         $this->notify($asset->name . ' berhasil dihapus');
+    }
+
+    public function showItems($asset)
+    {
+        $this->emit('openModal', 'non-consumable.item.table', ['asset' => $asset]);
     }
 
     public function addMoreTags($asset)
