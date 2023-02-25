@@ -28,13 +28,14 @@ class UpdateConsumableItem
             // asign to racks and warehouses
             $total_qty = 0;
             foreach ($input['rack'] as $rack) {
+                $currentQty = $item->racks()->find($rack['id'])->pivot->qty - $rack['qty'];
                 $item->racks()->syncWithPivotValues($rack['id'], [
                     'qty' => $rack['qty']
                 ]);
 
                 $item->warehouses()->sync($rack['warehouse_id']);
 
-                $total_qty += $rack['qty'];
+                $total_qty += $currentQty;
             }
 
             // Update consumable item
@@ -51,21 +52,23 @@ class UpdateConsumableItem
                 }
             }
 
-            // create order from updater
-            $order = Order::create([
-                'name' => auth()->user()->name,
-                'status' => 'update item',
-                'date' => $input['asset']['purchase_at'],
-                'funds_source_id' => $input['asset']['funds_source_id'],
-                'suplier_id' => $input['asset']['suplier_id']
-            ]);
+            if ($total_qty != 0) {
+                // create order from updater
+                $order = Order::create([
+                    'name' => auth()->user()->name,
+                    'status' => 'update item',
+                    'date' => $input['asset']['purchase_at'],
+                    'funds_source_id' => $input['asset']['funds_source_id'],
+                    'suplier_id' => $input['asset']['suplier_id']
+                ]);
 
-            // create transaction from updater
-            $item->transactions()->create([
-                'order_id' => $order->id,
-                'qty' => $total_qty,
-                'price' => $input['asset']['current_price']
-            ]);
+                // create transaction from updater
+                $item->transactions()->create([
+                    'order_id' => $order->id,
+                    'qty' => $total_qty,
+                    'price' => $input['asset']['current_price']
+                ]);
+            }
 
             //Save images
             if (!empty($input['images'])) {

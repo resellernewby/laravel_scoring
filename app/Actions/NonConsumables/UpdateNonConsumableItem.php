@@ -25,47 +25,13 @@ class UpdateNonConsumableItem
             // sync to category
             $item->tags()->syncWithoutDetaching($input['tag_ids']);
 
-            // asign to racks and warehouses
-            $total_qty = 0;
-            foreach ($input['rack'] as $rack) {
-                $item->racks()->syncWithPivotValues($rack['id'], [
-                    'qty' => $rack['qty']
-                ]);
-
-                $item->warehouses()->sync($rack['warehouse_id']);
-
-                $total_qty += $rack['qty'];
-            }
-
-            // Update consumable item
-            $item->consumable()->update([
-                'qty' => $total_qty,
-                'lifetime' => $input['lifetime']
-            ]);
-
-            // consumable update specification
+            // non consumable update specification
             $item->assetSpecifications()->delete();
             if (!empty($input['spec'])) {
                 foreach ($input['spec'] as $spec) {
                     $item->assetSpecifications()->create($spec);
                 }
             }
-
-            // create order from updater
-            $order = Order::create([
-                'name' => auth()->user()->name,
-                'status' => 'update item',
-                'date' => $input['asset']['purchase_at'],
-                'funds_source_id' => $input['asset']['funds_source_id'],
-                'suplier_id' => $input['asset']['suplier_id']
-            ]);
-
-            // create transaction from updater
-            $item->transactions()->create([
-                'order_id' => $order->id,
-                'qty' => $total_qty,
-                'price' => $input['asset']['current_price']
-            ]);
 
             //Save images
             if (!empty($input['images'])) {

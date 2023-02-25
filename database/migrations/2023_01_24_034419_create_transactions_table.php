@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('asset_id')->constrained();
             $table->foreignId('order_id')->constrained();
-            $table->unsignedInteger('qty');
+            $table->integer('qty');
             $table->decimal('price', 14, 0)->nullable();
             $table->timestamps();
         });
