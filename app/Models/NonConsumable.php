@@ -55,7 +55,7 @@ class NonConsumable extends Model
     public function remainingWarranty(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::now()->diffInDays($this->purchase_date->addMonth($this->warranty_period), false)
+            get: fn () => $this->warranty_period > 1 ? Carbon::now()->diffInDays($this->purchase_date->addMonth($this->warranty_period), false) : null
         );
     }
 }

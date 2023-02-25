@@ -85,7 +85,7 @@
                             {{ $asset->model }}
                         </td>
                         <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            class="hidden px-3 py-3.5 text-sm text-orange-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             Rp{{ number_format($asset->current_price) }}
                         </td>
                         <td

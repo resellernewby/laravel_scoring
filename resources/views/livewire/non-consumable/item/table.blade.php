@@ -87,7 +87,7 @@
                                     class="hidden px-3 py-3.5 text-sm text-gray-600 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                                     <p>{{ $nonConsumable->purchase_date->isoFormat('D MMMM Y') }}</p>
                                     <span
-                                        class="text-xs text-indigo-500 font-bold">Rp{{ number_format($nonConsumable->price) }}</span>
+                                        class="text-xs text-orange-500 font-bold">Rp{{ number_format($nonConsumable->price) }}</span>
                                 </td>
                                 <td
                                     class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
@@ -100,13 +100,19 @@
                                 </td>
                                 <td
                                     class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                                    @if ($nonConsumable->remaining_warranty > 0)
-                                        <p><span class="font-semibold">{{ $nonConsumable->remaining_warranty }}</span>
-                                            hari
-                                            tersisa</p>
-                                        <span>{{ $nonConsumable->warranty_provider }}</span>
+                                    @if ($nonConsumable->remaining_warranty === null)
+                                        <span>Tanpa garansi</span>
                                     @else
-                                        <span class="text-red-500">Expired</span>
+                                        @if ($nonConsumable->remaining_warranty > 0)
+                                            <p class="text-indigo-600"><span
+                                                    class="font-semibold">{{ $nonConsumable->remaining_warranty }}</span>
+                                                hari
+                                                tersisa</p>
+                                            <span
+                                                class="text-indigo-500 text-xs">{{ $nonConsumable->warranty_provider }}</span>
+                                        @else
+                                            <span class="text-red-500">Expired</span>
+                                        @endif
                                     @endif
                                 </td>
                                 <td

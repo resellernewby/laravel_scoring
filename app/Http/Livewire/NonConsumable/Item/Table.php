@@ -3,10 +3,8 @@
 namespace App\Http\Livewire\NonConsumable\Item;
 
 use App\Models\Asset;
-use App\Models\Brand;
 use App\Models\NonConsumable;
-use App\Models\Tag;
-use App\Models\Warehouse;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use LivewireUI\Modal\ModalComponent;
@@ -83,33 +81,39 @@ class Table extends ModalComponent
         $this->emit('addToCart');
     }
 
-    public function destroy(Asset $asset)
+    public function destroy(NonConsumable $nonConsumable)
     {
         $this->isDelete = false;
-        $count = $asset->nonConsumables()
-            ->where('current_status', 'in use')->count();
-        if ($count > 0) {
-            $this->notify($asset->name . ' punya riwayat pemakaian, tidak bisa dihapus!', 'warning');
+        if ($nonConsumable->current_status != 'in stock') {
+            $this->notify('Barang dengan serial <strong>' . $nonConsumable->serial . '</strong> status sudah berubah, tidak bisa dihapus!', 'warning');
             return;
         }
 
-        DB::transaction(function () use ($asset) {
-            $asset->warehouses()->detach();
-            $asset->racks()->detach();
-            $asset->tags()->detach();
-            $asset->nonConsumables()->delete();
-            $asset->transactions()->delete();
-            $asset->assetImages()->delete();
-            $asset->assetSpecifications()->delete();
-            $asset->delete();
+        DB::transaction(function () use ($nonConsumable) {
+            DB::table('asset_rack')->where('asset_id', $nonConsumable->asset->id)
+                ->where('rack_id', $nonConsumable->nonConsumable->id)
+                ->decrement('qty');
+
+            // Riwayat pengurangan
+            $order = Order::create([
+                'name' => auth()->user()->name,
+                'status' => 'delete stock',
+                'date' => now(),
+                'location' => $nonConsumable->nonConsumable->name
+            ]);
+
+            // Create Transaction pengurangan stock
+            $order->transactions()->create([
+                'asset_id' => $nonConsumable->asset->id,
+                'qty' => -1,
+                'price' => $nonConsumable->price
+            ]);
+
+            $nonConsumable->delete();
         });
 
-        $this->notify($asset->name . ' berhasil dihapus');
-    }
-
-    public function addMoreTags($asset)
-    {
-        $this->emit('openModal', 'tag.tagged-asset', ['asset' => $asset]);
+        $this->emit('nonConsumableTable');
+        $this->notify('Barang dengan serial <strong>' . $nonConsumable->serial . '</strong> berhasil dihapus');
     }
 
     public function getListsProperty()

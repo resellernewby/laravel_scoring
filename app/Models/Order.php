@@ -21,4 +21,9 @@ class Order extends Model
     protected $casts = [
         'date' => 'datetime'
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
