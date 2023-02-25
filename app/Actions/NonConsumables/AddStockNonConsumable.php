@@ -4,6 +4,7 @@ namespace App\Actions\NonConsumables;
 
 use App\Models\Asset;
 use App\Models\Order;
+use App\Models\Rack;
 use App\Models\Suplier;
 use App\Traits\Numeric;
 use Illuminate\Support\Facades\DB;

@@ -61,7 +61,7 @@ class UpdateSerial extends ModalComponent
             NonConsumable::find($this->nonConsumables[$key]['id'])->update($value);
         }
 
-        $this->emit('nonconsumableTable');
+        $this->emit('nonConsumableTable');
         $this->notify('Barang baru berhasil ditambahkan');
         return redirect()->route('non-consumable.index');
     }

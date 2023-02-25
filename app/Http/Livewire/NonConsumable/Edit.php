@@ -86,10 +86,10 @@ class Edit extends Component
         // Create Item
         $updateConsumable->handle($this->asset['id'], $validatedData);
 
-        $this->emit('consumableTable');
+        $this->emit('nonConsumableTable');
         $this->notify('Barang ' . $this->asset['name'] . ' berhasil diupdate');
 
-        return redirect()->route('consumable.index');
+        return redirect()->route('non-consumable.index');
     }
 
     public function rules()
