@@ -24,7 +24,8 @@ class Table extends Component
 
     protected $listeners = [
         'nonConsumableTable' => '$refresh',
-        'taggedToAsset' => '$refresh'
+        'taggedToAsset' => '$refresh',
+        'itemTable' => '$refresh'
     ];
 
     public function getRowsQueryProperty()

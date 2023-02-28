@@ -6,6 +6,7 @@ use App\Http\Controllers\ConsumableController;
 use App\Http\Controllers\NonConsumableController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\RackController;
+use App\Http\Controllers\SettingContoller;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,9 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/tags', TagController::class)->name('tag');
         Route::get('/brands', BrandController::class)->name('brand');
         Route::get('/warehouses/{id}/racks', RackController::class)->name('showRacks');
+        Route::get('/settings', [SettingContoller::class, 'index'])->name('setting.index');
+        Route::get('/settings/notification', [SettingContoller::class, 'notification'])->name('setting.notification');
+        Route::get('/settings/item-condition', [SettingContoller::class, 'condition'])->name('setting.item-condition');
+        Route::get('/settings/item-status', [SettingContoller::class, 'status'])->name('setting.item-status');
+        Route::get('/settings/damaged-item', [SettingContoller::class, 'damaged'])->name('setting.damaged-item');
     });

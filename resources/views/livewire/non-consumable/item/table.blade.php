@@ -1,7 +1,7 @@
 <div>
     <x-modal form-action="update">
         <x-slot name="title">
-            Daftar barang {{ $asset->name }}
+            Daftar barang <strong>{{ $asset->name }}</strong>
         </x-slot>
 
         <x-slot name="content">
@@ -25,8 +25,9 @@
                             <x-select label="Kondisi" wire:model.debounce.500ms="filters.condition" :list="$lists['conditions']" />
                         </x-dropdown>
                     </div>
-                    <div class="flex items-center space-x-8">
-
+                    <div class="flex items-center space-x-8 flex-shrink-0">
+                        {{-- <x-input.checkbox label="Tampilkan barang rusak" wire:model.debounce.500ms="show_damaged"
+                            value="damaged" /> --}}
                     </div>
                 </div>
 
@@ -96,7 +97,12 @@
                                 </td>
                                 <td
                                     class="px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                                    {{ $nonConsumable->nonConsumable?->name }}
+                                    @if ($nonConsumable->nonConsumable?->warehouse?->name)
+                                        <span>{{ $nonConsumable->nonConsumable?->warehouse?->name }}</span>
+                                    @else
+                                        <p class="font-semibold">{{ $nonConsumable->nonConsumable->name }}</p>
+                                        <span class="font-normal">Oleh: {{ $nonConsumable->user }}</span>
+                                    @endif
                                 </td>
                                 <td
                                     class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">

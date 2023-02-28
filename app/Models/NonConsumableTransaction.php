@@ -10,7 +10,8 @@ class NonConsumableTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'location_id',
+        'nct_able_type',
+        'nct_able_id',
         'action',
         'condition',
         'date',

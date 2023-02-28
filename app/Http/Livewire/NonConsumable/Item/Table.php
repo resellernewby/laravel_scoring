@@ -5,6 +5,7 @@ namespace App\Http\Livewire\NonConsumable\Item;
 use App\Models\Asset;
 use App\Models\NonConsumable;
 use App\Models\Order;
+use App\Services\Setting;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use LivewireUI\Modal\ModalComponent;
@@ -19,6 +20,10 @@ class Table extends ModalComponent
     public $filters = [
         'status' => '',
         'condition' => ''
+    ];
+
+    protected $listeners = [
+        'itemTable' => '$refresh'
     ];
 
     public function mount(Asset $asset)
@@ -90,7 +95,7 @@ class Table extends ModalComponent
         }
 
         DB::transaction(function () use ($nonConsumable) {
-            DB::table('asset_rack')->where('asset_id', $nonConsumable->asset->id)
+            DB::table('asset_rack')->where('asset_id', $nonConsumable->asset_id)
                 ->where('rack_id', $nonConsumable->nonConsumable->id)
                 ->decrement('qty');
 
@@ -104,7 +109,7 @@ class Table extends ModalComponent
 
             // Create Transaction pengurangan stock
             $order->transactions()->create([
-                'asset_id' => $nonConsumable->asset->id,
+                'asset_id' => $nonConsumable->asset_id,
                 'qty' => -1,
                 'price' => $nonConsumable->price
             ]);
@@ -113,7 +118,7 @@ class Table extends ModalComponent
         });
 
         $this->emit('nonConsumableTable');
-        $this->notify('Barang dengan serial <strong>' . $nonConsumable->serial . '</strong> berhasil dihapus');
+        $this->notify($nonConsumable->asset->name . ' dengan serial <strong>' . $nonConsumable->serial . '</strong> berhasil dihapus');
     }
 
     public function getListsProperty()

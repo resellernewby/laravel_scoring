@@ -26,7 +26,9 @@ class NonConsumable extends Model
         'current_status',
         'purchase_date',
         'warranty_period',
-        'warranty_provider'
+        'warranty_provider',
+        'used_at',
+        'used_end'
     ];
 
     protected $search = [
@@ -34,7 +36,9 @@ class NonConsumable extends Model
     ];
 
     protected $casts = [
-        'purchase_date' => 'date'
+        'purchase_date' => 'date',
+        'used_at' => 'date',
+        'used_end' => 'date',
     ];
 
     public function asset()

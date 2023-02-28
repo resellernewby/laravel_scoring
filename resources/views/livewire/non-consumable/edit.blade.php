@@ -110,7 +110,7 @@
                 </div>
             </div>
             <div class="px-6 py-4 text-right">
-                <x-button.secondary wire:click="$emit('closeModal')" wire:loading.remove wire:target="update">
+                <x-button.secondary link="{{ route('non-consumable.index') }}" wire:loading.remove wire:target="update">
                     Batal
                 </x-button.secondary>
                 <x-button.primary type="submit" wire:loading.remove wire:target="update" class="ml-2">

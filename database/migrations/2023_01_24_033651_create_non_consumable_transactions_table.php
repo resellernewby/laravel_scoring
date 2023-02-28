@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('non_consumable_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('non_consumable_id')->constrained();
-            $table->foreignId('location_id')->constrained();
+            // $table->foreignId('location_id')->constrained();
+            $table->nullableMorphs('nct_able');
             $table->string('action', 50);
             $table->string('condition', 50);
             $table->dateTime('date')->nullable();

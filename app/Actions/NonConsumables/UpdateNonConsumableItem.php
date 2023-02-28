@@ -36,7 +36,7 @@ class UpdateNonConsumableItem
             //Save images
             if (!empty($input['images'])) {
                 $collectImage = [];
-                $directory = config('setting.consumable.image.directory');
+                $directory = config('setting.asset.image.directory');
                 if (!is_dir(Storage::path($directory))) {
                     mkdir(Storage::path($directory), 0755, true);
                 }
@@ -48,11 +48,11 @@ class UpdateNonConsumableItem
                     $destination = Storage::path("{$directory}/" . $filename);
                     $destination_thumb = Storage::path("{$directory}/" . $filename_thumb);
 
-                    Image::make($image->getRealPath())->resize(config('setting.consumable.image.width'), null, function ($constraint) {
+                    Image::make($image->getRealPath())->resize(config('setting.asset.image.width'), null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save($destination);
 
-                    Image::make($image->getRealPath())->resize(config('setting.consumable.image.thumbnail.width'), config('setting.consumable.image.thumbnail.width'), function ($constraint) {
+                    Image::make($image->getRealPath())->resize(config('setting.asset.image.thumbnail.width'), config('setting.asset.image.thumbnail.width'), function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     })->save($destination_thumb);

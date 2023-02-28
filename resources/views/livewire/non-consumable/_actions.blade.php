@@ -16,7 +16,7 @@
         </div>
         <a href="{{ route('non-consumable.show', $asset->id) }}"
             class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
-            Detail
+            Rincian
         </a>
         @if ($isDelete)
             <div class="px-4">
