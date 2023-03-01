@@ -40,7 +40,7 @@ class Table extends Component
     {
         $this->isDelete = false;
 
-        if ($brand->assets()->count() > 0 || $brand->consumables()->count() > 0) {
+        if ($brand->assets()->count() > 0) {
             $this->notify($brand->name . ' tidak bisa dihapus!', 'warning');
             return;
         }

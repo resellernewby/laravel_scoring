@@ -3,7 +3,7 @@
         <h1 class="flex-1 text-2xl font-bold text-gray-900">Rack</h1>
         <div class="sm:grid grid-cols-1">
             <!-- Table -->
-            <livewire:rack.table :warehouse="$warehouseId" />
+            <livewire:rack.table :warehouse-id="$warehouseId" />
         </div>
     </div>
 </x-app-layout>

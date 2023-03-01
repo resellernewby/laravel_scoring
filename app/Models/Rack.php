@@ -21,7 +21,8 @@ class Rack extends Model
 
     public function assets()
     {
-        return $this->belongsToMany(Asset::class);
+        return $this->belongsToMany(Asset::class)
+            ->withPivot(['qty']);
     }
 
     public function nonConsumables()

@@ -28,6 +28,7 @@ return [
         'returned' => 'Returned',
         'damaged' => 'Damaged',
     ],
+    'warehouse_id_for_damaged' => 1,
     'rack_id_for_damaged' => 1,
     'user_beginner' => 'not used',
 ];

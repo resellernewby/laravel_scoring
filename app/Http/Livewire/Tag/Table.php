@@ -20,7 +20,7 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Tag::query()
-            ->with(['assets', 'consumables'])
+            ->with(['assets'])
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->latest('id');
     }
@@ -41,7 +41,7 @@ class Table extends Component
     {
         $this->isDelete = false;
 
-        if ($tag->assets()->count() > 0 || $tag->consumables()->count() > 0) {
+        if ($tag->assets()->count() > 0) {
             $this->notify($tag->name . ' tidak bisa dihapus!', 'warning');
             return;
         }

@@ -10,19 +10,22 @@ use Livewire\Component;
 class Table extends Component
 {
     public $isDelete;
+    public int $warehouseId;
 
     protected $listeners = [
         'rackTable' => '$refresh'
     ];
 
-    public function mount(Warehouse $warehouse)
-    {
-        $this->warehouse = $warehouse->load('racks.subracks');
-    }
-
     public function render()
     {
-        return view('livewire.rack.table');
+        return view('livewire.rack.table', [
+            'warehouse' => $this->warehouse,
+        ]);
+    }
+
+    public function getWarehouseProperty()
+    {
+        return Warehouse::with(['racks'])->find($this->warehouseId);
     }
 
     public function destroy(Rack $rack)
@@ -36,18 +39,6 @@ class Table extends Component
 
         $rack->delete();
         $this->notify($rack->name . ' berhasil dihapus');
-        $this->emitSelf('rackTable');
-    }
-
-    public function deleteSubrack(Subrack $subrack)
-    {
-        if ($subrack->assets()->count() > 0 || $subrack->consumables()->count() > 0) {
-            $this->notify($subrack->name . ' tidak bisa dihapus!', 'warning');
-            return;
-        }
-
-        $subrack->delete();
-        $this->notify($subrack->name . ' berhasil dihapus');
         $this->emitSelf('rackTable');
     }
 }
