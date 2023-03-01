@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\FundsSource;
 
-use App\Models\Brand;
+use App\Models\FundsSource;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,12 +14,12 @@ class Table extends Component
     public $isDelete;
 
     protected $listeners = [
-        'brandTable' => '$refresh'
+        'fundsTable' => '$refresh'
     ];
 
     public function getRowsQueryProperty()
     {
-        return Brand::query()
+        return FundsSource::query()
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->latest('id');
     }
@@ -31,21 +31,21 @@ class Table extends Component
 
     public function render()
     {
-        return view('livewire.brand.table', [
-            'brands' => $this->rows
+        return view('livewire.funds-source.table', [
+            'fundsSources' => $this->rows
         ]);
     }
 
-    public function destroy(Brand $brand)
+    public function destroy(FundsSource $funds)
     {
         $this->isDelete = false;
 
-        if ($brand->assets()->count() > 0 || $brand->consumables()->count() > 0) {
-            $this->notify($brand->name . ' tidak bisa dihapus!', 'warning');
+        if ($funds->assets()->count() > 0) {
+            $this->notify($funds->name . ' tidak bisa dihapus!', 'warning');
             return;
         }
 
-        $brand->delete();
-        $this->notify($brand->name . ' berhasil dihapus');
+        $funds->delete();
+        $this->notify($funds->name . ' berhasil dihapus');
     }
 }

@@ -2,30 +2,30 @@
 
 namespace App\Http\Livewire\Suplier;
 
-use App\Models\Brand;
+use App\Models\Suplier;
 use LivewireUI\Modal\ModalComponent;
 
 class Edit extends ModalComponent
 {
-    public Brand $inputs;
+    public Suplier $inputs;
 
     protected $rules = [
         'inputs.name' => 'required|max:50'
     ];
 
     protected $messages = [
-        'inputs.name.required' => 'Nama merek harus diisi!',
-        'inputs.name.max' => 'Nama merek lebih dari 50 karakter'
+        'inputs.name.required' => 'Nama suplier harus diisi!',
+        'inputs.name.max' => 'Nama suplier lebih dari 50 karakter'
     ];
 
-    public function mount(Brand $brand)
+    public function mount(Suplier $suplier)
     {
-        $this->inputs = $brand;
+        $this->inputs = $suplier;
     }
 
     public function render()
     {
-        return view('livewire.brand.edit');
+        return view('livewire.suplier.edit');
     }
 
     public function update()
@@ -33,8 +33,8 @@ class Edit extends ModalComponent
         $this->validate();
         $this->inputs->save();
 
-        $this->emit('brandTable');
+        $this->emit('suplierTable');
         $this->closeModal();
-        $this->notify('Merek berhasil diupdate');
+        $this->notify('Suplier berhasil diupdate');
     }
 }

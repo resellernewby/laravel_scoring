@@ -60,14 +60,14 @@
                         <span class="mt-2">Merek</span>
                     </a>
 
-                    <a href="{{ route('brand') }}"
-                        class="{{ request()->routeIs('brand') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                    <a href="{{ route('suplier') }}"
+                        class="{{ request()->routeIs('suplier') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <x-icon.o-truck class="text-indigo-300 group-hover:text-white h-6 w-6" />
                         <span class="mt-2">Suplier</span>
                     </a>
 
-                    <a href="{{ route('brand') }}"
-                        class="{{ request()->routeIs('brand') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                    <a href="{{ route('funds-source') }}"
+                        class="{{ request()->routeIs('funds-source') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <x-icon.o-banknotes class="text-indigo-300 group-hover:text-white h-6 w-6" />
                         <span class="mt-2">Dana</span>
                     </a>
@@ -123,8 +123,7 @@
                     </div>
 
                     <div class="flex-shrink-0 px-4 flex items-center">
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
-                            alt="Workflow">
+                        <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="Workflow">
                     </div>
                     <div class="mt-5 flex-1 h-0 px-2 overflow-y-auto">
                         <nav class="h-full flex flex-col">
@@ -135,28 +134,28 @@
                                     <span>Asset</span>
                                 </a>
 
-                                <a href="#"
+                                <a href="{{ route('warehouse') }}"
                                     class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
                                     <x-icon.o-home-modern
                                         class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
                                     <span>Gudang</span>
                                 </a>
 
-                                <a href="#"
+                                <a href="{{ route('tag') }}"
                                     class="bg-indigo-800 text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium"
                                     aria-current="page">
                                     <x-icon.o-tag class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
                                     <span>Tags</span>
                                 </a>
 
-                                <a href="#"
+                                <a href="{{ route('brand') }}"
                                     class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
                                     <x-icon.o-check-badge
                                         class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
                                     <span>Merek</span>
                                 </a>
 
-                                <a href="#"
+                                <a href="{{ route('suplier') }}"
                                     class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
                                     <x-icon.o-truck class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
                                     <span>Suplier</span>
