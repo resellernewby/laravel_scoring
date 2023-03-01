@@ -22,7 +22,7 @@
                 </div>
 
                 <div>
-                    <x-input.date label="Tanggal*" wire:model.lazy="returned_at" :error="$errors->first('returned.returned_at')" />
+                    <x-input.date label="Tanggal*" wire:model.lazy="returned.returned_at" :error="$errors->first('returned.returned_at')" />
                     @if ($errors->first('returned.returned_at'))
                         <div class="mt-1 text-red-500 text-sm">{{ $errors->first('returned.returned_at') }}</div>
                     @endif
@@ -31,6 +31,18 @@
                 @if ($action === 'returned')
                     <x-select label="Kondisi barang*" wire:model.lazy="returned.condition" :list="$conditionLists"
                         :error="$errors->first('returned.condition')" />
+
+                    <div class="flex items-center space-x-4">
+                        <div class="w-1/2">
+                            <x-select label="Warehouse*" wire:model.lazy="warehouse_id" :list="$warehouseLists"
+                                :error="$errors->first('warehouse_id')" required />
+                        </div>
+
+                        <div class="w-1/2">
+                            <x-select label="Rack*" wire:model.lazy="rack_id" :list="$rackLists" :error="$errors->first('rack_id')"
+                                required />
+                        </div>
+                    </div>
                 @endif
 
                 <x-textarea label="Keterangan barang" wire:model.lazy="returned.description" :error="$errors->first('returned.description')" />

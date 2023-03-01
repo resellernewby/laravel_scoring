@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('asset_id')->constrained();
             // $table->foreignId('location_id')->nullable()->constrained();
             $table->nullableMorphs('non_consumable');
-            $table->string('user', 150);
+            $table->string('user', 150)->nullable();
             $table->string('serial', 50)->nullable();
             $table->unsignedInteger('economic_age')->nullable();
             $table->decimal('residual_value', 14, 0)->default(0);

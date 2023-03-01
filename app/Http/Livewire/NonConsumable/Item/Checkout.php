@@ -48,7 +48,7 @@ class Checkout extends ModalComponent
                 'non_consumable_id' => $this->location_id,
                 'non_consumable_type' => Location::class,
                 'user' => $this->user,
-                'current_status' => 'in use',
+                'current_status' => 'in_use',
                 'used_at' => now()
             ]);
 

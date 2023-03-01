@@ -89,7 +89,7 @@ class Table extends ModalComponent
     public function destroy(NonConsumable $nonConsumable)
     {
         $this->isDelete = false;
-        if ($nonConsumable->current_status != 'in stock') {
+        if ($nonConsumable->current_status != 'in_stock') {
             $this->notify('Barang dengan serial <strong>' . $nonConsumable->serial . '</strong> status sudah berubah, tidak bisa dihapus!', 'warning');
             return;
         }
@@ -110,7 +110,7 @@ class Table extends ModalComponent
             // Create Transaction pengurangan stock
             $order->transactions()->create([
                 'asset_id' => $nonConsumable->asset_id,
-                'qty' => -1,
+                'qty' => 1,
                 'price' => $nonConsumable->price
             ]);
 
@@ -125,14 +125,14 @@ class Table extends ModalComponent
     {
         return [
             'status' => [
-                'in stock' => 'in stock',
-                'in use' => 'in use',
+                'in_stock' => 'in stock',
+                'in_use' => 'in use',
                 'damaged' => 'damaged'
             ],
             'conditions' => [
                 'excellent' => 'Excellent',
                 'good' => 'Good',
-                'fair' => 'Fair',
+                'poor' => 'Poor',
                 'bad' => 'Bad'
             ]
         ];

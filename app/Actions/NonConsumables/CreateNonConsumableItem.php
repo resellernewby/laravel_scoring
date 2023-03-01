@@ -23,8 +23,8 @@ class CreateNonConsumableItem
             $input['nonconsumable']['price'] = $this->getNumeric($input['nonconsumable']['price']);
             $input['nonconsumable']['residual_value'] = $this->getNumeric($input['nonconsumable']['residual_value']);
             $input['nonconsumable']['condition'] = 'excellent';
-            $input['nonconsumable']['user'] = 'Tersedia di gudang';
-            $input['nonconsumable']['current_status'] = 'in stock';
+            $input['nonconsumable']['user'] = config('setting.user_beginner');
+            $input['nonconsumable']['current_status'] = 'in_stock';
             $input['nonconsumable']['non_consumable_type'] = Rack::class;
 
             // Create Item

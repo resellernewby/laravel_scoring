@@ -33,7 +33,7 @@ class ConsumableSeeder extends Seeder
             'purchase_at' => '2023-02-08'
         ]);
 
-        $warehouse = Warehouse::with('racks')->inRandomOrder()->first();
+        $warehouse = Warehouse::with('racks')->where('id', '<>', 1)->inRandomOrder()->first();
         $consumableAsset->warehouses()->attach($warehouse->id);
         $consumableAsset->racks()->attach($warehouse->racks->first()->id, [
             'qty' => 24

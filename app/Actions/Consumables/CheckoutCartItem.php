@@ -41,7 +41,7 @@ class CheckoutCartItem
             // Create Transaction checkout from taken_by
             $item->asset->transactions()->create([
                 'order_id' => $order->id,
-                'qty' => - ($item->qty),
+                'qty' => $item->qty,
                 'price' => $item->asset->current_price
             ]);
 

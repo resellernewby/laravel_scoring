@@ -27,7 +27,7 @@ class AddStockConsumable
                         'qty' => ($rack['qty'] + $storedRacks[$rack['id']])
                     ]);
 
-                    $item->warehouses()->syncWithoutDetaching($rack['warehouse_id']);
+                    // $item->warehouses()->syncWithoutDetaching($rack['warehouse_id']);
 
                     continue;
                 }

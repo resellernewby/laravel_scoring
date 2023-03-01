@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\Asset;
 use App\Models\Brand;
 use App\Models\FundsSource;
-use App\Models\Location;
 use App\Models\Order;
+use App\Models\Rack;
 use App\Models\Suplier;
 use App\Models\Warehouse;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,16 +29,16 @@ class NonConsumableSeeder extends Seeder
             'brand_id' => Brand::pluck('id')->random(),
             'barcode' => fake()->isbn13(),
             'model' => fake()->regexify('[A-Z]{5}[0-4]{3}'),
-            'name' => fake()->randomElement(['laptop', 'komputer', 'meja', 'TV', 'kursi', 'AC', 'Kulkas', 'Lemari', 'Rack', 'Server', 'Motor', 'Mobil', 'Kipas', 'HP', 'Kamera', 'Drone', 'Lighting', 'Tripod']),
+            'name' => fake()->randomElement(['laptop', 'komputer', 'meja', 'TV', 'AC', 'Kulkas', 'Lemari', 'Server', 'HP', 'Kamera', 'Drone']),
             'type' => 'non-consumable',
             'current_price' => 500000,
             'purchase_at' => now()
         ]);
 
 
-        $warehouse = Warehouse::with('racks')->inRandomOrder()->first();
+        $warehouse = Warehouse::with('racks')->where('id', '<>', 1)->inRandomOrder()->first();
         $asset->warehouses()->attach($warehouse->id);
-        $asset->racks()->attach($warehouse->racks->first()->id, ['qty' => 2]);
+        $asset->racks()->attach(2, ['qty' => 2]);
 
         $order = Order::create([
             'name' => 'CV. Teknik',
@@ -56,28 +56,32 @@ class NonConsumableSeeder extends Seeder
 
         $asset->nonConsumables()->createMany([
             [
-                'user' => fake()->name(),
+                'non_consumable_type' => Rack::class,
+                'non_consumable_id' => 2,
+                'user' => config('setting.user_beginner'),
                 'serial' => fake()->ean13(),
                 'economic_age' => fake()->randomDigit(),
                 'residual_value' => fake()->randomNumber(5, true),
                 'price' => 500000,
-                'condition' => fake()->randomElement(['poor', 'fair', 'good', 'excellent']),
-                'current_status' => 'in stock', //fake()->randomElement(['in use', 'in stock', 'damaged']),
+                'condition' => 'excellent',
+                'current_status' => 'in_stock', //fake()->randomElement(['in_use', 'in_stock', 'damaged']),
                 'purchase_date' => fake()->dateTimeThisDecade(),
                 'warranty_period' => fake()->randomDigit(),
-                'warranty_provider' => 'ABc'
+                'warranty_provider' => 'Distributor'
             ],
             [
-                'user' => fake()->name(),
+                'non_consumable_type' => Rack::class,
+                'non_consumable_id' => 2,
+                'user' => config('setting.user_beginner'),
                 'serial' => fake()->ean13(),
                 'economic_age' => fake()->randomDigit(),
                 'residual_value' => fake()->randomNumber(5, true),
                 'price' => 500000,
-                'condition' => fake()->randomElement(['poor', 'fair', 'good', 'excellent']),
-                'current_status' => 'in stock',
+                'condition' => 'excellent',
+                'current_status' => 'in_stock',
                 'purchase_date' => fake()->dateTimeThisDecade(),
                 'warranty_period' => fake()->randomDigit(),
-                'warranty_provider' => 'Cpinc'
+                'warranty_provider' => 'Distributor'
             ]
         ]);
     }

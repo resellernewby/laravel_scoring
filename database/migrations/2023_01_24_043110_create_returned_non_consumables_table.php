@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('returned_non_consumables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('non_consumable_id')->constrained();
-            $table->foreignId('warehouse_id')->nullable()->constrained();
+            $table->foreignId('rack_id')->nullable()->constrained();
             $table->dateTime('returned_at');
             $table->string('returned_by', 150);
             $table->string('condition', 50);

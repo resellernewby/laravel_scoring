@@ -1,6 +1,7 @@
 <div wire:key="button-{{ $nonConsumable->id }}" class="flex items-center justify-end space-x-4">
     @switch($nonConsumable->current_status)
-        @case('in stock')
+        @case('in_stock')
+        @case('returned')
             <x-button.primary
                 wire:click="$emit('openModal', 'non-consumable.item.checkout', {{ json_encode(['nonConsumable' => $nonConsumable->id]) }})"
                 class="flex whitespace-nowrap items-center bg py-1">

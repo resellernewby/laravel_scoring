@@ -110,7 +110,8 @@
                         </td>
                         <td x-data
                             class="hidden px-3 py-3.5 text-sm text-gray-500 text-right lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            <x-badge color="blue" text="{{ $asset->available }}" x-tooltip.raw="Stok tersedia">
+                            <x-badge color="blue" text="{{ $asset->available + $asset->returned }}"
+                                x-tooltip.raw="Stok tersedia">
                                 <x-icon.desktop class="h-4 w-4 mr-1" />
                             </x-badge>
                             <x-badge color="green" text="{{ $asset->used }}" x-tooltip.raw="Digunakan">

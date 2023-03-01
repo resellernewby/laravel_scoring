@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ReturnedNonConsumable extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'non_consumable_id',
+        'rack_id',
+        'returned_at',
+        'returned_by',
+        'condition',
+        'description',
+    ];
 }

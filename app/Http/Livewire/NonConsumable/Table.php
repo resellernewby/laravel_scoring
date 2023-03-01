@@ -39,8 +39,9 @@ class Table extends Component
                 'imageFirst'
             ])
             ->withCount([
-                'nonConsumables as available' => fn ($query) => $query->where('current_status', 'in stock'),
-                'nonConsumables as used' => fn ($query) => $query->where('current_status', 'in use'),
+                'nonConsumables as available' => fn ($query) => $query->where('current_status', 'in_stock'),
+                'nonConsumables as returned' => fn ($query) => $query->where('current_status', 'returned'),
+                'nonConsumables as used' => fn ($query) => $query->where('current_status', 'in_use'),
                 'nonConsumables as damaged' => fn ($query) => $query->where('current_status', 'damaged'),
             ])
             ->when($this->search, fn ($query) => $query->search($this->search))
@@ -74,7 +75,7 @@ class Table extends Component
     {
         $this->isDelete = false;
         $count = $asset->nonConsumables()
-            ->where('current_status', 'in use')->count();
+            ->where('current_status', 'in_use')->count();
         if ($count > 0) {
             $this->notify($asset->name . ' punya riwayat pemakaian, tidak bisa dihapus!', 'warning');
             return;
