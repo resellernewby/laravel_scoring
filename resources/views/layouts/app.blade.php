@@ -36,7 +36,7 @@
                 </div>
                 <div class="flex-1 mt-6 w-full px-2 space-y-1">
                     <a href="#" x-data="{ id: 1 }" x-on:click.prevent="$dispatch('opensecondary', {id})"
-                        class="{{ request()->routeIs('consumable.index') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        class="{{ request()->routeIs(['consumable.index', 'non-consumable.index', 'history']) ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <x-icon.o-wallet class="text-indigo-300 group-hover:text-white h-6 w-6" />
                         <span class="mt-2">Asset</span>
                     </a>
@@ -286,10 +286,10 @@
                                 <span class="truncate">Non Consumable</span>
                             </a>
 
-                            <a href="#"
-                                class="{{ request()->item == 'alumni' ? 'bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-50 hover:text-blue-700' : 'border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900' }} group border-l-4 px-6 py-2 flex items-center text-sm font-medium">
+                            <a href="{{ route('history') }}"
+                                class="{{ request()->routeIs('history') ? 'bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-50 hover:text-blue-700' : 'border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900' }} group border-l-4 px-6 py-2 flex items-center text-sm font-medium">
                                 <x-icon.o-trending-up
-                                    class="{{ request()->item == 'alumni' ? 'text-blue-500 group-hover:text-blue-500' : 'text-gray-400 group-hover:text-gray-500' }} flex-shrink-0 -ml-1 mr-3 h-6 w-6" />
+                                    class="{{ request()->routeIs('history') ? 'text-blue-500 group-hover:text-blue-500' : 'text-gray-400 group-hover:text-gray-500' }} flex-shrink-0 -ml-1 mr-3 h-6 w-6" />
                                 <span class="truncate">Riwayat asset</span>
                             </a>
                         </nav>
