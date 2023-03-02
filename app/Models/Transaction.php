@@ -15,4 +15,14 @@ class Transaction extends Model
         'qty',
         'price'
     ];
+
+    public function asset()
+    {
+        return $this->belongsTo(Asset::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
