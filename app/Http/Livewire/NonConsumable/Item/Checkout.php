@@ -62,6 +62,8 @@ class Checkout extends ModalComponent
                 'user' => $this->user,
                 'condition' => 'excellent'
             ]);
+
+            $this->nonConsumable->asset->decrement('qty');
         });
 
         $this->emit('itemTable');

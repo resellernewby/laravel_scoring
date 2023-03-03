@@ -82,6 +82,7 @@ class AddStockNonConsumable
             ]);
 
             // Update Current Price, Suplier, on Asset
+            $input['asset']['qty'] = $item->qty + $sum_qty;
             $item->update($input['asset']);
             DB::commit();
         } catch (\Throwable $th) {

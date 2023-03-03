@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class Stat extends Component
 {
+    public $type;
+
     protected $listeners = [
         'consumableTable' => '$refresh',
         'nonConsumableTable' => '$refresh'
@@ -15,7 +17,7 @@ class Stat extends Component
     public function render()
     {
         $asset = DB::table('assets')
-            ->where('type', 'consumable')
+            ->where('type', $this->type)
             ->selectRaw("count(case when qty > 0 then 1 end) as available")
             ->selectRaw("count(case when qty < 5 then 1 end) as lowstock")
             ->selectRaw("count(case when qty < 1 then 1 end) as outstock")

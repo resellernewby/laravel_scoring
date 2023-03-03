@@ -5,7 +5,6 @@ namespace App\Http\Livewire\NonConsumable\Item;
 use App\Models\Asset;
 use App\Models\NonConsumable;
 use App\Models\Order;
-use App\Services\Setting;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use LivewireUI\Modal\ModalComponent;
@@ -66,25 +65,25 @@ class Table extends ModalComponent
         ]);
     }
 
-    public function addCart($id)
-    {
-        $item = Asset::where('type', 'non-consumable')->find($id);
-        if (!$item) {
-            $this->notify('Data tidak ditemukan');
-            return;
-        }
+    // public function addCart($id)
+    // {
+    //     $item = Asset::where('type', 'non-consumable')->find($id);
+    //     if (!$item) {
+    //         $this->notify('Data tidak ditemukan');
+    //         return;
+    //     }
 
-        if ($item->cart()->where('user_id', auth()->id())->count() > 0) {
-            $item->cart()->increment('qty');
-        } else {
-            $item->cart()->create([
-                'user_id' => auth()->id(),
-                'qty' => 1
-            ]);
-        }
+    //     if ($item->cart()->where('user_id', auth()->id())->count() > 0) {
+    //         $item->cart()->increment('qty');
+    //     } else {
+    //         $item->cart()->create([
+    //             'user_id' => auth()->id(),
+    //             'qty' => 1
+    //         ]);
+    //     }
 
-        $this->emit('addToCart');
-    }
+    //     $this->emit('addToCart');
+    // }
 
     public function destroy(NonConsumable $nonConsumable)
     {

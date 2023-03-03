@@ -86,6 +86,8 @@ class SetAction extends ModalComponent
 
                     $asset->warehouses()->syncWithoutDetaching($this->warehouse_id);
                 }
+
+                $asset->increment('qty');
             }
 
             // Riwayat action

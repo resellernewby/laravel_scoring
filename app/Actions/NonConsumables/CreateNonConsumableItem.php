@@ -110,6 +110,7 @@ class CreateNonConsumableItem
                 $item->assetImages()->createmany($collectImage);
             }
 
+            $item->increment('qty', $total_qty);
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
