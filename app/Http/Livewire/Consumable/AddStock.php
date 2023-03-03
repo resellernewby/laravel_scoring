@@ -5,15 +5,17 @@ namespace App\Http\Livewire\Consumable;
 use App\Actions\Consumables\AddStockConsumable;
 use App\Http\Requests\AddStockRequest;
 use App\Models\Asset;
-use App\Models\FundsSource;
-use App\Models\Rack;
-use App\Models\Suplier;
-use App\Models\Warehouse;
+use App\Traits\FundsList;
+use App\Traits\RackList;
+use App\Traits\SuplierList;
+use App\Traits\WarehouseList;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class AddStock extends Component
 {
+    use WarehouseList, RackList, FundsList, SuplierList;
+
     public Collection $storages;
     public Asset $asset;
     public $rack = [];
@@ -87,36 +89,5 @@ class AddStock extends Component
     public function messages()
     {
         return (new AddStockRequest())->messages();
-    }
-
-    public function getSuplierListsProperty()
-    {
-        return Suplier::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getFundsListsProperty()
-    {
-        return FundsSource::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getWarehouseListsProperty()
-    {
-        return Warehouse::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getRackListsProperty()
-    {
-        if (empty($this->rack)) {
-            return;
-        }
-
-        $data = [];
-        foreach ($this->rack as $key => $value) {
-            $data[$key] = Rack::where('warehouse_id', $value['warehouse_id'])
-                ->oldest('name')
-                ->pluck('name', 'id');
-        }
-
-        return $data;
     }
 }

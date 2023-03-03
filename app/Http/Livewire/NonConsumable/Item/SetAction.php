@@ -6,13 +6,15 @@ use App\Models\Asset;
 use App\Models\NonConsumable;
 use App\Models\Order;
 use App\Models\Rack;
-use App\Models\Warehouse;
 use App\Services\Setting;
+use App\Traits\WarehouseList;
 use Illuminate\Support\Facades\DB;
 use LivewireUI\Modal\ModalComponent;
 
 class SetAction extends ModalComponent
 {
+    use WarehouseList;
+
     public $nonConsumable;
     public $action;
     public $returned = [];
@@ -117,11 +119,6 @@ class SetAction extends ModalComponent
         $lists = json_decode($data, true);
         unset($lists['bad']);
         return $lists;
-    }
-
-    public function getWarehouseListsProperty()
-    {
-        return Warehouse::where('id', '<>', 1)->oldest('name')->pluck('name', 'id');
     }
 
     public function getRackListsProperty()

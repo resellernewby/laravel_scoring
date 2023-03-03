@@ -80,7 +80,7 @@
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
                                 <span>Rp{{ number_format($consumable->current_price) }}</span>
                                 <span class="hidden sm:inline"> · </span>
-                                <span>{{ $consumable->consumable->qty }}</span>
+                                <span>{{ $consumable->qty }}</span>
                             </div>
                             @if (!$loop->first)
                                 <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
@@ -96,7 +96,7 @@
                         </td>
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            {{ $consumable->consumable->qty }}
+                            {{ $consumable->qty }}
                         </td>
                         <td
                             class="px-3 py-3.5 text-sm text-gray-500 {{ !$loop->first ? 'border-t border-gray-200' : '' }}">

@@ -4,19 +4,25 @@ namespace App\Http\Livewire\Consumable;
 
 use App\Actions\Consumables\CreateConsumableItem;
 use App\Http\Requests\ConsumableRequest;
-use App\Models\Brand;
-use App\Models\FundsSource;
-use App\Models\Rack;
-use App\Models\Suplier;
-use App\Models\Tag;
-use App\Models\Warehouse;
+use App\Traits\BrandList;
+use App\Traits\FundsList;
+use App\Traits\RackList;
+use App\Traits\SuplierList;
+use App\Traits\TagList;
+use App\Traits\WarehouseList;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads,
+        WarehouseList,
+        RackList,
+        FundsList,
+        SuplierList,
+        TagList,
+        BrandList;
 
     public Collection $storages;
     public Collection $specifications;
@@ -115,46 +121,5 @@ class Create extends Component
     public function messages()
     {
         return (new ConsumableRequest())->messages();
-    }
-
-    public function getTagListsProperty()
-    {
-        return Tag::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getBrandListsProperty()
-    {
-        return Brand::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getSuplierListsProperty()
-    {
-        return Suplier::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getFundsListsProperty()
-    {
-        return FundsSource::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getWarehouseListsProperty()
-    {
-        return Warehouse::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getRackListsProperty()
-    {
-        if (empty($this->rack)) {
-            return;
-        }
-
-        $data = [];
-        foreach ($this->rack as $key => $value) {
-            $data[$key] = Rack::where('warehouse_id', $value['warehouse_id'])
-                ->oldest('name')
-                ->pluck('name', 'id');
-        }
-
-        return $data;
     }
 }

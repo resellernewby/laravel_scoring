@@ -39,7 +39,6 @@ class Table extends Component
     {
         return Asset::query()
             ->with([
-                'consumable',
                 'brand',
                 'racks.warehouse',
                 'tags',
@@ -55,20 +54,11 @@ class Table extends Component
                 'warehouses',
                 fn ($q) => $q->where('id', $this->filters['warehouse'])
             ))
-            ->when($this->filters['stock'], fn ($query) => $query->whereHas(
-                'consumable',
-                function ($q) {
-                    if ($this->filters['stock'] == 'available') {
-                        $q->where('qty', '>', 0);
-                    }
-                    if ($this->filters['stock'] == 'lowstock') {
-                        $q->where('qty', '<', 5);
-                    }
-                    if ($this->filters['stock'] == 'outstock') {
-                        $q->where('qty', '<', 1);
-                    }
-                }
-            ))
+            ->when($this->filters['stock'], function ($query) {
+                $query->when($this->filters['stock'] == 'available', fn ($q) => $q->where('qty', '>', 0))
+                    ->when($this->filters['stock'] == 'lowstock', fn ($q) => $q->where('qty', '<', 5))
+                    ->when($this->filters['stock'] == 'outstock', fn ($q) => $q->where('qty', '<', 1));
+            })
             ->where('type', 'consumable')
             ->latest('id');
     }

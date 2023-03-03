@@ -29,6 +29,7 @@ class ConsumableSeeder extends Seeder
             'barcode' => fake()->isbn13(),
             'name' => fake()->randomElement(['catridge', 'spidol', 'tissue', 'kertas', 'tinta']),
             'type' => 'consumable',
+            'qty' => 24,
             'current_price' => fake()->randomNumber(5, true),
             'purchase_at' => '2023-02-08'
         ]);
@@ -54,7 +55,6 @@ class ConsumableSeeder extends Seeder
         ]);
 
         $consumableAsset->consumable()->create([
-            'qty' => 24,
             'lifetime' => fake()->randomDigit()
         ]);
     }

@@ -20,27 +20,29 @@ class UpdateConsumableItem
 
             // Update Item
             $item = Asset::find($id);
-            $item->update($input['asset']);
 
             // sync to category
             $item->tags()->syncWithoutDetaching($input['tag_ids']);
 
             // asign to racks and warehouses
             $total_qty = 0;
+            $rack_ids = [];
+            $warehouse_ids = [];
             foreach ($input['rack'] as $rack) {
-                $currentQty = $item->racks()->find($rack['id'])->pivot->qty - $rack['qty'];
-                $item->racks()->syncWithPivotValues($rack['id'], [
-                    'qty' => $rack['qty']
-                ]);
-
-                $item->warehouses()->sync($rack['warehouse_id']);
-
-                $total_qty += $currentQty;
+                $rack_ids[$rack['id']] = ['qty' => $rack['qty']];
+                $warehouse_ids[] = $rack['warehouse_id'];
+                // $currentQty = $item->racks()->find($rack['id'])->pivot->qty - $rack['qty'];
+                $total_qty += $rack['qty'];
             }
 
-            // Update consumable item
+            $item->warehouses()->syncWithoutDetaching($warehouse_ids);
+            $item->racks()->sync($rack_ids);
+
+            // Update consumable asset
+            $input['asset']['qty'] = $total_qty;
+            $item->update($input['asset']);
+
             $item->consumable()->update([
-                'qty' => $total_qty,
                 'lifetime' => $input['lifetime']
             ]);
 

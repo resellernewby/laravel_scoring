@@ -39,8 +39,8 @@ class AddStockConsumable
                 $item->warehouses()->syncWithoutDetaching($rack['warehouse_id']);
             }
 
-            // Update Total Qty in consumable
-            $item->consumable()->increment('qty', $sum_qty);
+            // Update Total Qty in consumable asset
+            $item->increment('qty', $sum_qty);
 
             // Create Order add stock from suplier
             if ($input['asset']['suplier_id'] != $item->suplier_id) {

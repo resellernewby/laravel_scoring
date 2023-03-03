@@ -5,17 +5,21 @@ namespace App\Http\Livewire\NonConsumable;
 use App\Actions\NonConsumables\UpdateNonConsumableItem;
 use App\Http\Requests\NonConsumableUpdateRequest;
 use App\Models\Asset;
-use App\Models\Brand;
-use App\Models\FundsSource;
-use App\Models\Suplier;
-use App\Models\Tag;
+use App\Traits\BrandList;
+use App\Traits\FundsList;
+use App\Traits\SuplierList;
+use App\Traits\TagList;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Edit extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads,
+        TagList,
+        BrandList,
+        SuplierList,
+        FundsList;
 
     public Collection $specifications;
     public $uploadedFiles = [];
@@ -104,25 +108,5 @@ class Edit extends Component
     public function messages()
     {
         return (new NonConsumableUpdateRequest())->messages();
-    }
-
-    public function getTagListsProperty()
-    {
-        return Tag::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getBrandListsProperty()
-    {
-        return Brand::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getSuplierListsProperty()
-    {
-        return Suplier::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getFundsListsProperty()
-    {
-        return FundsSource::oldest('name')->pluck('name', 'id');
     }
 }

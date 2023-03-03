@@ -38,7 +38,6 @@ class CreateConsumableItem
 
             // create consumable item
             $item->consumable()->create([
-                'qty' => $total_qty,
                 'lifetime' => $input['lifetime']
             ]);
 
@@ -96,6 +95,9 @@ class CreateConsumableItem
                 }
 
                 $item->assetImages()->createmany($collectImage);
+                $item->update([
+                    'qty' => $total_qty,
+                ]);
             }
         });
     }

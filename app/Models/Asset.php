@@ -21,6 +21,7 @@ class Asset extends Model
         'model',
         'name',
         'type',
+        'qty',
         'current_price',
         'purchase_at'
     ];

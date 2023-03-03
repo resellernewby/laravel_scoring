@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('consumables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id')->constrained();
-            $table->unsignedInteger('qty');
             $table->unsignedInteger('lifetime')->nullable()->comment('in month');
             $table->timestamps();
         });

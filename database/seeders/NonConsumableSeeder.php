@@ -31,6 +31,7 @@ class NonConsumableSeeder extends Seeder
             'model' => fake()->regexify('[A-Z]{5}[0-4]{3}'),
             'name' => fake()->randomElement(['laptop', 'komputer', 'meja', 'TV', 'AC', 'Kulkas', 'Lemari', 'Server', 'HP', 'Kamera', 'Drone']),
             'type' => 'non-consumable',
+            'qty' => 2,
             'current_price' => 500000,
             'purchase_at' => now()
         ]);

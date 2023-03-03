@@ -12,8 +12,8 @@ class CheckoutCartItem
         $location = Location::find($location_id);
         // loop
         foreach ($collections as $item) {
-            // Kurangi QTY pada consumable
-            $item->asset->consumable()->decrement('qty', $item->qty);
+            // Kurangi QTY pada consumable asset
+            $item->asset->decrement('qty', $item->qty);
 
             // Update QTY pada rak
             foreach ($item->taken_item_on_racks as $taken) {

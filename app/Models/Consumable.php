@@ -12,7 +12,6 @@ class Consumable extends Model
     use Numeric;
 
     protected $fillable = [
-        'qty',
         'lifetime',
     ];
 

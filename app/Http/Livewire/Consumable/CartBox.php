@@ -21,7 +21,7 @@ class CartBox extends Component
 
     public function increment(Cart $cart)
     {
-        $ready = $cart->asset->consumable->qty;
+        $ready = $cart->asset->qty;
         if ($cart->qty >= $ready) {
             $this->notify('Stok terbatas', 'warning');
             return;

@@ -4,11 +4,14 @@ namespace App\Http\Livewire\NonConsumable\Item;
 
 use App\Models\Location;
 use App\Models\NonConsumable;
+use App\Traits\LocationList;
 use Illuminate\Support\Facades\DB;
 use LivewireUI\Modal\ModalComponent;
 
 class Checkout extends ModalComponent
 {
+    use LocationList;
+
     public $nonConsumable;
     public $location_id;
     public $user;
@@ -69,10 +72,5 @@ class Checkout extends ModalComponent
     public static function closeModalOnClickAway(): bool
     {
         return false;
-    }
-
-    public function getLocationListsProperty()
-    {
-        return Location::oldest('name')->pluck('name', 'id');
     }
 }
