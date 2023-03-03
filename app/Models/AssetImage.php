@@ -25,7 +25,7 @@ class AssetImage extends Model
 
     public function getImageUrlAttribute()
     {
-        $imageUrl = asset('images/no_image.png');
+        $imageUrl = asset('images/photo-off.svg');
 
         if (!is_null($this->name)) {
             $directory = config('setting.asset.image.directory');
@@ -41,7 +41,7 @@ class AssetImage extends Model
 
     public function getImageThumbUrlAttribute()
     {
-        $imageUrl = asset('images/no_image.png');
+        $imageUrl = asset('images/photo-off.svg');
 
         if (!is_null($this->name)) {
             $directory = config('setting.asset.image.directory');

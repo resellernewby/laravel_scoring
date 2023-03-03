@@ -15,15 +15,24 @@ class Table extends Component
 
     public $search = '';
     public $isDelete = false;
+    public $showFilters = false;
     public $filters = [
         'tag' => '',
         'brand' => '',
-        'warehouse' => ''
+        'warehouse' => '',
+        'stock' => ''
+    ];
+
+    public $stockFilters = [
+        'available' => 'Stok tersedia',
+        'lowstock' => 'Stok segera habis',
+        'outstock' => 'Stok habis',
     ];
 
     protected $listeners = [
         'consumableTable' => '$refresh',
-        'taggedToAsset' => '$refresh'
+        'taggedToAsset' => '$refresh',
+        'setStock'
     ];
 
     public function getRowsQueryProperty()
@@ -46,6 +55,20 @@ class Table extends Component
                 'warehouses',
                 fn ($q) => $q->where('id', $this->filters['warehouse'])
             ))
+            ->when($this->filters['stock'], fn ($query) => $query->whereHas(
+                'consumable',
+                function ($q) {
+                    if ($this->filters['stock'] == 'available') {
+                        $q->where('qty', '>', 0);
+                    }
+                    if ($this->filters['stock'] == 'lowstock') {
+                        $q->where('qty', '<', 5);
+                    }
+                    if ($this->filters['stock'] == 'outstock') {
+                        $q->where('qty', '<', 1);
+                    }
+                }
+            ))
             ->where('type', 'consumable')
             ->latest('id');
     }
@@ -61,6 +84,16 @@ class Table extends Component
             'consumables' => $this->rows,
             'lists' => $this->lists
         ]);
+    }
+
+    public function setStock($stock)
+    {
+        $this->filters['stock'] = $stock;
+    }
+
+    public function resetStock()
+    {
+        $this->filters['stock'] = '';
     }
 
     public function addCart($id)

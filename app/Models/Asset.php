@@ -104,7 +104,7 @@ class Asset extends Model
         return $this->hasOne(AssetImage::class)
             ->main()
             ->withDefault([
-                'image_thumb_url' => public_path('images/no_image.png')
+                'image_thumb_url' => public_path('images/photo-off.svg')
             ]);
     }
 }
