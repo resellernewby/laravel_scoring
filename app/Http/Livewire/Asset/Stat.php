@@ -15,6 +15,7 @@ class Stat extends Component
     public function render()
     {
         $asset = DB::table('assets')
+            ->where('type', 'consumable')
             ->selectRaw("count(case when qty > 0 then 1 end) as available")
             ->selectRaw("count(case when qty < 5 then 1 end) as lowstock")
             ->selectRaw("count(case when qty < 1 then 1 end) as outstock")

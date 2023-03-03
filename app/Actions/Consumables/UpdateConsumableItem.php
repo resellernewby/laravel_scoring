@@ -28,6 +28,7 @@ class UpdateConsumableItem
             $total_qty = 0;
             $rack_ids = [];
             $warehouse_ids = [];
+            dd($input['rack']);
             foreach ($input['rack'] as $rack) {
                 $rack_ids[$rack['id']] = ['qty' => $rack['qty']];
                 $warehouse_ids[] = $rack['warehouse_id'];
