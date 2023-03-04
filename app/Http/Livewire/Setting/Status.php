@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Setting;
 
-use App\Services\Setting;
+use App\Models\Setting;
 use Livewire\Component;
 
 class Status extends Component
