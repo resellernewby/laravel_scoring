@@ -27,7 +27,7 @@
                 </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Jml Asset
+                    Jml Jenis Barang
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
@@ -35,7 +35,7 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($tags as $tag)
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:key="tag-{{ $tag->id }}" wire:loading.class.delay="opacity-50">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div class="font-medium text-gray-900">

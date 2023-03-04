@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-2">
-                <x-button.primary onclick="Livewire.emit('openModal', 'brand.create')"
+                <x-button.primary onclick="Livewire.emit('openModal', 'suplier.create')"
                     class="flex items-center bg-white">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Create
                 </x-button.primary>
@@ -26,13 +26,16 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                     Nama suplier
                 </th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                    No. HP
+                </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
                 </th>
             </x-slot>
             <x-slot name="body">
                 @forelse ($supliers as $suplier)
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:key="suplier-{{ $suplier->id }}" wire:loading.class.delay="opacity-50">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div class="font-medium text-gray-900">
@@ -41,6 +44,10 @@
                             @if (!$loop->first)
                                 <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
                             @endif
+                        </td>
+                        <td
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            {{ $suplier->phone }}
                         </td>
                         <td
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">

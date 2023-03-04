@@ -44,7 +44,7 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($warehouses as $warehouse)
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:key="warehouse-{{ $warehouse->id }}" wire:loading.class.delay="opacity-50">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div>

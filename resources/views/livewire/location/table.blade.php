@@ -38,33 +38,33 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($brands as $brand)
-                <tr wire:loading.class.delay="opacity-50">
-                    <td
-                        class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                        <div class="font-medium text-gray-900">
-                            {{ $brand->name }}
-                        </div>
-                        @if (!$loop->first)
-                        <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
-                        @endif
-                    </td>
-                    <td
-                        class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                        @include('livewire.brand._actions')
-                        @if (!$loop->first)
-                        <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>
-                        @endif
-                    </td>
-                </tr>
+                    <tr wire:key="brand-{{ $brand->id }}" wire:loading.class.delay="opacity-50">
+                        <td
+                            class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
+                            <div class="font-medium text-gray-900">
+                                {{ $brand->name }}
+                            </div>
+                            @if (!$loop->first)
+                                <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
+                            @endif
+                        </td>
+                        <td
+                            class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
+                            @include('livewire.brand._actions')
+                            @if (!$loop->first)
+                                <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>
+                            @endif
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <x-table.cell colspan="5">
-                        <div class="flex justify-center items-center space-x-2">
-                            <x-icon.inbox class="h-8 w-8 text-cool-gray-400" />
-                            <span class="font-medium py-8 text-cool-gray-400 text-xl">Data tidak ditemukan</span>
-                        </div>
-                    </x-table.cell>
-                </tr>
+                    <tr>
+                        <x-table.cell colspan="5">
+                            <div class="flex justify-center items-center space-x-2">
+                                <x-icon.inbox class="h-8 w-8 text-cool-gray-400" />
+                                <span class="font-medium py-8 text-cool-gray-400 text-xl">Data tidak ditemukan</span>
+                            </div>
+                        </x-table.cell>
+                    </tr>
                 @endforelse
             </x-slot>
         </x-table>

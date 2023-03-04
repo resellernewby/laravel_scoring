@@ -57,7 +57,7 @@
             </div>
         </a>
 
-        <a href="{{ route('setting.damaged-item') }}"
+        {{-- <a href="{{ route('setting.damaged-item') }}"
             class="{{ request()->routeIs('setting.damaged-item') ? 'bg-blue-50 bg-opacity-50' : 'hover:bg-blue-50 hover:bg-opacity-50' }} border-blue-gray-200 flex border-b p-6">
             <svg class="-mt-0.5 h-6 w-6 flex-shrink-0 text-blue-gray-400" fill="none" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -69,6 +69,6 @@
                 <p class="mt-1 text-blue-gray-500">Keterangan barang rusak, gudang penyimpanan barang rusak dan terkait.
                 </p>
             </div>
-        </a>
+        </a> --}}
     </div>
 </nav>

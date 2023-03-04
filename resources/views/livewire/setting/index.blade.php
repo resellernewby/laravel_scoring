@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-3xl py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
         <h1 class="text-3xl font-bold tracking-tight text-blue-gray-900">Umum</h1>
 
-        <form class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y">
+        <form wire:submit.prevent="store" class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y">
             <div class="grid grid-cols-1 gap-y-6">
                 <x-input label="Nama Instansi" wire:model.lazy="company_name" :error="$errors->first('company_name')" />
 

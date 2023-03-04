@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Warehouse;
+namespace App\Http\Livewire\Rack;
 
 use App\Models\Warehouse;
 use LivewireUI\Modal\ModalComponent;
 
-class AddRack extends ModalComponent
+class Create extends ModalComponent
 {
     public $warehouse;
     public $inputs = [];
@@ -27,7 +27,7 @@ class AddRack extends ModalComponent
 
     public function render()
     {
-        return view('livewire.warehouse.add-rack');
+        return view('livewire.rack.create');
     }
 
     public function store()

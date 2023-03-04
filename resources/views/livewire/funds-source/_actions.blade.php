@@ -1,4 +1,4 @@
-<x-dropdown label="Opsi">
+<x-dropdown label="Opsi" wire:key="button-{{ $funds->id }}">
     <x-dropdown.item class="flex"
         onclick="Livewire.emit('openModal', 'funds-source.edit', {{ json_encode(['funds' => $funds->id]) }})">
         <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"

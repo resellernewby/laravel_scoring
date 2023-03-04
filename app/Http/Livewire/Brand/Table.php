@@ -20,6 +20,7 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Brand::query()
+            ->with(['assets'])
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->latest('id');
     }

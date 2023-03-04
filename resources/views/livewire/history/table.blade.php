@@ -56,7 +56,7 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($transactions as $transaction)
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:key="transaction-{{ $transaction->id }}" wire:loading.class.delay="opacity-50">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div class="flex items-center space-x-2 font-semibold text-gray-800">

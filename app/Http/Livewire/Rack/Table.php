@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Rack;
 
 use App\Models\Rack;
-use App\Models\Subrack;
 use App\Models\Warehouse;
 use Livewire\Component;
 
@@ -32,13 +31,12 @@ class Table extends Component
     {
         $this->isDelete = false;
 
-        if ($rack->subracks()->count() > 0) {
+        if ($rack->assets()->count() > 0) {
             $this->notify($rack->name . ' tidak bisa dihapus!', 'warning');
             return;
         }
 
         $rack->delete();
         $this->notify($rack->name . ' berhasil dihapus');
-        $this->emitSelf('rackTable');
     }
 }

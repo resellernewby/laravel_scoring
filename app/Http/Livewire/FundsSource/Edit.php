@@ -10,7 +10,8 @@ class Edit extends ModalComponent
     public FundsSource $inputs;
 
     protected $rules = [
-        'inputs.name' => 'required|max:50'
+        'inputs.name' => 'required|max:50',
+        'inputs.code' => 'required|max:50'
     ];
 
     protected $messages = [

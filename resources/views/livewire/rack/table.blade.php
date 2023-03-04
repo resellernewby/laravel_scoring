@@ -7,7 +7,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <x-button.primary
-                    onclick="Livewire.emit('openModal', 'warehouse.add-rack', {{ json_encode(['warehouse' => $warehouse->id]) }})"
+                    onclick="Livewire.emit('openModal', 'rack.create', {{ json_encode(['warehouse' => $warehouse->id]) }})"
                     class="flex items-center bg-white">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Create
                 </x-button.primary>
@@ -28,7 +28,8 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($warehouse->racks as $rack)
-                    <tr wire:loading.class.delay="opacity-50" class="hover:bg-gray-50">
+                    <tr wire:key="rack-{{ $rack->id }}" wire:loading.class.delay="opacity-50"
+                        class="hover:bg-gray-50">
                         <td class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm">
                             <div class="flex items-center mb-1">
                                 <p class="font-medium text-gray-900">
