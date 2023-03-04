@@ -12,6 +12,9 @@
 
                 <x-input.addon leading-add-on="Damaged" wire:model.lazy="status.damaged" :error="$errors->first('status.damaged')"
                     help-text="Kondisi barang rusak dan tidak bisa digunakan" />
+
+                <x-input.addon leading-add-on="Returned" wire:model.lazy="status.returned" :error="$errors->first('status.returned')"
+                    help-text="Kondisi barang rusak dan tidak bisa digunakan" />
             </div>
 
             <div class="flex justify-end pt-8">

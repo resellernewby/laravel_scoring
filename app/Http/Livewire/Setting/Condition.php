@@ -7,17 +7,17 @@ use Livewire\Component;
 
 class Condition extends Component
 {
-    public $condition = [];
+    public $conditions = [];
 
     protected $rules = [
-        'conditon.*' => 'required|max:250'
+        'conditions.*' => 'required|max:250'
     ];
 
     public function mount()
     {
         $setting = Setting::pluck('value', 'key');
-        if (isset($setting['condition'])) {
-            $this->condition = json_decode($setting['condition'], true);
+        if (isset($setting['conditions'])) {
+            $this->conditions = json_decode($setting['conditions'], true);
         }
     }
 
@@ -32,10 +32,10 @@ class Condition extends Component
 
         Setting::updateOrCreate(
             [
-                'key' => 'condition'
+                'key' => 'conditions'
             ],
             [
-                'value' => json_encode($this->condition)
+                'value' => json_encode($this->conditions)
             ]
         );
 
