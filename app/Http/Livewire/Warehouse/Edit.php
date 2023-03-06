@@ -11,7 +11,7 @@ class Edit extends ModalComponent
 
     protected $rules = [
         'inputs.name' => 'required|max:255',
-        'inputs.pj' => 'nullable',
+        'inputs.pic' => 'nullable',
         'inputs.description' => 'nullable'
     ];
 
