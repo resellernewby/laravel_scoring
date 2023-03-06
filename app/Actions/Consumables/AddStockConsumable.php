@@ -5,15 +5,19 @@ namespace App\Actions\Consumables;
 use App\Models\Asset;
 use App\Models\Order;
 use App\Models\Suplier;
+use App\Traits\Numeric;
 use Illuminate\Support\Facades\DB;
 
 class AddStockConsumable
 {
+    use Numeric;
+
     public function handle($input)
     {
         DB::transaction(function () use ($input) {
             // First Asset
             $item = Asset::with(['suplier', 'racks'])->find($input['asset_id']);
+            $input['asset']['current_price'] = $this->getNumeric($input['asset']['current_price']);
             $suplierName = $item->suplier->name;
 
             // Store to Warehouse and rack
