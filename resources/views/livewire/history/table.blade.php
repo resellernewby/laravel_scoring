@@ -43,6 +43,9 @@
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Qty
                 </th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Harga
+                </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                     Type
@@ -89,6 +92,10 @@
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             {{ $transaction->qty }}
+                        </td>
+                        <td
+                            class="hidden px-3 py-3.5 text-sm text-orange-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            Rp{{ number_format($transaction->price) }}
                         </td>
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
