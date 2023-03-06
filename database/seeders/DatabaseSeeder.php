@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\User::factory()->create();
         if (config('app.env') !== 'production') {
-            \App\Models\User::factory()->create();
             \App\Models\Brand::factory(5)->create();
             \App\Models\Suplier::factory(5)->create();
             \App\Models\FundsSource::factory(2)->create();
@@ -58,19 +58,19 @@ class DatabaseSeeder extends Seeder
                 ],
                 [
                     'key' => 'company_name',
-                    'value' => 'Belum disetting',
+                    'value' => 'Ubah disetting',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
                     'key' => 'status',
-                    'value' => null,
+                    'value' => '{"in_stock":"In Stock","in_use":"In Use","returned":"Returned","damaged":"Damaged"}',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
                     'key' => 'conditions',
-                    'value' => null,
+                    'value' => '{"excellent":"Excellent","good":"Good","poor":"Poor","bad":"Bad"}',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]
