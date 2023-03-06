@@ -33,9 +33,9 @@ class DatabaseSeeder extends Seeder
             ]);
         } else {
             DB::table('users')->insert([
-                'name' => fake()->name(),
+                'name' => 'Administrator',
                 'username' => 'admin23',
-                'email' => fake()->safeEmail(),
+                'email' => 'admin@email.com',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$JQCJIUtopkK.r093euBt2.bQkmisymsScYQAQYmDzJ9upJ37fB5qa', // Admin@23
                 'remember_token' => Str::random(10),
