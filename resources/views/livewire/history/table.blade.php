@@ -11,7 +11,7 @@
                         </div>
                         <input wire:model.debounce.500ms="search"
                             class="block w-full bg-white py-2 pl-10 pr-3 border border-gray-200 rounded-md focus:text-gray-500 focus:border-blue-500 focus:ring-blue-500 placeholder-gray-500 focus:placeholder-gray-200 sm:text-sm"
-                            placeholder="Cari nama suplier..." type="search">
+                            placeholder="Cari nama barang..." type="search">
                     </div>
                 </div>
                 <x-dropdown label="Filter" divider>
