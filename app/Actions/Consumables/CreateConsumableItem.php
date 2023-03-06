@@ -64,6 +64,10 @@ class CreateConsumableItem
                 'price' => $input['asset']['current_price']
             ]);
 
+            $item->update([
+                'qty' => $total_qty,
+            ]);
+
             //Save images
             if (!empty($input['images'])) {
                 $collectImage = [];
@@ -95,9 +99,6 @@ class CreateConsumableItem
                 }
 
                 $item->assetImages()->createmany($collectImage);
-                $item->update([
-                    'qty' => $total_qty,
-                ]);
             }
         });
     }
