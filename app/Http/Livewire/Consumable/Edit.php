@@ -26,11 +26,10 @@ class Edit extends Component
         BrandList;
 
     public Collection $storages;
-    public Collection $specifications;
+    public Collection $spec;
     public $uploadedFiles = [];
     public $images = [];
     public $asset = [];
-    public $spec = [];
     public $rack = [];
     public $tag_ids;
     // public $tag_ids = [];
@@ -61,13 +60,6 @@ class Edit extends Component
             ];
         });
 
-        $this->spec = $this->asset->assetSpecifications->map(function ($item, $key) {
-            return [
-                'name' => $item->name,
-                'value' => $item->value
-            ];
-        });
-
         $this->storages = $this->asset->racks->map(function () {
             return [
                 'warehouse_id' => '',
@@ -76,12 +68,9 @@ class Edit extends Component
             ];
         });
 
-        $this->specifications = $this->asset->assetSpecifications->map(function () {
-            return [
-                'name' => '',
-                'value' => ''
-            ];
-        });
+        $this->spec = collect(
+            $this->asset->assetSpecifications()->get(['name', 'value'])
+        );
     }
 
     public function addInput()
@@ -100,7 +89,7 @@ class Edit extends Component
 
     public function addSpecInput()
     {
-        $this->specifications->push([
+        $this->spec->push([
             'name' => '',
             'value' => ''
         ]);
@@ -108,11 +97,12 @@ class Edit extends Component
 
     public function removeSpecInput($key)
     {
-        $this->specifications->pull($key);
+        $this->spec->pull($key);
     }
 
     public function render()
     {
+        // dump($this->spec);
         return view('livewire.consumable.edit', [
             'tagLists' => $this->tagLists,
             'brandLists' => $this->brandLists,

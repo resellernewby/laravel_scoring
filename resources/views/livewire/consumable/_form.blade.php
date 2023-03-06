@@ -106,7 +106,7 @@
         help-text="Masa pakai dalam bulan" :error="$errors->first('lifetime')" />
 
     <div class="mt-4 space-y-4">
-        @foreach ($specifications as $k => $i)
+        @foreach ($spec as $k => $i)
             <div class="flex space-x-4 bg-gray-50 rounded-md p-2">
                 <div class="w-full">
                     <x-input id="spec{{ $k }}_name" label="Keterangan spesifikasi"
