@@ -1,6 +1,6 @@
 <x-dropdown label="Opsi" wire:key="button-{{ $warehouse->id }}">
     <x-dropdown.item class="flex"
-        onclick="Livewire.emit('openModal', 'warehouse.add-rack', {{ json_encode(['warehouse' => $warehouse->id]) }})">
+        onclick="Livewire.emit('openModal', 'rack.create', {{ json_encode(['warehouse' => $warehouse->id]) }})">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
             class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500">
             <path fill-rule="evenodd"
