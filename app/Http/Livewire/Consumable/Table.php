@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Tag;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
 class Table extends Component
@@ -115,7 +116,17 @@ class Table extends Component
             return;
         }
 
-        $asset->delete();
+        DB::transaction(function () use ($asset) {
+            $asset->warehouses()->detach();
+            $asset->racks()->detach();
+            $asset->tags()->detach();
+            $asset->consumable()->delete();
+            $asset->transactions()->delete();
+            $asset->assetImages()->delete();
+            $asset->assetSpecifications()->delete();
+            $asset->delete();
+        });
+
         $this->notify($asset->name . ' berhasil dihapus');
     }
 
