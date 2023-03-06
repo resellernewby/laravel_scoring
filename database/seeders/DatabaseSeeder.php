@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Warehouse;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,8 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory()->create();
         if (config('app.env') !== 'production') {
+            \App\Models\User::factory()->create();
             \App\Models\Brand::factory(5)->create();
             \App\Models\Suplier::factory(5)->create();
             \App\Models\FundsSource::factory(2)->create();
@@ -32,6 +33,16 @@ class DatabaseSeeder extends Seeder
             ]);
         } else {
             DB::table('warehouses')->truncate();
+            DB::table('users')->insert([
+                'name' => fake()->name(),
+                'username' => 'admin23',
+                'email' => fake()->safeEmail(),
+                'email_verified_at' => now(),
+                'password' => '$2y$10$JQCJIUtopkK.r093euBt2.bQkmisymsScYQAQYmDzJ9upJ37fB5qa', // Admin@23
+                'remember_token' => Str::random(10),
+                'role' => 'admin'
+            ]);
+
             $warehouse = Warehouse::create([
                 'name' => 'Gudang Barang Rusak',
                 'description' => 'Gudang Barang Rusak',
