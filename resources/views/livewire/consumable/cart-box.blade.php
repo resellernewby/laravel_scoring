@@ -81,8 +81,16 @@
                                                                             <x-icon.o-minus-circle
                                                                                 class="w-6 h-6 text-indigo-700" />
                                                                         </button>
-                                                                        <span
-                                                                            class="text-gray-500 border-b py-1 px-2">{{ $cart->qty }}</span>
+                                                                        <div class="w-11">
+                                                                            <div class="relative">
+                                                                                <input type="number" min="1"
+                                                                                    wire:model.debounce.500ms="qts.{{ $key }}.qty"
+                                                                                    class="block w-full border-0 p-0.5 text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
+                                                                                    placeholder="0" />
+                                                                                <div class="absolute inset-x-0 bottom-0 border-t border-gray-300 peer-focus:border-t-2 peer-focus:border-indigo-600"
+                                                                                    aria-hidden="true"></div>
+                                                                            </div>
+                                                                        </div>
                                                                         <button
                                                                             wire:click="increment({{ $cart->id }})"
                                                                             class="relative inline-block">

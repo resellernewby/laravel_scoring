@@ -6,10 +6,12 @@ use App\Actions\Consumables\CheckoutCartItem;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Cart;
 use App\Models\Location;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class CartBox extends Component
 {
+    public Collection $qts;
     public $item = [];
     public $taken_by;
     public $location_id;
@@ -19,15 +21,43 @@ class CartBox extends Component
         'locationCreated' => '$refresh'
     ];
 
+    public function mount()
+    {
+        $this->qts = collect(
+            $this->carts
+        );
+    }
+
+    public function updated($propertyName)
+    {
+        $validated = $this->validateOnly($propertyName, [
+            'qts.*.qty' => 'required'
+        ]);
+
+        foreach ($validated['qts'] as $key => $item) {
+            $ready = $this->carts[$key]->asset->qty;
+            if ($item['qty'] >= $ready) {
+                $this->notify('Stok ' . $this->carts[$key]->asset->name . ' terbatas', 'warning');
+            } else {
+                $this->carts[$key]->update([
+                    'qty' => $item['qty']
+                ]);
+            }
+        }
+    }
+
     public function increment(Cart $cart)
     {
         $ready = $cart->asset->qty;
         if ($cart->qty >= $ready) {
-            $this->notify('Stok terbatas', 'warning');
+            $this->notify('Stok ' . $cart->asset->name . ' terbatas', 'warning');
             return;
         }
 
         $cart->increment('qty');
+        $this->qts = collect(
+            $this->carts
+        );
     }
 
     public function decrement(Cart $cart)
@@ -37,6 +67,9 @@ class CartBox extends Component
         }
 
         $cart->decrement('qty');
+        $this->qts = collect(
+            $this->carts
+        );
     }
 
     public function remove(Cart $cart)
