@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
                 NonConsumableSeeder::class,
             ]);
         } else {
-            DB::table('warehouses')->truncate();
             DB::table('users')->insert([
                 'name' => fake()->name(),
                 'username' => 'admin23',
