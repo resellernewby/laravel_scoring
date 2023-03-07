@@ -92,8 +92,9 @@
                                 </td>
                                 <td
                                     class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                                    <p>{{ $nonConsumable->condition }}</p>
-                                    <span class="font-normal">{{ $nonConsumable->current_status }}</span>
+                                    <p>{{ App\Services\Setting::condition($nonConsumable->condition) }}</p>
+                                    <span
+                                        class="font-normal">{{ App\Services\Setting::status($nonConsumable->current_status) }}</span>
                                 </td>
                                 <td
                                     class="px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">

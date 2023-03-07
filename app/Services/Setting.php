@@ -18,4 +18,29 @@ class Setting
 
         return $setting[$key] ?? null;
     }
+
+    public static function set()
+    {
+        # code...
+    }
+
+    public static function condition($key)
+    {
+        $data = json_decode(self::get('conditions'), true);
+        if (isset($data[$key])) {
+            return $data[$key];
+        }
+
+        return $key;
+    }
+
+    public static function status($key)
+    {
+        $data = json_decode(self::get('status'), true);
+        if (isset($data[$key])) {
+            return $data[$key];
+        }
+
+        return $key;
+    }
 }
