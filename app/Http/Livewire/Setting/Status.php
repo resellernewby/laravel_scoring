@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Setting;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class Status extends Component
@@ -38,6 +39,10 @@ class Status extends Component
                 'value' => json_encode($this->status)
             ]
         );
+
+        Cache::remember('setting', 24 * 60 * 7, function () {
+            return Setting::pluck('value', 'key')->toArray();
+        });
 
         $this->notify('Pengaturan status barang berhasil disimpan');
     }

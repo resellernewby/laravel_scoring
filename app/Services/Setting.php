@@ -11,7 +11,7 @@ class Setting
     {
         $setting = Cache::get('setting');
         if (!isset($setting[$key])) {
-            $setting = Cache::remember('setting', 24 * 60, function () {
+            $setting = Cache::remember('setting', 24 * 60 * 7, function () {
                 return ModelsSetting::pluck('value', 'key')->toArray();
             });
         }

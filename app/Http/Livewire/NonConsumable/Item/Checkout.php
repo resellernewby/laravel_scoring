@@ -16,6 +16,10 @@ class Checkout extends ModalComponent
     public $location_id;
     public $user;
 
+    protected $listeners = [
+        'locationCreated' => '$refresh'
+    ];
+
     protected $rules = [
         'user' => 'required|max:150',
         'location_id' => 'required'

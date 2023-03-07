@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Livewire\Component;
 use App\Models\Tag;
 use App\Models\Warehouse;
+use App\Services\Setting;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
@@ -57,7 +58,7 @@ class Table extends Component
             ))
             ->when($this->filters['stock'], function ($query) {
                 $query->when($this->filters['stock'] == 'available', fn ($q) => $q->where('qty', '>', 0))
-                    ->when($this->filters['stock'] == 'lowstock', fn ($q) => $q->where('qty', '<', 5))
+                    ->when($this->filters['stock'] == 'lowstock', fn ($q) => $q->where('qty', '<', (int) Setting::get('lowstock')))
                     ->when($this->filters['stock'] == 'outstock', fn ($q) => $q->where('qty', '<', 1));
             })
             ->where('type', 'consumable')

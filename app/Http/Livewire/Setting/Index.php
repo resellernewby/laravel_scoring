@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Setting;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class Index extends Component
@@ -37,6 +38,10 @@ class Index extends Component
                 'value' => $this->company_name
             ]
         );
+
+        Cache::remember('setting', 24 * 60 * 7, function () {
+            return Setting::pluck('value', 'key')->toArray();
+        });
 
         $this->notify('Pengaturan informasi umum berhasil disimpan');
     }

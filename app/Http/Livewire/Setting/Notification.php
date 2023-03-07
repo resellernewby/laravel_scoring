@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Setting;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class Notification extends Component
@@ -48,6 +49,10 @@ class Notification extends Component
                 'value' => $this->notif_hour
             ]
         );
+
+        Cache::remember('setting', 24 * 60 * 7, function () {
+            return Setting::pluck('value', 'key')->toArray();
+        });
 
         $this->notify('Pengaturan notifikasi berhasil disimpan');
     }

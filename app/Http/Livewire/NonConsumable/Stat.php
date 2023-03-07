@@ -17,7 +17,7 @@ class Stat extends Component
     {
         $nonConsumables = DB::table('assets')
             ->selectRaw("count(case when qty > 0 then 1 end) as available")
-            ->selectRaw("count(case when qty < ? then 1 end) as lowstock", [Setting::get('lowstock')])
+            ->selectRaw("count(case when qty < ? then 1 end) as lowstock", [(int) Setting::get('lowstock')])
             ->selectRaw("count(case when qty < 1 then 1 end) as outstock")
             ->first();
 
