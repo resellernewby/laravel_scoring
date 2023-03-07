@@ -1,5 +1,10 @@
 <div>
     <div class="-mx-4 my-10 shadow bg-white sm:-mx-6 md:mx-0 md:rounded-lg">
+        @if (!empty($filters['stock']))
+            <div class="sm:flex sm:items-center sm:px-6 sm:pt-4 px-3 pt-2">
+                <x-badge color="purple" text="{{ $stockFilters[$filters['stock']] }}" wire:click="resetStock" remove />
+            </div>
+        @endif
         <div class="sm:flex sm:space-x-4 sm:items-center sm:justify-between sm:px-6 sm:py-4 px-3 py-3.5">
             <!-- Search -->
             <div class="flex space-x-2 w-full">
