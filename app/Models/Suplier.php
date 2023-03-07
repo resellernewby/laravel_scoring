@@ -15,4 +15,9 @@ class Suplier extends Model
         'email',
         'address'
     ];
+
+    public function assets()
+    {
+        return $this->hasMany(Asset::class);
+    }
 }
