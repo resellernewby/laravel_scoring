@@ -69,4 +69,9 @@ class UpdateSerial extends ModalComponent
     {
         return false;
     }
+
+    public static function closeModalOnEscape(): bool
+    {
+        return false;
+    }
 }

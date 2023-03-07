@@ -21,6 +21,9 @@
         </x-slot>
 
         <x-slot name="footer">
+            <x-button.secondary link="{{ route('non-consumable.index') }}" wire:loading.remove wire:target="update">
+                Tutup
+            </x-button.secondary>
             <x-button.primary type="submit" wire:loading.remove wire:target="update" class="ml-2">
                 Tambahkan
             </x-button.primary>
