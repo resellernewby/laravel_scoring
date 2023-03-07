@@ -40,6 +40,7 @@ class Condition extends Component
             ]
         );
 
+        Cache::forget('setting');
         Cache::remember('setting', 24 * 60 * 7, function () {
             return Setting::pluck('value', 'key')->toArray();
         });
