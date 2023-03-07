@@ -12,4 +12,9 @@ class FundsSource extends Model
     protected $fillable = [
         'name', 'code'
     ];
+
+    public function assets()
+    {
+        return $this->hasMany(Asset::class);
+    }
 }
