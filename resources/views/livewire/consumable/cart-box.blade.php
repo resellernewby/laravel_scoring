@@ -84,7 +84,7 @@
                                                                         <div class="w-11">
                                                                             <div class="relative">
                                                                                 <input type="number" min="1"
-                                                                                    wire:model.debounce.500ms="qts.{{ $key }}.qty"
+                                                                                    wire:model.lazy="qts.{{ $key }}.qty"
                                                                                     class="block w-full border-0 p-0.5 text-gray-900 focus:ring-0 sm:text-sm sm:leading-6"
                                                                                     placeholder="0" />
                                                                                 <div class="absolute inset-x-0 bottom-0 border-t border-gray-300 peer-focus:border-t-2 peer-focus:border-indigo-600"

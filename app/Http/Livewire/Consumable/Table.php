@@ -124,9 +124,11 @@ class Table extends Component
             $asset->transactions()->delete();
             $asset->assetImages()->delete();
             $asset->assetSpecifications()->delete();
+            $asset->cart()->delete();
             $asset->delete();
         });
 
+        $this->emit('addToCart');
         $this->notify($asset->name . ' berhasil dihapus');
     }
 

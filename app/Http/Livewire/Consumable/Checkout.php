@@ -9,17 +9,12 @@ use App\Models\Location;
 use Illuminate\Support\Collection;
 use LivewireUI\Modal\ModalComponent;
 
-class CartBox extends ModalComponent
+class Checkout extends ModalComponent
 {
     public Collection $qts;
     public $item = [];
     public $taken_by;
     public $location_id;
-
-    protected $listeners = [
-        'addToCart' => 'getNewCart',
-        'locationCreated' => '$refresh'
-    ];
 
     public function mount()
     {
@@ -81,7 +76,7 @@ class CartBox extends ModalComponent
 
     public function render()
     {
-        return view('livewire.consumable.cart-box', [
+        return view('livewire.consumable.checkout', [
             'carts' => $this->carts,
             'locationLists' => $this->locationLists
         ]);
@@ -160,12 +155,5 @@ class CartBox extends ModalComponent
     public function getLocationListsProperty()
     {
         return Location::oldest('name')->pluck('name', 'id');
-    }
-
-    public function getNewCart()
-    {
-        $this->qts = collect(
-            $this->carts
-        );
     }
 }
