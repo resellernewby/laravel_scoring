@@ -25,10 +25,10 @@ class Create extends Component
         BrandList;
 
     public Collection $storages;
-    public Collection $specifications;
+    public Collection $spec;
     public $images = [];
     public $asset = [];
-    public $spec = [];
+    // public $spec = [];
     public $rack = [];
     public $tag_ids;
     // public $tag_ids = [];
@@ -52,7 +52,7 @@ class Create extends Component
             ]
         ]);
 
-        $this->specifications = collect([
+        $this->spec = collect([
             [
                 'name' => '',
                 'value' => ''
@@ -76,7 +76,7 @@ class Create extends Component
 
     public function addSpecInput()
     {
-        $this->specifications->push([
+        $this->spec->push([
             'name' => '',
             'value' => ''
         ]);
@@ -84,7 +84,7 @@ class Create extends Component
 
     public function removeSpecInput($key)
     {
-        $this->specifications->pull($key);
+        $this->spec->pull($key);
     }
 
     public function render()

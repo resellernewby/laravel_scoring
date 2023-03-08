@@ -1,6 +1,11 @@
 <div>
     <div class="-mx-4 my-10 shadow bg-white sm:-mx-6 md:mx-0 md:rounded-lg">
         <form wire:submit.prevent="store">
+            @if ($errors->any())
+                @foreach ($errors as $item)
+                    @dump($item)
+                @endforeach
+            @endif
             <div class="sm:flex sm:space-x-8 sm:justify-between sm:px-6 sm:py-4 px-3 py-3.5">
                 @include('livewire.consumable._form')
             </div>

@@ -89,7 +89,8 @@
 
     <div class="space-y-2">
         @foreach ($storages as $key => $input)
-            <div class="bg-gray-50 border-dashed border-2 border-indigo-600 rounded-md p-2">
+            <div class="bg-gray-50 border-dashed border-2 border-indigo-600 rounded-md p-2"
+                wire:key="storage-{{ $key }}">
                 <x-select id="rack_{{ $key }}_warehouse_id" label="Gudang penyimpanan*"
                     wire:model.lazy="rack.{{ $key }}.warehouse_id" :list="$warehouseLists" :error="$errors->first('rack.{{ $key }}.warehouse_id')"
                     required />
@@ -128,7 +129,7 @@
 
     <div class="mt-8 space-y-2">
         @foreach ($specifications as $k => $i)
-            <div class="flex space-x-4 bg-gray-50 rounded-md p-2">
+            <div class="flex space-x-4 bg-gray-50 rounded-md p-2" wire:key="spec-{{ $key }}">
                 <div class="w-full">
                     <x-input id="spec{{ $k }}_name" label="Keterangan spesifikasi"
                         wire:model.lazy="spec.{{ $k }}.name" :error="$errors->first('spec.{{ $k }}.name')" placeholder="mis. Berat" />
