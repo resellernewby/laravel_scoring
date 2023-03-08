@@ -55,8 +55,14 @@ class Table extends Component
                 'asset',
                 fn ($q) => $q->where('type', $this->filters['type'])
             ))
-            ->when($this->filters['start_date'], fn ($query) => $query->whereDate('created_at', '>=', $this->filters['start_date']))
-            ->when($this->filters['end_date'], fn ($query) => $query->whereDate('created_at', '<=', $this->filters['end_date']))
+            ->when($this->filters['start_date'], fn ($query) => $query->whereHas(
+                'order',
+                fn ($q) => $q->whereDate('date', '>=', $this->filters['start_date'])
+            ))
+            ->when($this->filters['end_date'], fn ($query) =>  $query->whereHas(
+                'order',
+                fn ($q) => $q->whereDate('date', '<=', $this->filters['end_date'])
+            ))
             ->when($this->filters['brand'], fn ($query) => $query->whereHas(
                 'asset',
                 fn ($q) => $q->where('brand_id', $this->filters['brand'])
