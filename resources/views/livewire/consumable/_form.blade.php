@@ -103,7 +103,7 @@
         imagePreviewMaxHeight="200" allowFileTypeValidation acceptedFileTypes="['image/*']" allowFileSizeValidation
         maxFileSize="4mb" maxFiles="6" :uploadedFiles="isset($uploadedFiles) ? $uploadedFiles : []" />
 
-    <x-input.addon-right label="Masa pakai" wire:model.lazy="lifetime" leading-add-on="Bulan"
+    <x-input.addon-right type="number" label="Masa pakai" wire:model.lazy="lifetime" leading-add-on="Bulan"
         help-text="Masa pakai dalam bulan" :error="$errors->first('lifetime')" />
 
     <div class="mt-4 space-y-4">

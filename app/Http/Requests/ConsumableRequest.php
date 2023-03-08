@@ -15,7 +15,7 @@ class ConsumableRequest
             'asset.suplier_id' => ['required'],
             'asset.brand_id' => ['required'],
             'asset.name' => ['required', 'max:255'],
-            'asset.barcode' => ['required', 'unique:assets,barcode'],
+            'asset.barcode' => ['required', 'numeric', 'max:15', 'unique:assets,barcode'],
             'asset.current_price' => ['required', 'min:3', 'max:20'],
             'asset.funds_source_id' => ['required'],
             'asset.purchase_at' => ['required'],
@@ -24,7 +24,7 @@ class ConsumableRequest
             'rack.*.qty' => ['required', 'numeric'],
             'tag_ids' => ['required'],
             // 'tag_ids.*' => ['required'],
-            'lifetime' => ['nullable'],
+            'lifetime' => ['nullable', 'numeric'],
             'images.*' => ['nullable', 'image', 'max:4096'],
             'spec.*.name' => ['nullable', 'string', 'max:50'],
             'spec.*.value' => ['nullable', 'string', 'max:100']

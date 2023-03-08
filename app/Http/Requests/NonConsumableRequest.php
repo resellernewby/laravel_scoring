@@ -16,7 +16,7 @@ class NonConsumableRequest
             'asset.brand_id' => ['required'],
             'asset.name' => ['required', 'max:255'],
             'asset.model' => ['required', 'max:255', 'unique:assets,model'],
-            'asset.barcode' => ['required', 'max:255', 'unique:assets,barcode'],
+            'asset.barcode' => ['required', 'numeric', 'max:15', 'unique:assets,barcode'],
             'asset.current_price' => ['required', 'min:3', 'max:20'],
             'asset.funds_source_id' => ['required'],
             'asset.purchase_at' => ['required'],

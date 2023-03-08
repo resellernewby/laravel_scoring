@@ -63,8 +63,8 @@
         @endif
     </div>
 
-    <x-input.addon-right label="Masa ekonomis" wire:model.lazy="nonconsumable.economic_age" leading-add-on="Bulan"
-        help-text="Masa ekonomis dalam bulan" :error="$errors->first('nonconsumable.economic_age')" />
+    <x-input.addon-right type="number" label="Masa ekonomis" wire:model.lazy="nonconsumable.economic_age"
+        leading-add-on="Bulan" help-text="Masa ekonomis dalam bulan" :error="$errors->first('nonconsumable.economic_age')" />
 
     <x-input.money label="Nilai residu" leading-add-on="Rp" wire:model.lazy="nonconsumable.residual_value"
         :error="$errors->first('nonconsumable.residual_value')" help-text="Harga/nilai sisa aset yang sudah berakhir umur ekonomisnya" />
@@ -77,8 +77,8 @@
         </div>
     </div> --}}
 
-    <x-input.addon-right label="Masa garansi" wire:model.lazy="nonconsumable.warranty_period" leading-add-on="Bulan"
-        help-text="Masa garansi dalam bulan" :error="$errors->first('nonconsumable.warranty_period')" />
+    <x-input.addon-right type="number" label="Masa garansi" wire:model.lazy="nonconsumable.warranty_period"
+        leading-add-on="Bulan" help-text="Masa garansi dalam bulan" :error="$errors->first('nonconsumable.warranty_period')" />
 
     <x-input label="Penyedia garansi" wire:model.lazy="nonconsumable.warranty_provider" :error="$errors->first('nonconsumable.warranty_provider')" />
 </div>
@@ -132,7 +132,8 @@
             <div class="flex space-x-4 bg-gray-50 rounded-md p-2" wire:key="spec-{{ $key }}">
                 <div class="w-full">
                     <x-input id="spec{{ $k }}_name" label="Keterangan spesifikasi"
-                        wire:model.lazy="spec.{{ $k }}.name" :error="$errors->first('spec.{{ $k }}.name')" placeholder="mis. Berat" />
+                        wire:model.lazy="spec.{{ $k }}.name" :error="$errors->first('spec.{{ $k }}.name')"
+                        placeholder="mis. Berat" />
                 </div>
 
                 <div class="w-full">
