@@ -15,7 +15,7 @@ class ConsumableRequest
             'asset.suplier_id' => ['required'],
             'asset.brand_id' => ['required'],
             'asset.name' => ['required', 'max:255'],
-            'asset.barcode' => ['required', 'numeric', 'max:15', 'unique:assets,barcode'],
+            'asset.barcode' => ['required', 'numeric', 'unique:assets,barcode'],
             'asset.current_price' => ['required', 'min:3', 'max:20'],
             'asset.funds_source_id' => ['required'],
             'asset.purchase_at' => ['required'],
