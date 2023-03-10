@@ -1,14 +1,16 @@
 <x-dropdown label="Opsi" wire:key="button-{{ $warehouse->id }}">
-    <x-dropdown.item class="flex"
-        onclick="Livewire.emit('openModal', 'rack.create', {{ json_encode(['warehouse' => $warehouse->id]) }})">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-            class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500">
-            <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
-                clip-rule="evenodd" />
-        </svg>
-        Tambah Rak
-    </x-dropdown.item>
+    @if ($warehouse->id != config('setting.warehouse_id_for_damaged'))
+        <x-dropdown.item class="flex"
+            onclick="Livewire.emit('openModal', 'rack.create', {{ json_encode(['warehouse' => $warehouse->id]) }})">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500">
+                <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z"
+                    clip-rule="evenodd" />
+            </svg>
+            Tambah Rak
+        </x-dropdown.item>
+    @endif
     <x-dropdown.item class="flex" href="{{ route('showRacks', $warehouse->id) }}">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
             class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500">
