@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ConsumableController;
 use App\Http\Controllers\FundsSourceController;
 use App\Http\Controllers\NonConsumableController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\SettingContoller;
 use App\Http\Controllers\SuplierController;
@@ -34,13 +34,13 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/consumables/check-in', [ConsumableController::class, 'checkin'])->name('consumable.checkin');
         Route::get('/consumables/{asset}', [ConsumableController::class, 'show'])->name('consumable.show');
         Route::get('/consumables/{asset}/edit', [ConsumableController::class, 'edit'])->name('consumable.edit');
-        Route::get('/asset/images/{asset}', [AssetController::class, 'images'])->name('asset.images');
         Route::get('/non-consumables', [NonConsumableController::class, 'index'])->name('non-consumable.index');
         Route::get('/non-consumables/check-in', [NonConsumableController::class, 'checkin'])->name('non-consumable.checkin');
         Route::get('/non-consumables/{asset}', [NonConsumableController::class, 'show'])->name('non-consumable.show');
         Route::get('/non-consumables/{asset}/edit', [NonConsumableController::class, 'edit'])->name('non-consumable.edit');
         Route::get('/histories', HistoryController::class)->name('history');
         Route::get('/tags', TagController::class)->name('tag');
+        Route::get('/locations', LocationController::class)->name('location');
         Route::get('/brands', BrandController::class)->name('brand');
         Route::get('/supliers', SuplierController::class)->name('suplier');
         Route::get('/funds-sources', FundsSourceController::class)->name('funds-source');

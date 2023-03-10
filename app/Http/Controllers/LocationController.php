@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-class BrandController extends Controller
+class LocationController extends Controller
 {
     public function __invoke()
     {
-        return view('dash.brand');
+        return view('dash.location');
     }
 }

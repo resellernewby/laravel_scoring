@@ -23,8 +23,8 @@ class NonConsumableTransaction extends Model
         return $this->belongsTo(NonConsumable::class);
     }
 
-    public function location()
+    public function nctAble()
     {
-        return $this->belongsTo(Location::class);
+        return $this->morphTo();
     }
 }

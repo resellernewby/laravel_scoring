@@ -66,6 +66,12 @@
                         <span class="mt-2">Suplier</span>
                     </a>
 
+                    <a href="{{ route('location') }}"
+                        class="{{ request()->routeIs('location') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        <x-icon.o-map-pin class="text-indigo-300 group-hover:text-white h-6 w-6" />
+                        <span class="mt-2">Lokasi</span>
+                    </a>
+
                     <a href="{{ route('funds-source') }}"
                         class="{{ request()->routeIs('funds-source') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <x-icon.o-banknotes class="text-indigo-300 group-hover:text-white h-6 w-6" />
@@ -159,6 +165,18 @@
                                     class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
                                     <x-icon.o-truck class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
                                     <span>Suplier</span>
+                                </a>
+
+                                <a href="{{ route('location') }}"
+                                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
+                                    <x-icon.o-map-pin class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
+                                    <span>Lokasi</span>
+                                </a>
+
+                                <a href="{{ route('funds-source') }}"
+                                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
+                                    <x-icon.o-banknotes class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
+                                    <span>Dana</span>
                                 </a>
 
                                 <a href="#"

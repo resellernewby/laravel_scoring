@@ -18,4 +18,14 @@ class Location extends Model
     {
         return $this->morphMany(NonConsumable::class, 'non_consumable');
     }
+
+    public function nonConsumableTransactions()
+    {
+        return $this->morphMany(NonConsumableTransaction::class, 'nct_able');
+    }
+
+    public function consumableTransactions()
+    {
+        return $this->hasMany(ConsumableTransaction::class);
+    }
 }
