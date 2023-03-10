@@ -26,14 +26,14 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                     Nama lokasi
                 </th>
-                <th scope="col"
+                {{-- <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                     Consumable
                 </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                     Non Consumable
-                </th>
+                </th> --}}
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
                 </th>
@@ -50,14 +50,14 @@
                                 <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
                             @endif
                         </td>
-                        <td
+                        {{-- <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             {{ $location->consumable_transactions_count }}
                         </td>
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             {{ $location->non_consumables_count }}
-                        </td>
+                        </td> --}}
                         <td
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             @include('livewire.location._actions')
