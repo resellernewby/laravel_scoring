@@ -2,7 +2,7 @@
     <div class="-mx-4 my-10 shadow bg-white sm:-mx-6 md:mx-0 md:rounded-lg">
         <div class="sm:flex sm:space-x-4 sm:items-center sm:justify-between sm:px-6 sm:py-4 px-3 py-3.5">
             <!-- Search -->
-            <div class="w-full sm:w-64">
+            <div class="w-full">
                 Daftar Rak di <strong>{{ $warehouse->name }}</strong>
             </div>
             <div class="flex items-center space-x-2">
