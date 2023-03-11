@@ -5,6 +5,7 @@ namespace App\Actions\NonConsumables;
 use App\Models\Asset;
 use App\Models\Order;
 use App\Models\Rack;
+use App\Models\Warehouse;
 use App\Traits\Numeric;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,7 @@ class CreateNonConsumableItem
 
             // asign to racks and warehouses
             $total_qty = 0;
+            $warehouseId = [];
             foreach ($input['rack'] as $rack) {
                 $item->racks()->attach($rack['id'], [
                     'qty' => $rack['qty']
@@ -52,6 +54,7 @@ class CreateNonConsumableItem
                 }
 
                 $total_qty += $rack['qty'];
+                $warehouseId[] = $rack['warehouse_id'];
             }
 
             // non consumable specification
@@ -67,7 +70,8 @@ class CreateNonConsumableItem
                 'status' => 'new item',
                 'date' => $input['asset']['purchase_at'],
                 'funds_source_id' => $input['asset']['funds_source_id'],
-                'suplier_id' => $input['asset']['suplier_id']
+                'suplier_id' => $input['asset']['suplier_id'],
+                'location' => Warehouse::find($warehouseId)->implode('name', ', ')
             ]);
 
             // create transaction from suplier

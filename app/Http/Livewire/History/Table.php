@@ -2,38 +2,36 @@
 
 namespace App\Http\Livewire\History;
 
-use App\Models\Brand;
+use App\Models\Location;
 use App\Models\Transaction;
+use App\Traits\BrandList;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Table extends Component
 {
-    use WithPagination;
+    use WithPagination, BrandList;
 
-    public $brandLists;
-    public $typeLists;
     public $search = '';
     public $filters = [
         'type' => '',
         'start_date' => '',
         'end_date' => '',
-        'brand' => ''
+        'brand' => '',
+        'location' => ''
     ];
 
-    public function mount()
-    {
-        $this->brandLists = Brand::pluck('name', 'id');
-        $this->typeLists = [
-            'consumable' => 'Consumable',
-            'non-consumable' => 'Non-Consumable',
-        ];
-    }
+    public $typeLists = [
+        'consumable' => 'Consumable',
+        'non-consumable' => 'Non-Consumable',
+    ];
 
     public function render()
     {
         return view('livewire.history.table', [
-            'transactions' => $this->rows
+            'transactions' => $this->rows,
+            'brandLists' => $this->brandLists,
+            'locationLists' => $this->locationLists
         ]);
     }
 
@@ -67,11 +65,20 @@ class Table extends Component
                 'asset',
                 fn ($q) => $q->where('brand_id', $this->filters['brand'])
             ))
+            ->when($this->filters['location'], fn ($query) => $query->whereHas(
+                'order',
+                fn ($q) => $q->where('location', $this->filters['location'])
+            ))
             ->latest('id');
     }
 
     public function getRowsProperty()
     {
         return $this->rowsQuery->paginate(10);
+    }
+
+    public function getLocationListsProperty()
+    {
+        return Location::oldest('name')->pluck('name', 'name');
     }
 }

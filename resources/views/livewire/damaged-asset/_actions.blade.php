@@ -9,16 +9,12 @@
             </x-button.primary>
         @break
 
-        @case('in_use')
+        @default
             <x-button.secondary
                 wire:click="$emit('openModal', 'non-consumable.item.set-action', {{ json_encode(['nonConsumable' => $nonConsumable->id]) }})"
                 class="flex whitespace-nowrap items-center bg py-1">
                 <x-icon.o-edit class="h-4 w-4 mr-1" /> tindakan
             </x-button.secondary>
-        @break
-
-        @default
-            <a href="{{ route('damaged-asset.index') }}" class="text-red-700 hover:underline">Ke barang rusak</a>
     @endswitch
     <x-table.actions>
         <a href="#"

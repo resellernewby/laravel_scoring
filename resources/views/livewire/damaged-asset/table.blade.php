@@ -1,5 +1,10 @@
 <div>
     <div class="-mx-4 my-10 shadow bg-white sm:-mx-6 md:mx-0 md:rounded-lg">
+        @if (!empty($filters['stock']))
+            <div class="sm:flex sm:items-center sm:px-6 sm:pt-4 px-3 pt-2">
+                <x-badge color="purple" text="{{ $stockFilters[$filters['stock']] }}" wire:click="resetStock" remove />
+            </div>
+        @endif
         <div class="sm:flex sm:space-x-4 sm:items-center sm:justify-between sm:px-6 sm:py-4 px-3 py-3.5">
             <!-- Search -->
             <div class="flex space-x-2 w-full">
@@ -11,24 +16,19 @@
                         </div>
                         <input wire:model.debounce.500ms="search"
                             class="block w-full bg-white py-2 pl-10 pr-3 border border-gray-200 rounded-md focus:text-gray-500 focus:border-blue-500 focus:ring-blue-500 placeholder-gray-500 focus:placeholder-gray-200 sm:text-sm"
-                            placeholder="Cari nama barang..." type="search">
+                            placeholder="Cari barang, model atau barcode..." type="search">
                     </div>
                 </div>
                 <x-dropdown label="Filter" divider>
-                    <x-select label="Type" wire:model.debounce.500ms="filters.type" :list="$typeLists" />
-                    <div class="space-y-2 py-2">
-                        <x-input type="date" label="Dari" wire:model.lazy="filters.start_date" />
-                        <x-input type="date" label="Sampai" wire:model.lazy="filters.end_date" />
-                    </div>
+                    <x-select label="Kategori" wire:model.debounce.500ms="filters.tag" :list="$tagLists" />
                     <x-select label="Merek" wire:model.debounce.500ms="filters.brand" :list="$brandLists" />
-                    <x-select label="Lokasi" wire:model.debounce.500ms="filters.location" :list="$locationLists" />
                 </x-dropdown>
             </div>
-            <div class="flex items-center space-x-2">
-                {{-- <x-button.primary onclick="Livewire.emit('openModal', 'asset.create')"
-                    class="flex items-center bg-white">
-                    <x-icon.plus class="h-4 w-4 mr-1" /> Create
-                </x-button.primary> --}}
+            <div class="flex items-center space-x-8">
+                <x-button.primary link="{{ route('non-consumable.checkin') }}"
+                    class="flex whitespace-nowrap items-center">
+                    <x-icon.plus class="h-4 w-4 mr-1" /> Check in
+                </x-button.primary>
             </div>
         </div>
 
@@ -37,44 +37,43 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                     Nama Barang
                 </th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Aksi
-                </th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Qty
-                </th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Harga pcs
+                <th scope="col"
+                    class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
+                    Model
                 </th>
                 <th scope="col"
                     class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    Lokasi
+                    Harga beli
                 </th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Tanggal
+                    Kategori
+                </th>
+                <th scope="col"
+                    class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
+                    <span class="sr-only">Penggunaan</span>
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
                 </th>
             </x-slot>
             <x-slot name="body">
-                @forelse ($transactions as $transaction)
-                    <tr wire:key="transaction-{{ $transaction->id }}" wire:loading.class.delay="opacity-50">
+                @forelse ($nonConsumables as $nonConsumable)
+                    <tr wire:loading.class.delay="opacity-50" wire:key="nonconsumable-{{ $nonConsumable->id }}">
                         <td
-                            class="relative py-4 pl-4 sm:pl-6 pr-3 text-sm {{ !$loop->first ? 'border-t border-transparent' : '' }}">
+                            class="relative py-4 pl-4 sm:pl-6 pr-3 {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div class="flex items-center space-x-2 font-semibold text-gray-800">
-                                <img src="{{ $transaction->asset->imageFirst?->image_thumb_url }}"
-                                    class="w-14 h-14 rounded-md" alt="{{ $transaction->asset->imageFirst?->name }}">
+                                <img src="{{ $nonConsumable->asset->imageFirst?->image_thumb_url }}"
+                                    class="w-14 h-14 rounded-md" alt="{{ $nonConsumable->asset->imageFirst?->name }}">
                                 <div>
-                                    <a href="{{ route('consumable.show', $transaction->asset->id) }}"
-                                        class="hover:text-indigo-700">{{ $transaction->asset->name }}</a>
+                                    <a href="{{ route('non-consumable.show', $nonConsumable->id) }}"
+                                        class="hover:text-indigo-700">{{ $nonConsumable->name }}</a>
                                     <p class="mt-1 text-sm text-gray-500">
-                                        {{ $transaction->asset->brand->name }}
+                                        {{ $nonConsumable->asset->brand->name }}
                                     </p>
                                 </div>
                             </div>
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                                <span>{{ $transaction->asset->type }}</span>
+                                <span>Rp{{ number_format($nonConsumable->price) }}</span>
                                 <span class="hidden sm:inline"> · </span>
                                 <span></span>
                             </div>
@@ -83,31 +82,26 @@
                             @endif
                         </td>
                         <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            <h6 class="text-gray-900">
-                                {{ $transaction->order->status }}
-                            </h6>
-                            <p class="font-normal text-gray-500">{{ $transaction->order->name }}</p>
-                        </td>
-                        <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            {{ $transaction->qty }}
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            {{ $nonConsumable->asset->model }}
                         </td>
                         <td
                             class="hidden px-3 py-3.5 text-sm text-orange-500 lg:table-cell font-semibold {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            Rp{{ number_format($transaction->price) }}
+                            Rp{{ number_format($nonConsumable->price) }}
                         </td>
                         <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            {{ $transaction->order->location }}
+                            class="px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            @foreach ($nonConsumable->asset->tags as $tag)
+                                <x-badge color="purple" text="{{ $tag->name }}" />
+                            @endforeach
                         </td>
                         <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-                            {{ $transaction->order->date->isoFormat('D MMMM Y') }}
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 text-right lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+
                         </td>
                         <td
-                            class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
-                            {{-- @include('livewire.asset._actions') --}}
+                            class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
+                            @include('livewire.damaged-asset._actions')
                             @if (!$loop->first)
                                 <div class="absolute right-6 left-0 -top-px h-px bg-gray-200"></div>
                             @endif
@@ -127,7 +121,7 @@
         </x-table>
 
         <div class="sm:px-6 sm:py-4 px-3 py-3.5">
-            {{ $transactions->links() }}
+            {{ $nonConsumables->links() }}
         </div>
     </div>
 </div>

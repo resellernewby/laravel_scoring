@@ -341,6 +341,13 @@
                                 <span class="truncate">Non Consumable</span>
                             </a>
 
+                            <a href="{{ route('damaged-asset.index') }}"
+                                class="{{ request()->routeIs('damaged-asset.index') ? 'bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-50 hover:text-blue-700' : 'border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900' }} group border-l-4 px-6 py-2 flex items-center text-sm font-medium">
+                                <x-icon.o-archive-box-x-mark
+                                    class="{{ request()->routeIs('damaged-asset.index') ? 'text-blue-500 group-hover:text-blue-500' : 'text-gray-400 group-hover:text-gray-500' }} flex-shrink-0 -ml-1 mr-3 h-6 w-6" />
+                                <span class="truncate">Barang rusak</span>
+                            </a>
+
                             <a href="{{ route('history') }}"
                                 class="{{ request()->routeIs('history') ? 'bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-50 hover:text-blue-700' : 'border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900' }} group border-l-4 px-6 py-2 flex items-center text-sm font-medium">
                                 <x-icon.o-trending-up

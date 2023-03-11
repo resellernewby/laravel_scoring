@@ -4,6 +4,7 @@ namespace App\Actions\Consumables;
 
 use App\Models\Asset;
 use App\Models\Order;
+use App\Models\Warehouse;
 use App\Traits\Numeric;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +62,8 @@ class UpdateConsumableItem
                     'status' => 'update item',
                     'date' => $input['asset']['purchase_at'],
                     'funds_source_id' => $input['asset']['funds_source_id'],
-                    'suplier_id' => $input['asset']['suplier_id']
+                    'suplier_id' => $input['asset']['suplier_id'],
+                    'location' => Warehouse::find($warehouse_ids)->implode('name', ', ')
                 ]);
 
                 // create transaction from updater

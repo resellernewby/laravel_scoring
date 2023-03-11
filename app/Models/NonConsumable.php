@@ -51,7 +51,12 @@ class NonConsumable extends Model
         return $this->hasMany(NonConsumableTransaction::class);
     }
 
-    public function returnedNonConsumable()
+    public function returnedNonConsumables()
+    {
+        return $this->hasMany(ReturnedNonConsumable::class);
+    }
+
+    public function returnedDamaged()
     {
         return $this->hasOne(ReturnedNonConsumable::class);
     }

@@ -4,6 +4,7 @@ namespace App\Actions\Consumables;
 
 use App\Models\Asset;
 use App\Models\Order;
+use App\Models\Warehouse;
 use App\Traits\Numeric;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class CreateConsumableItem
 
             // asign to racks and warehouses
             $total_qty = 0;
+            $warehouseId = [];
             foreach ($input['rack'] as $rack) {
                 $item->racks()->attach($rack['id'], [
                     'qty' => $rack['qty']
@@ -34,6 +36,7 @@ class CreateConsumableItem
                 $item->warehouses()->attach($rack['warehouse_id']);
 
                 $total_qty += $rack['qty'];
+                $warehouseId[] = $rack['warehouse_id'];
             }
 
             // create consumable item
@@ -54,7 +57,8 @@ class CreateConsumableItem
                 'status' => 'new item',
                 'date' => $input['asset']['purchase_at'],
                 'funds_source_id' => $input['asset']['funds_source_id'],
-                'suplier_id' => $input['asset']['suplier_id']
+                'suplier_id' => $input['asset']['suplier_id'],
+                'location' => Warehouse::find($warehouseId)->implode('name', ', ')
             ]);
 
             // create transaction from suplier

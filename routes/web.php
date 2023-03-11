@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ConsumableController;
+use App\Http\Controllers\DamagedAssetController;
 use App\Http\Controllers\FundsSourceController;
 use App\Http\Controllers\NonConsumableController;
 use App\Http\Controllers\HistoryController;
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/non-consumables/check-in', [NonConsumableController::class, 'checkin'])->name('non-consumable.checkin');
         Route::get('/non-consumables/{asset}', [NonConsumableController::class, 'show'])->name('non-consumable.show');
         Route::get('/non-consumables/{asset}/edit', [NonConsumableController::class, 'edit'])->name('non-consumable.edit');
+        Route::get('/damaged-assets', [DamagedAssetController::class, 'index'])->name('damaged-asset.index');
         Route::get('/histories', HistoryController::class)->name('history');
         Route::get('/tags', TagController::class)->name('tag');
         Route::get('/locations', LocationController::class)->name('location');
