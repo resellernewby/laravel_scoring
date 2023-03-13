@@ -15,4 +15,8 @@ class DamagedNonConsumableSale extends Model
         'sold_by',
         'sold_price'
     ];
+
+    protected $casts = [
+        'sold_at' => 'datetime'
+    ];
 }

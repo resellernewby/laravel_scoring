@@ -11,10 +11,10 @@
                     help-text="Kondisi bagus" />
 
                 <x-input.addon leading-add-on="Poor" wire:model.lazy="conditions.poor" :error="$errors->first('conditions.poor')"
-                    help-text="Kondisi kurang bagus, dan mungkin perlu perbaikan" />
+                    help-text="Kondisi kurang bagus tapi masih bisa digunakan" />
 
                 <x-input.addon leading-add-on="Bad" wire:model.lazy="conditions.bad" :error="$errors->first('conditions.bad')"
-                    help-text="Kondisi buruk dan tidak bisa digunakan" />
+                    help-text="Kondisi buruk dan tidak bisa digunakan/perlu perbaikan" />
             </div>
 
             <div class="flex justify-end pt-8">

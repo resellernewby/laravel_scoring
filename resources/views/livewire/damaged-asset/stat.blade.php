@@ -7,7 +7,7 @@
                 <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div wire:click="$emit('setStock', 'available')"
                         class="flex items-baseline text-2xl font-semibold text-indigo-600 hover:cursor-pointer hover:underline">
-                        0
+                        {{ $asset->damaged }}
                         <span class="ml-1 font-medium text-gray-500">Barang</span>
                     </div>
                 </dd>
@@ -18,7 +18,7 @@
                 <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div wire:click="$emit('setStock', 'lowstock')"
                         class="flex items-baseline text-2xl font-semibold text-indigo-600 hover:cursor-pointer hover:underline">
-                        0
+                        {{ $asset->repair }}
                         <span class="ml-1 font-medium text-gray-500">Barang</span>
                     </div>
                 </dd>
@@ -29,8 +29,8 @@
                 <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div wire:click="$emit('setStock', 'outstock')"
                         class="flex items-baseline text-2xl font-semibold text-indigo-600 hover:cursor-pointer hover:underline">
-                        Rp100.000.000
-                        <span class="ml-1 font-medium text-gray-500">/Tahun</span>
+                        {{ $sales }}
+                        <span class="ml-1 font-medium text-gray-500">/Tahun {{ date('Y') }}</span>
                     </div>
                 </dd>
             </div>

@@ -25,10 +25,6 @@
                 </x-dropdown>
             </div>
             <div class="flex items-center space-x-8">
-                <x-button.primary link="{{ route('non-consumable.checkin') }}"
-                    class="flex whitespace-nowrap items-center">
-                    <x-icon.plus class="h-4 w-4 mr-1" /> Check in
-                </x-button.primary>
             </div>
         </div>
 
@@ -49,8 +45,8 @@
                     Kategori
                 </th>
                 <th scope="col"
-                    class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
-                    <span class="sr-only">Penggunaan</span>
+                    class="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell">
+                    Status
                 </th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span class="sr-only">Select</span>
@@ -65,8 +61,8 @@
                                 <img src="{{ $nonConsumable->asset->imageFirst?->image_thumb_url }}"
                                     class="w-14 h-14 rounded-md" alt="{{ $nonConsumable->asset->imageFirst?->name }}">
                                 <div>
-                                    <a href="{{ route('non-consumable.show', $nonConsumable->id) }}"
-                                        class="hover:text-indigo-700">{{ $nonConsumable->name }}</a>
+                                    <a href="{{ route('non-consumable.show', $nonConsumable->asset->id) }}"
+                                        class="hover:text-indigo-700">{{ $nonConsumable->asset->name }}</a>
                                     <p class="mt-1 text-sm text-gray-500">
                                         {{ $nonConsumable->asset->brand->name }}
                                     </p>
@@ -96,8 +92,8 @@
                             @endforeach
                         </td>
                         <td
-                            class="hidden px-3 py-3.5 text-sm text-gray-500 text-right lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
-
+                            class="hidden px-3 py-3.5 text-sm text-gray-500 text-center lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                            <x-badge color="red" text="{{ $nonConsumable->current_status }}" />
                         </td>
                         <td
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">

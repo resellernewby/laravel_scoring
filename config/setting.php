@@ -27,6 +27,7 @@ return [
         'in_use' => 'In Use',
         'returned' => 'Returned',
         'damaged' => 'Damaged',
+        'in_repair' => 'In Repair',
     ],
     'warehouse_id_for_damaged' => 1,
     'rack_id_for_damaged' => 1,

@@ -58,7 +58,14 @@ class NonConsumable extends Model
 
     public function returnedDamaged()
     {
-        return $this->hasOne(ReturnedNonConsumable::class);
+        return $this->hasOne(ReturnedNonConsumable::class)
+            ->where('condition', 'bad')
+            ->latest('id');
+    }
+
+    public function damagedNonConsumableSale()
+    {
+        return $this->hasOne(DamagedNonConsumableSale::class);
     }
 
     public function nonConsumable()

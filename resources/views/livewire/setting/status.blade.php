@@ -10,11 +10,14 @@
                 <x-input.addon leading-add-on="In use" wire:model.lazy="status.in_use" :error="$errors->first('status.in_use')"
                     help-text="Status barang sudah digunakan" />
 
+                <x-input.addon leading-add-on="Returned" wire:model.lazy="status.returned" :error="$errors->first('status.returned')"
+                    help-text="Kondisi barang rusak dan tidak bisa digunakan" />
+
                 <x-input.addon leading-add-on="Damaged" wire:model.lazy="status.damaged" :error="$errors->first('status.damaged')"
                     help-text="Kondisi barang rusak dan tidak bisa digunakan" />
 
-                <x-input.addon leading-add-on="Returned" wire:model.lazy="status.returned" :error="$errors->first('status.returned')"
-                    help-text="Kondisi barang rusak dan tidak bisa digunakan" />
+                <x-input.addon leading-add-on="In Repair" wire:model.lazy="status.in_repair" :error="$errors->first('status.in_repair')"
+                    help-text="Barang rusak dan dalam perbaikan" />
             </div>
 
             <div class="flex justify-end pt-8">

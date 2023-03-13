@@ -49,6 +49,7 @@ class Table extends ModalComponent
                 $this->filters['condition']
             ))
             ->where('asset_id', $this->asset->id)
+            ->whereNotIn('current_status', ['sold', 'destroyed'])
             ->latest('id');
     }
 

@@ -27,7 +27,11 @@ class Table extends Component
     {
         return NonConsumable::query()
             ->with([
-                'asset',
+                'asset' => [
+                    'brand',
+                    'imageFirst',
+                    'tags'
+                ],
             ])
             ->when($this->search, fn ($query) => $query->search($this->search))
             ->when($this->filters['tag'], fn ($query) => $query->whereHas(
@@ -35,7 +39,7 @@ class Table extends Component
                 fn ($q) => $q->where('id', $this->filters['tag'])
             ))
             ->when($this->filters['brand'], fn ($query) => $query->where('brand_id', $this->filters['brand']))
-            ->where('current_status', 'damaged')
+            ->whereIn('current_status', ['damaged', 'in_repair', 'sold', 'destroyed'])
             ->latest('id');
     }
 

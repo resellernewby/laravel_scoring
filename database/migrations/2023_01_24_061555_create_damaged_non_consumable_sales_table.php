@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('damaged_non_consumable_sales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('returned_non_consumable_id')->constrained();
+            $table->foreignId('non_consumable_id')->constrained();
             $table->dateTime('sold_at');
             $table->string('sold_to', 150);
             $table->string('sold_by', 150);

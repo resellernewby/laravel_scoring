@@ -17,9 +17,4 @@ class ReturnedNonConsumable extends Model
         'condition',
         'description',
     ];
-
-    public function damagedNonConsumableSale()
-    {
-        return $this->hasOne(DamagedNonConsumableSale::class);
-    }
 }

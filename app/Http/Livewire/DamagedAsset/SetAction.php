@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Livewire\NonConsumable\Item;
+namespace App\Http\Livewire\DamagedAsset;
 
 use App\Models\Asset;
 use App\Models\NonConsumable;
 use App\Models\Order;
 use App\Models\Rack;
 use App\Services\Setting;
+use App\Traits\Numeric;
 use App\Traits\WarehouseList;
 use Illuminate\Support\Facades\DB;
 use LivewireUI\Modal\ModalComponent;
 
 class SetAction extends ModalComponent
 {
-    use WarehouseList;
+    use WarehouseList, Numeric;
 
     public $nonConsumable;
     public $action;
@@ -35,7 +36,7 @@ class SetAction extends ModalComponent
 
     public function render()
     {
-        return view('livewire.non-consumable.item.set-action', [
+        return view('livewire.damaged-asset.set-action', [
             'conditionLists' => $this->conditionLists,
             'warehouseLists' => $this->warehouseLists,
             'rackLists' => $this->rackLists,
@@ -46,30 +47,29 @@ class SetAction extends ModalComponent
     {
         DB::transaction(function () {
             $user = $this->nonConsumable->user;
-            $rackId = $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged');
-            $condition = $this->action == 'returned' ? $this->returned['condition'] : 'bad';
+            $this->getNumeric($this->sold_price);
             $this->nonConsumable->update([
                 'current_status' => $this->action,
                 'non_consumable_type' => Rack::class,
-                'non_consumable_id' => $rackId,
+                'non_consumable_id' => $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'),
                 'used_end' => now(),
                 'user' => $this->action == 'returned' ? config('setting.user_beginner') : null,
-                'conditon' => $condition,
+                'conditon' => $this->action == 'returned' ? $this->returned['condition'] : 'bad',
             ]);
 
             $this->nonConsumable->nonConsumableTransactions()->create([
-                'nct_able_id' => $rackId,
+                'nct_able_id' => $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'),
                 'nct_able_type' => Rack::class,
                 'action' => $this->action,
-                'user' => $this->action == 'returned' ? config('setting.user_beginner') : $user,
-                'condition' => $condition,
+                'user' => $this->action == 'returned' ? config('setting.user_beginner') : null,
+                'condition' => $this->action == 'returned' ? $this->returned['condition'] : 'bad',
             ]);
 
-            $this->nonConsumable->returnedNonConsumables()->create([
-                'rack_id' => $rackId,
+            $this->nonConsumable->returnedNonConsumable()->create([
+                'rack_id' => $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'),
                 'returned_at' => $this->returned['returned_at'],
                 'returned_by' => $user,
-                'condition' => $condition,
+                'condition' => $this->action == 'returned' ? $this->returned['condition'] : 'bad',
                 'description' => $this->returned['description'],
             ]);
 
