@@ -54,7 +54,7 @@
                 Batal
             </x-button.secondary>
             <x-button.primary type="submit" wire:loading.remove wire:target="update" class="ml-2">
-                Checkout
+                Update
             </x-button.primary>
             <x-button.primary wire:loading.flex wire:target="update" class="inline-flex items-center" disabled>
                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"

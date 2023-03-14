@@ -52,7 +52,7 @@ class SetAction extends ModalComponent
                 'current_status' => $this->action,
                 'non_consumable_type' => Rack::class,
                 'non_consumable_id' => $rackId,
-                'used_end' => now(),
+                'used_end' => $this->action == 'returned' ? null : now(),
                 'user' => $this->action == 'returned' ? config('setting.user_beginner') : null,
                 'conditon' => $condition,
             ]);

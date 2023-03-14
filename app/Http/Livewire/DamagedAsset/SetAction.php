@@ -18,15 +18,20 @@ class SetAction extends ModalComponent
 
     public $nonConsumable;
     public $action;
-    public $returned = [];
     public $warehouse_id;
     public int $rack_id;
+    public $date_at;
+    public $condition;
+    public $description;
+    public $repair_by;
+    public $sold_to;
+    public $sold_by;
+    public $sold_price;
 
     protected $rules = [
         'action' => 'required',
-        'returned.returned_at' => 'required',
-        'returned.condition' => 'required',
-        'returned.description' => 'required',
+        'date_at' => 'required',
+        'description' => 'nullable',
     ];
 
     public function mount(NonConsumable $nonConsumable)
@@ -47,33 +52,52 @@ class SetAction extends ModalComponent
     {
         DB::transaction(function () {
             $user = $this->nonConsumable->user;
-            $this->getNumeric($this->sold_price);
+            $rackId = $this->action === 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged');
+            $condition = $this->action === 'returned' ? $this->condition : 'bad';
+            $this->sold_price = $this->getNumeric($this->sold_price);
+            $usedEnd = $this->nonConsumable->used_end;
+            $userable = [
+                'returned' => config('setting.user_beginner'),
+                'in_repair' => $this->repair_by,
+                'sold' => $this->sold_by,
+                'destroyed' => 'worker'
+            ];
+
             $this->nonConsumable->update([
                 'current_status' => $this->action,
                 'non_consumable_type' => Rack::class,
-                'non_consumable_id' => $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'),
-                'used_end' => now(),
-                'user' => $this->action == 'returned' ? config('setting.user_beginner') : null,
-                'conditon' => $this->action == 'returned' ? $this->returned['condition'] : 'bad',
+                'non_consumable_id' => $rackId,
+                'used_end' => $this->action === 'returned' ? null : $usedEnd,
+                'user' => $userable[$this->action],
+                'conditon' => $condition,
             ]);
 
             $this->nonConsumable->nonConsumableTransactions()->create([
-                'nct_able_id' => $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'),
+                'nct_able_id' => $rackId,
                 'nct_able_type' => Rack::class,
                 'action' => $this->action,
-                'user' => $this->action == 'returned' ? config('setting.user_beginner') : null,
-                'condition' => $this->action == 'returned' ? $this->returned['condition'] : 'bad',
+                'user' => $userable[$this->action],
+                'condition' => $condition,
             ]);
 
-            $this->nonConsumable->returnedNonConsumable()->create([
-                'rack_id' => $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'),
-                'returned_at' => $this->returned['returned_at'],
-                'returned_by' => $user,
-                'condition' => $this->action == 'returned' ? $this->returned['condition'] : 'bad',
-                'description' => $this->returned['description'],
-            ]);
+            if ($this->action === 'sold') {
+                $this->nonConsumable->damagedNonConsumableSale()->create([
+                    'sold_at' => $this->date_at,
+                    'sold_to' => $this->sold_to,
+                    'sold_by' => $this->sold_by,
+                    'sold_price' => $this->sold_price,
+                ]);
+            }
 
-            if ($this->action == 'returned') {
+            if ($this->action === 'returned') {
+                $this->nonConsumable->returnedNonConsumables()->create([
+                    'rack_id' => $rackId,
+                    'returned_at' => $this->date_at,
+                    'returned_by' => 'from damaged warehouse',
+                    'condition' => $condition,
+                    'description' => $this->description,
+                ]);
+
                 $asset = Asset::with(['racks'])->findOrFail($this->nonConsumable->asset_id);
                 $storedRacks = $asset->racks->pluck('pivot.qty', 'id')->toArray();
                 // Klo menambahkan ke rak yang sama
@@ -94,10 +118,10 @@ class SetAction extends ModalComponent
 
             // Riwayat action
             $order = Order::create([
-                'name' => $user,
+                'name' => $userable[$this->action],
                 'status' => $this->action,
-                'date' => $this->returned['returned_at'],
-                'location' => Rack::with(['warehouse'])->where('id', $this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'))->first()?->warehouse?->name,
+                'date' => $this->date_at,
+                'location' => Rack::with(['warehouse'])->find($this->action == 'returned' ? $this->rack_id : config('setting.rack_id_for_damaged'))?->warehouse?->name,
             ]);
 
             // Create Transaction
@@ -108,7 +132,7 @@ class SetAction extends ModalComponent
             ]);
         });
 
-        $this->emit('itemTable');
+        $this->emit('damagedAssetTable');
         $this->closeModal();
         $this->notify($this->nonConsumable->asset->name . ' dengan serial <strong>' . $this->nonConsumable->serial . '</strong> telah ditindak');
     }

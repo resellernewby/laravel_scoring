@@ -52,6 +52,7 @@ class Table extends Component
                 'nonConsumables as returned' => fn ($query) => $query->where('current_status', 'returned'),
                 'nonConsumables as used' => fn ($query) => $query->where('current_status', 'in_use'),
                 'nonConsumables as damaged' => fn ($query) => $query->where('current_status', 'damaged'),
+                'nonConsumables as repair' => fn ($query) => $query->where('current_status', 'in_repair'),
             ])
             ->when($this->search, fn ($query) => $query->search($this->search))
             ->when($this->filters['tag'], fn ($query) => $query->whereHas(

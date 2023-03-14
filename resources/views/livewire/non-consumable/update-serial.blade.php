@@ -7,8 +7,8 @@
         <x-slot name="content">
             <div class="flex flex-col space-y-4">
                 @foreach ($serials as $key => $input)
-                    <x-input type="number" min="0" wire:model.lazy="serials.{{ $key }}.serial"
-                        placeholder="Serial Number" :error="$errors->first('serials.{{ $key }}.serial')" required />
+                    <x-input wire:model.lazy="serials.{{ $key }}.serial" placeholder="Serial Number"
+                        :error="$errors->first('serials.{{ $key }}.serial')" required />
                 @endforeach
                 @if ($serials->count() < $total)
                     <x-button.secondary wire:click.prevent="addInput"

@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::table('non_consumables', function (Blueprint $table) {
             $table->after('used_end', function (Blueprint $table) {
-                $table->string('repair_by')->nullable();
                 $table->dateTime('repair_at')->nullable();
             });
         });
@@ -29,7 +28,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('non_consumables', function (Blueprint $table) {
-            $table->dropColumn('repair_by');
             $table->dropColumn('repair_at');
         });
     }

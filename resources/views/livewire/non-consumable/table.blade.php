@@ -122,7 +122,8 @@
                             <x-badge color="green" text="{{ $asset->used }}" x-tooltip.raw="Digunakan">
                                 <x-icon.desktop-used class="h-4 w-4 mr-1" />
                             </x-badge>
-                            <x-badge color="red" text="{{ $asset->damaged }}" x-tooltip.raw="Rusak">
+                            <x-badge color="red" text="{{ $asset->damaged + $asset->repair }}"
+                                x-tooltip.raw="Rusak">
                                 <x-icon.desktop-off class="h-4 w-4 mr-1" />
                             </x-badge>
                         </td>

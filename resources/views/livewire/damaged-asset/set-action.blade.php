@@ -46,8 +46,8 @@
                 @endif
 
                 @if ($action === 'returned')
-                    <x-select label="Kondisi barang*" wire:model.lazy="returned.condition" :list="$conditionLists"
-                        :error="$errors->first('returned.condition')" />
+                    <x-select label="Kondisi barang*" wire:model.lazy="condition" :list="$conditionLists"
+                        :error="$errors->first('condition')" />
 
                     <div class="flex items-center space-x-4">
                         <div class="w-1/2">
@@ -62,7 +62,7 @@
                     </div>
                 @endif
 
-                <x-textarea label="Keterangan barang" wire:model.lazy="returned.description" :error="$errors->first('returned.description')" />
+                <x-textarea label="Keterangan barang" wire:model.lazy="description" :error="$errors->first('description')" />
             </div>
         </x-slot>
 
@@ -71,7 +71,7 @@
                 Batal
             </x-button.secondary>
             <x-button.primary type="submit" wire:loading.remove wire:target="update" class="ml-2">
-                Checkout
+                Update
             </x-button.primary>
             <x-button.primary wire:loading.flex wire:target="update" class="inline-flex items-center" disabled>
                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
