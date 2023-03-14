@@ -22,6 +22,7 @@
                     </div>
                     <x-select label="Merek" wire:model.debounce.500ms="filters.brand" :list="$brandLists" />
                     <x-select label="Lokasi" wire:model.debounce.500ms="filters.location" :list="$locationLists" />
+                    <x-select label="Aksi" wire:model.debounce.500ms="filters.status" :list="$actionLists" />
                 </x-dropdown>
             </div>
             <div class="flex items-center space-x-2">

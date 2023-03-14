@@ -4,6 +4,8 @@ namespace App\Http\Livewire\NonConsumable\Item;
 
 use App\Models\Location;
 use App\Models\NonConsumable;
+use App\Models\Order;
+use App\Models\Rack;
 use App\Traits\LocationList;
 use Illuminate\Support\Facades\DB;
 use LivewireUI\Modal\ModalComponent;
@@ -68,6 +70,21 @@ class Checkout extends ModalComponent
             ]);
 
             $this->nonConsumable->asset->decrement('qty');
+
+            // Riwayat action
+            $order = Order::create([
+                'name' => $this->user,
+                'status' => 'in_use',
+                'date' => now(),
+                'location' => Location::find($this->location_id)?->name,
+            ]);
+
+            // Create Transaction
+            $order->transactions()->create([
+                'asset_id' => $this->nonConsumable->asset_id,
+                'qty' => 1,
+                'price' => $this->nonConsumable->price
+            ]);
         });
 
         $this->emit('itemTable');

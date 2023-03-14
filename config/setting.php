@@ -32,4 +32,14 @@ return [
     'warehouse_id_for_damaged' => 1,
     'rack_id_for_damaged' => 1,
     'user_beginner' => 'not used',
+    'action_lists' => [
+        'new item' => 'Barang baru',
+        'add stock' => 'Tambah stok',
+        'returned' => 'Dikembalikan setelah pemakaian',
+        'in_use' => 'Digunakan',
+        'damaged' => 'Barang rusak',
+        'in_repair' => 'Dalam perbaikan',
+        'sold' => 'Dijual',
+        'destroyed' => 'Dimusnahkan',
+    ]
 ];

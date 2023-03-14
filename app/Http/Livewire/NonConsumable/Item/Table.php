@@ -5,6 +5,7 @@ namespace App\Http\Livewire\NonConsumable\Item;
 use App\Models\Asset;
 use App\Models\NonConsumable;
 use App\Models\Order;
+use App\Services\Setting;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use LivewireUI\Modal\ModalComponent;
@@ -123,18 +124,22 @@ class Table extends ModalComponent
 
     public function getListsProperty()
     {
+        $status = Setting::get('status') ?? [];
+        $conditions = Setting::get('conditions') ?? [];
+        if (empty($status)) {
+            return config('setting.status');
+        }
+
+        if (empty($conditions)) {
+            return config('setting.conditions');
+        }
+
+        $status = json_decode($status, true);
+        $conditions = json_decode($conditions, true);
+
         return [
-            'status' => [
-                'in_stock' => 'in stock',
-                'in_use' => 'in use',
-                'damaged' => 'damaged'
-            ],
-            'conditions' => [
-                'excellent' => 'Excellent',
-                'good' => 'Good',
-                'poor' => 'Poor',
-                'bad' => 'Bad'
-            ]
+            'status' => $status,
+            'conditions' => $conditions
         ];
     }
 

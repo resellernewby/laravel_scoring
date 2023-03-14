@@ -18,7 +18,8 @@ class Table extends Component
         'start_date' => '',
         'end_date' => '',
         'brand' => '',
-        'location' => ''
+        'location' => '',
+        'status' => ''
     ];
 
     public $typeLists = [
@@ -31,7 +32,8 @@ class Table extends Component
         return view('livewire.history.table', [
             'transactions' => $this->rows,
             'brandLists' => $this->brandLists,
-            'locationLists' => $this->locationLists
+            'locationLists' => $this->locationLists,
+            'actionLists' => config('setting.action_lists')
         ]);
     }
 
@@ -68,6 +70,10 @@ class Table extends Component
             ->when($this->filters['location'], fn ($query) => $query->whereHas(
                 'order',
                 fn ($q) => $q->where('location', $this->filters['location'])
+            ))
+            ->when($this->filters['status'], fn ($query) => $query->whereHas(
+                'order',
+                fn ($q) => $q->where('status', $this->filters['status'])
             ))
             ->latest('id');
     }
