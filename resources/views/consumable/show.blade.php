@@ -24,15 +24,19 @@
                     </div>
 
                     <div class="flex -mx-2 mb-4">
-                        <template x-for="i in {{ $asset->assetImages()->count() }}">
+                        @php
+                            $no = 1;
+                        @endphp
+                        @foreach ($asset->assetImages as $image)
                             <div class="flex-1 px-2">
-                                <button x-on:click="image = i"
-                                    :class="{ 'ring-2 ring-indigo-300 ring-inset': image === i }"
-                                    class="focus:outline-none rounded-lg w-24 h-24 md:w-32 md:h-32 bg-gray-100 flex items-center justify-center">
-                                    <span x-text="i" class="text-2xl"></span>
-                                </button>
+                                <img x-on:click="image = {{ $no }}"
+                                    class="focus:outline-none rounded-lg w-24 h-24 md:w-32 md:h-32"
+                                    src="{{ $image->image_thumb_url }}" alt="">
                             </div>
-                        </template>
+                            @php
+                                $no++;
+                            @endphp
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -76,7 +80,8 @@
 
                     <div class="flex flex-col items-start">
                         <span class="text-gray-500 text-sm">Sumber dana</span>
-                        <div class="font-semibold text-gray-600 text-xl">{{ $asset->fundsSource->name }}</div>
+                        <div class="font-semibold text-gray-600 text-xl">{{ $asset->fundsSource->name }}
+                            ({{ $asset->fundsSource->code }})</div>
                     </div>
 
                     <div class="flex flex-col items-start">

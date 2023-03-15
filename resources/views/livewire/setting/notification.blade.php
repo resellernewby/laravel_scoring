@@ -5,7 +5,7 @@
         <form wire:submit.prevent="store" class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y">
             <div class="grid grid-cols-1 gap-y-6">
                 <x-input type="number" min="1" label="Barang segera habis" wire:model.lazy="lowstock"
-                    :error="$errors->first('lowstock')" help-text="Nilai minimal barang dikatakan segera habis" />
+                    :error="$errors->first('lowstock')" help-text="Jumlah minimal barang dikatakan segera habis" />
 
                 <div>
                     <x-input.time label="Jam pemberitahuan notifikasi" wire:model.lazy="notif_hour" :error="$errors->first('notif_hour')"
