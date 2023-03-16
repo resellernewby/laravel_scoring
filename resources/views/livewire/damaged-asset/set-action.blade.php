@@ -62,9 +62,6 @@
                                 required />
                         </div>
                     </div>
-                @endif
-
-                @if ($action != 'in_repair')
                     <x-textarea label="Keterangan barang" wire:model.lazy="description" :error="$errors->first('description')" />
                 @endif
             </div>
