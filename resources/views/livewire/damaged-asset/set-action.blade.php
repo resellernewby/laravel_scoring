@@ -64,7 +64,9 @@
                     </div>
                 @endif
 
-                <x-textarea label="Keterangan barang" wire:model.lazy="description" :error="$errors->first('description')" />
+                @if ($action != 'in_repair')
+                    <x-textarea label="Keterangan barang" wire:model.lazy="description" :error="$errors->first('description')" />
+                @endif
             </div>
         </x-slot>
 

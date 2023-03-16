@@ -94,6 +94,7 @@
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 text-center lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                             <x-badge color="red" text="{{ $nonConsumable->current_status }}" />
+                            <p>{{ $nonConsumable->returnedDamaged?->description }}</p>
                         </td>
                         <td
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">

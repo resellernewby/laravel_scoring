@@ -31,7 +31,7 @@ class SetAction extends ModalComponent
     protected $rules = [
         'action' => 'required',
         'date_at' => 'required',
-        'description' => 'nullable',
+        'description' => 'nullable|max:255',
     ];
 
     public function mount(NonConsumable $nonConsumable)
