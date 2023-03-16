@@ -13,8 +13,10 @@
                     <fieldset class="mt-4">
                         <legend class="sr-only">Action</legend>
                         <div class="space-y-4">
-                            <x-input.radio label="Repair" wire:model.lazy="action" :error="$errors->first('action')" value="in_repair"
-                                help-text="Barang dalam perbaikan" />
+                            @if ($nonConsumable->current_status != 'in_repair')
+                                <x-input.radio label="Repair" wire:model.lazy="action" :error="$errors->first('action')" value="in_repair"
+                                    help-text="Barang dalam perbaikan" />
+                            @endif
                             <x-input.radio label="Sold" wire:model.lazy="action" :error="$errors->first('action')" value="sold"
                                 help-text="Barang dijual" />
                             <x-input.radio label="Destroyed" wire:model.lazy="action" :error="$errors->first('action')"
