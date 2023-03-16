@@ -29,7 +29,7 @@
                 <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                     <div wire:click="$emit('setStock', 'outstock')"
                         class="flex items-baseline text-2xl font-semibold text-indigo-600 hover:cursor-pointer hover:underline">
-                        {{ $sales }}
+                        Rp{{ number_format($sales) }}
                         <span class="ml-1 font-medium text-gray-500">/Tahun {{ date('Y') }}</span>
                     </div>
                 </dd>
