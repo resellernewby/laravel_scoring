@@ -45,10 +45,10 @@
                             class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">
                             Kondisi
                         </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             Lokasi
                         </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             Garansi
                         </th>
                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -76,9 +76,24 @@
                                         </div>
                                     </div>
                                     <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                                        <span>Rp{{ number_format($nonConsumable->price) }}</span>
-                                        <span class="hidden sm:inline"> · </span>
-                                        <span>0</span>
+                                        <div>Rp{{ number_format($nonConsumable->price) }}</div>
+                                        <div>Kondisi:
+                                            <strong>{{ App\Services\Setting::condition($nonConsumable->condition) }}</strong>
+                                        </div>
+                                        <div>Status:
+                                            <strong>{{ App\Services\Setting::status($nonConsumable->current_status) }}</strong>
+                                        </div>
+                                        <div>Lokasi:
+                                            <strong>
+                                                @if ($nonConsumable->nonConsumable?->warehouse?->name)
+                                                    <span>{{ $nonConsumable->nonConsumable?->warehouse?->name }}</span>
+                                                @else
+                                                    <p class="font-semibold">{{ $nonConsumable->nonConsumable->name }}
+                                                    </p>
+                                                    <span class="font-normal">Oleh: {{ $nonConsumable->user }}</span>
+                                                @endif
+                                            </strong>
+                                        </div>
                                     </div>
                                     @if (!$loop->first)
                                         <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
@@ -97,7 +112,7 @@
                                         class="font-normal">{{ App\Services\Setting::status($nonConsumable->current_status) }}</span>
                                 </td>
                                 <td
-                                    class="px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
+                                    class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
                                     @if ($nonConsumable->nonConsumable?->warehouse?->name)
                                         <span>{{ $nonConsumable->nonConsumable?->warehouse?->name }}</span>
                                     @else

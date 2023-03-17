@@ -70,8 +70,6 @@
                             </div>
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
                                 <span>Rp{{ number_format($nonConsumable->price) }}</span>
-                                <span class="hidden sm:inline"> · </span>
-                                <span></span>
                             </div>
                             @if (!$loop->first)
                                 <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>

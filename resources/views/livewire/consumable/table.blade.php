@@ -8,7 +8,7 @@
         <div class="sm:flex sm:space-x-4 sm:items-center sm:justify-between sm:px-6 sm:py-4 px-3 py-3.5">
             <!-- Search -->
             <div class="flex space-x-2 w-full">
-                <div class="w-96">
+                <div class="lg:w-96">
                     <label for="search" class="sr-only">Search</label>
                     <div class="relative text-gray-500 focus-within:text-gray-600">
                         <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -79,8 +79,6 @@
                             </div>
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
                                 <span>Rp{{ number_format($consumable->current_price) }}</span>
-                                <span class="hidden sm:inline"> · </span>
-                                <span>{{ $consumable->qty }}</span>
                             </div>
                             @if (!$loop->first)
                                 <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>

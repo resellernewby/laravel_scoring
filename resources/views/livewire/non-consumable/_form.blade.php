@@ -1,4 +1,4 @@
-<div class="w-2/5 flex flex-col space-y-4">
+<div class="lg:w-2/5 flex flex-col space-y-4">
     <x-input label="Nama barang*" wire:model.lazy="asset.name" :error="$errors->first('asset.name')" />
 
     <x-input label="Model barang*" wire:model.lazy="asset.model" :error="$errors->first('asset.model')" />
@@ -82,7 +82,7 @@
 
     <x-input label="Penyedia garansi" wire:model.lazy="nonconsumable.warranty_provider" :error="$errors->first('nonconsumable.warranty_provider')" />
 </div>
-<div class="w-3/5">
+<div class="lg:w-3/5">
     <x-input.filepond label="Gambar (maks. 6 item)" wire:model.lazy="images" multiple allowImagePreview
         imagePreviewMaxHeight="200" allowFileTypeValidation acceptedFileTypes="['image/*']" allowFileSizeValidation
         maxFileSize="4mb" maxFiles="6" :uploadedFiles="isset($uploadedFiles) ? $uploadedFiles : []" />
