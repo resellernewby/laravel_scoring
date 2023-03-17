@@ -351,7 +351,7 @@
 
                 <aside x-data="{ secondary: false }" x-show="secondary"
                     @opensecondary.window="if ($event.detail.id == 1) secondary = true"
-                    @click.away="secondary = false" x-cloak class="hidden lg:order-first lg:block lg:flex-shrink-0">
+                    @click.away="secondary = false" x-cloak class="hidden md:order-first md:block md:flex-shrink-0">
                     <div class="relative flex h-full w-64 flex-col overflow-y-auto border-r border-gray-200 bg-white">
                         <div class="flex h-16 flex-shrink-0 items-center px-6">
                             <p class="text-lg font-medium text-blue-gray-900">Asset</p>
