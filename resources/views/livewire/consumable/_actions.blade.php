@@ -1,4 +1,4 @@
-<div>
+<div wire:key="actions-{{ $consumable->id }}">
     <div class="flex items-center justify-end space-x-4">
         <x-button.primary wire:click="addCart({{ $consumable->id }})"
             class="flex whitespace-nowrap items-center bg py-1 pl-2.5">
