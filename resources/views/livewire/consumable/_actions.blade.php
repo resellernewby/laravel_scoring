@@ -3,7 +3,7 @@
         class="flex whitespace-nowrap items-center bg py-1 pl-2.5">
         <x-icon.o-plus class="h-4 w-4 mr-1" /> Keranjang
     </x-button.primary>
-    <x-table.actions id="actions-{{ $consumable->id }}">
+    <x-table.actions>
         <a href="{{ route('consumable.edit', $consumable->id) }}"
             class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
             Edit

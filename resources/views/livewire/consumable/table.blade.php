@@ -63,7 +63,7 @@
             </x-slot>
             <x-slot name="body">
                 @forelse ($consumables as $consumable)
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $consumable->id }}">
                         <td
                             class="relative py-4 pl-4 sm:pl-6 pr-3 {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             <div class="flex items-center space-x-2 font-semibold text-gray-800">
@@ -116,7 +116,7 @@
                                 <x-badge color="purple" text="{{ $tag->name }}" />
                             @endforeach
                         </td>
-                        <td
+                        <td id="actions-{{ $consumable->id }}"
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             @include('livewire.consumable._actions')
                             @if (!$loop->first)
