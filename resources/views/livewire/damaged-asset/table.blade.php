@@ -24,8 +24,6 @@
                     <x-select label="Merek" wire:model.debounce.500ms="filters.brand" :list="$brandLists" />
                 </x-dropdown>
             </div>
-            {{-- <div class="flex items-center space-x-8">
-            </div> --}}
         </div>
 
         <x-table>

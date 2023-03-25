@@ -39,6 +39,13 @@
                     <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="Logo">
                 </div>
                 <div class="flex-1 mt-6 w-full px-2 space-y-1">
+                    <a href="{{ route('warehouse') }}"
+                        class="{{ request()->routeIs('warehouse') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
+                        aria-current="page">
+                        <x-icon.o-square class="text-indigo-300 group-hover:text-white h-6 w-6" />
+                        <span class="mt-2">Dash</span>
+                    </a>
+
                     <a href="#" x-data="{ id: 1 }" x-on:click.prevent="$dispatch('opensecondary', {id})"
                         class="{{ request()->routeIs(['consumable.index', 'non-consumable.index', 'history']) ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <x-icon.o-wallet class="text-indigo-300 group-hover:text-white h-6 w-6" />

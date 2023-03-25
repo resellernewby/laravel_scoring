@@ -25,12 +25,6 @@
                     <x-select label="Aksi" wire:model.debounce.500ms="filters.status" :list="$actionLists" />
                 </x-dropdown>
             </div>
-            {{-- <div class="flex items-center space-x-2">
-                <x-button.primary onclick="Livewire.emit('openModal', 'asset.create')"
-                    class="flex items-center bg-white">
-                    <x-icon.plus class="h-4 w-4 mr-1" /> Create
-                </x-button.primary>
-            </div> --}}
         </div>
 
         <x-table>
