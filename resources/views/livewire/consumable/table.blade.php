@@ -116,7 +116,7 @@
                                 <x-badge color="purple" text="{{ $tag->name }}" />
                             @endforeach
                         </td>
-                        <td id="actions-{{ $consumable->id }}"
+                        <td
                             class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-medium {{ !$loop->first ? 'border-t border-transparent' : '' }}">
                             @include('livewire.consumable._actions')
                             @if (!$loop->first)
