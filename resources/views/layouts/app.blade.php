@@ -39,60 +39,18 @@
                     <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="Logo">
                 </div>
                 <div class="flex-1 mt-6 w-full px-2 space-y-1">
-                    <a href="{{ route('warehouse') }}"
-                        class="{{ request()->routeIs('warehouse') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
+                    <a href="{{ route('score') }}"
+                        class="{{ request()->routeIs('score') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
                         aria-current="page">
                         <x-icon.o-square class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Dash</span>
+                        <span class="mt-2">Score</span>
                     </a>
 
-                    <a href="#" x-data="{ id: 1 }" x-on:click.prevent="$dispatch('opensecondary', {id})"
-                        class="{{ request()->routeIs(['consumable.index', 'non-consumable.index', 'history']) ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                        <x-icon.o-wallet class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Asset</span>
-                    </a>
-
-                    <a href="{{ route('warehouse') }}"
-                        class="{{ request()->routeIs('warehouse') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
+                    <a href="{{ route('classroom') }}"
+                        class="{{ request()->routeIs('classroom') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
                         aria-current="page">
                         <x-icon.o-home-modern class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Gudang</span>
-                    </a>
-
-                    <a href="{{ route('tag') }}"
-                        class="{{ request()->routeIs('tag') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                        <x-icon.o-tag class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Tags</span>
-                    </a>
-
-                    <a href="{{ route('brand') }}"
-                        class="{{ request()->routeIs('brand') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                        <x-icon.o-check-badge class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Merek</span>
-                    </a>
-
-                    <a href="{{ route('suplier') }}"
-                        class="{{ request()->routeIs('suplier') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                        <x-icon.o-truck class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Suplier</span>
-                    </a>
-
-                    <a href="{{ route('location') }}"
-                        class="{{ request()->routeIs('location') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                        <x-icon.o-map-pin class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Lokasi</span>
-                    </a>
-
-                    <a href="{{ route('funds-source') }}"
-                        class="{{ request()->routeIs('funds-source') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                        <x-icon.o-banknotes class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Dana</span>
-                    </a>
-
-                    <a href="{{ route('setting.index') }}"
-                        class="{{ request()->routeIs(['setting.index', 'setting.notification', 'setting.item-condition', 'setting.item-status', 'setting.damaged-item']) ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                        <x-icon.o-cog-8-tooth class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Setting</span>
+                        <span class="mt-2">Kelas</span>
                     </a>
                 </div>
             </div>
@@ -145,83 +103,18 @@
                     <div class="mt-5 flex-1 h-0 px-2 overflow-y-auto">
                         <nav class="h-full flex flex-col">
                             <div class="space-y-1">
-                                <div x-data="{ open: false }" class="space-y-1">
-                                    <button type="button" @click="open = !open"
-                                        class="{{ request()->routeIs(['consumable.index', 'non-consumable.index', 'damaged-asset.index', 'history']) ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 pl-3 pr-2 rounded-md flex w-full items-center justify-between text-sm font-medium">
-                                        <div class="flex items-center">
-                                            <x-icon.o-wallet
-                                                class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                            <span>Asset</span>
-                                        </div>
-                                        <svg class="ml-3 h-5 w-5 flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400 rotate-90 text-gray-400"
-                                            viewBox="0 0 20 20" aria-hidden="true"
-                                            :class="{ 'rotate-90 text-gray-400': open, 'text-gray-300': !(open) }">
-                                            <path d="M6 6L14 10L6 14V6Z" fill="currentColor"></path>
-                                        </svg>
-                                    </button>
+                                <a href="{{ route('score') }}"
+                                    class="{{ request()->routeIs('score') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
+                                    <x-icon.o-square
+                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
+                                    <span>Score</span>
+                                </a>
 
-                                    <div x-description="Expandable link section, show/hide based on state."
-                                        class="space-y-1" x-show="open">
-                                        <a href="{{ route('consumable.index') }}"
-                                            class="{{ request()->routeIs('consumable.index') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 pl-12 pr-2 rounded-md flex items-center text-sm font-medium">Consumable</a>
-
-                                        <a href="{{ route('non-consumable.index') }}"
-                                            class="{{ request()->routeIs('non-consumable.index') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 pl-12 pr-2 rounded-md flex items-center text-sm font-medium">Non
-                                            Consumable</a>
-
-                                        <a href="{{ route('damaged-asset.index') }}"
-                                            class="{{ request()->routeIs('damaged-asset.index') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 pl-12 pr-2 rounded-md flex items-center text-sm font-medium">Barang
-                                            Rusak</a>
-
-                                        <a href="{{ route('history') }}"
-                                            class="{{ request()->routeIs('history') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 pl-12 pr-2 rounded-md flex items-center text-sm font-medium">Riwayat
-                                            Asset</a>
-                                    </div>
-                                </div>
-
-                                <a href="{{ route('warehouse') }}"
-                                    class="{{ request()->routeIs('warehouse') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
+                                <a href="{{ route('classroom') }}"
+                                    class="{{ request()->routeIs('classroom') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
                                     <x-icon.o-home-modern
                                         class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                    <span>Gudang</span>
-                                </a>
-
-                                <a href="{{ route('tag') }}"
-                                    class="{{ request()->routeIs('tag') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-tag class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                    <span>Tags</span>
-                                </a>
-
-                                <a href="{{ route('brand') }}"
-                                    class="{{ request()->routeIs('brand') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-check-badge
-                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                    <span>Merek</span>
-                                </a>
-
-                                <a href="{{ route('suplier') }}"
-                                    class="{{ request()->routeIs('suplier') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-truck class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                    <span>Suplier</span>
-                                </a>
-
-                                <a href="{{ route('location') }}"
-                                    class="{{ request()->routeIs('location') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-map-pin class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                    <span>Lokasi</span>
-                                </a>
-
-                                <a href="{{ route('funds-source') }}"
-                                    class="{{ request()->routeIs('funds-source') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-banknotes class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                    <span>Dana</span>
-                                </a>
-
-                                <a href="{{ route('setting.index') }}"
-                                    class="{{ request()->routeIs('setting.index') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-cog-8-tooth
-                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
-                                    <span>Setting</span>
+                                    <span>Kelas</span>
                                 </a>
                             </div>
                         </nav>

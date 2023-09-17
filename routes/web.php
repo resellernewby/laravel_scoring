@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ConsumableController;
 use App\Http\Controllers\DamagedAssetController;
 use App\Http\Controllers\FundsSourceController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\NonConsumableController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RackController;
+use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingContoller;
 use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\TagController;
@@ -53,4 +55,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/settings/item-condition', [SettingContoller::class, 'condition'])->name('setting.item-condition');
         Route::get('/settings/item-status', [SettingContoller::class, 'status'])->name('setting.item-status');
         Route::get('/settings/damaged-item', [SettingContoller::class, 'damaged'])->name('setting.damaged-item');
+
+        Route::get('/classroom', ClassroomController::class)->name('classroom');
+        Route::get('/score', ScoreController::class)->name('score');
     });
