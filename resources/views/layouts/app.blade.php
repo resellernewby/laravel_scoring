@@ -45,13 +45,14 @@
                         <x-icon.o-square class="text-indigo-300 group-hover:text-white h-6 w-6" />
                         <span class="mt-2">Score</span>
                     </a>
-
-                    <a href="{{ route('classroom') }}"
-                        class="{{ request()->routeIs('classroom') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
-                        aria-current="page">
-                        <x-icon.o-home-modern class="text-indigo-300 group-hover:text-white h-6 w-6" />
-                        <span class="mt-2">Kelas</span>
-                    </a>
+                    @if (auth()->user()->role === 'admin')
+                        <a href="{{ route('classroom') }}"
+                            class="{{ request()->routeIs('classroom') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium"
+                            aria-current="page">
+                            <x-icon.o-home-modern class="text-indigo-300 group-hover:text-white h-6 w-6" />
+                            <span class="mt-2">Kelas</span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -105,15 +106,13 @@
                             <div class="space-y-1">
                                 <a href="{{ route('score') }}"
                                     class="{{ request()->routeIs('score') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-square
-                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
+                                    <x-icon.o-square class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
                                     <span>Score</span>
                                 </a>
 
                                 <a href="{{ route('classroom') }}"
                                     class="{{ request()->routeIs('classroom') ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white' }} group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <x-icon.o-home-modern
-                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
+                                    <x-icon.o-home-modern class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" />
                                     <span>Kelas</span>
                                 </a>
                             </div>

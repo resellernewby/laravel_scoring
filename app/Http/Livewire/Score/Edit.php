@@ -10,7 +10,7 @@ class Edit extends ModalComponent
 {
     use ClassroomList;
 
-    public Score $inputs;    
+    public Score $inputs;
 
     protected $rules = [
         'inputs.classroom_id' => 'required',
@@ -27,7 +27,7 @@ class Edit extends ModalComponent
         'inputs.scoring_floor.max' => 'Nilai lantai tidak boleh lebih dari 5',
         'inputs.scoring_table.required' => 'Nilai meja harus diisi',
         'inputs.scoring_table.integer' => 'Nilai meja harus diisi angka',
-        'inputs.scoring_table.max' => 'Nilai meja tidak boleh lebih dari 5', 
+        'inputs.scoring_table.max' => 'Nilai meja tidak boleh lebih dari 5',
         'inputs.scoring_equipment.required' => 'Nilai peralatan harus diisi',
         'inputs.scoring_equipment.integer' => 'Nilai peralatan harus diisi angka',
         'inputs.scoring_equipment.max' => 'Nilai peralatan tidak boleh lebih dari 5',
@@ -41,7 +41,10 @@ class Edit extends ModalComponent
 
     public function render()
     {
-        return view('livewire.score.edit',['classroomLists' => $this->classroomLists]);
+        if (auth()->user()->role != 'admin' && $this->inputs['user_id'] != auth()->id()) {
+            return view('livewire.score.forbidden');
+        }
+        return view('livewire.score.edit', ['classroomLists' => $this->classroomLists]);
     }
 
     public function update()

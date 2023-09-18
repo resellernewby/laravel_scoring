@@ -20,7 +20,7 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Score::query()
-            ->latest();        
+            ->latest();
     }
 
     public function getRowsProperty()
@@ -37,9 +37,14 @@ class Table extends Component
 
     public function destroy(Score $score)
     {
+        if (auth()->user()->role != 'admin' && $score->user_id != auth()->id()) {
+            $this->notify("You're not allowed");
+            return;
+        }
+
         $this->isDelete = false;
-        
-        $score->delete();        
+
+        $score->delete();
         $this->notify($score->name . ' berhasil dihapus');
     }
 }

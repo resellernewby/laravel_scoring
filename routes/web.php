@@ -59,3 +59,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/classroom', ClassroomController::class)->name('classroom');
         Route::get('/score', ScoreController::class)->name('score');
     });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/score', ScoreController::class)->name('score');
+});
