@@ -21,7 +21,7 @@ class Table extends Component
     public function getRowsQueryProperty()
     {
         return Classroom::query()
-            ->latest();        
+            ->latest();
     }
 
     public function getRowsProperty()
@@ -39,8 +39,13 @@ class Table extends Component
     public function destroy(Classroom $classroom)
     {
         $this->isDelete = false;
-        
-        $classroom->delete();        
+
+        if ($classroom->scores->count() > 0) {
+            $this->notify($classroom->name . ' punya riwayat penilaian, tidak bisa dihapus', 'warning');
+            return;
+        }
+
+        $classroom->delete();
         $this->notify($classroom->name . ' berhasil dihapus');
     }
 }

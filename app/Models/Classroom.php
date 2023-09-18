@@ -28,4 +28,8 @@ class Classroom extends Model
         $this->attributes['is_active'] = $value === 'active' ? true : false;
     }
 
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
 }

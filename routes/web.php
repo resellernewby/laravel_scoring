@@ -13,6 +13,7 @@ use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SettingContoller;
 use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,7 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::get('/classroom', ClassroomController::class)->name('classroom');
         Route::get('/score', ScoreController::class)->name('score');
+        Route::get('/user', UserController::class)->name('user');
     });
 
 Route::middleware(['auth'])->group(function () {
